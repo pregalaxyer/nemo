@@ -1,0 +1,16 @@
+{{#imports}}
+import {{.}} from './{{.}}'
+{{/imports}}
+/**
+ * @description {{description}}
+ */
+export default interface {{name}} {
+  {{#types}}
+  {{#description}}
+  /**
+   * @description {{description}}
+   */
+  {{/description}}
+  {{name}}{{#isOption}}?{{/isOption}}: {{&type}}
+  {{/types}}
+}

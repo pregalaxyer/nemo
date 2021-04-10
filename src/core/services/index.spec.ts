@@ -12,7 +12,7 @@ describe('services tests',  () => {
     expect(
       getControllers(swagger.tags)
     ).toHaveProperty('user', {
-      name: 'user',
+      name: 'UserService',
       description: 'Operations about user',
       imports: [],
       requests: []
@@ -25,7 +25,7 @@ describe('services tests',  () => {
     expect(
       convertService(swagger)
     ).toContainEqual({
-      name: 'store',
+      name: 'StoreService',
       description: 'Access to Petstore orders',
       imports: ['Order'],
       requests: expect.any(Array)

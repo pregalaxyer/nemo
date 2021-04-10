@@ -1,5 +1,5 @@
 import { Definition } from '../types'
-import * as Types from './type'
+import * as Types from './index.d'
 
 
 const numberTypes = ['number', 'interge']
@@ -23,12 +23,15 @@ export function convertModels(definitions: { [key: string]: Definition } ): Type
         ).forEach(
           property => {
             const types = formatTypes(definitions[interfaceName].properties[property])
+            const isRequired = definitions[interfaceName].required 
+              && definitions[interfaceName].required.includes(property)
             types.model
               && types.model.length
               && model.imports.push(...types.model)
             model.types.push({
               ...types,
               name: property,
+              isOption: !!isRequired
             })
             models.push(model)
           }

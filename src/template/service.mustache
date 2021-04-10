@@ -1,41 +1,43 @@
 {{#imports}}
 import {{.}} from '../models/{{.}}'
 {{/imports}}
-import request from {{requestPath}}
+import request from '{{requestPath}}'
 
 {{#description}}
 /**
  * @description {{description}}
  */
 {{/description}}
-export default {{name}} {
+export Class {{name}} {
   {{#requests}}
   {{#description}}
   /**
    * @description {{description}}
    */
   {{/description}}
-  public static async {{name}}({{#parameters}}
-    {{name}}{{#isOption}}?{{/isOption}}: {{&type}}
-  {{/parameters}} signal: AbortSignal ) {
+  public static async function {{name}}(
+    {{#parameters}}
+    {{name}}{{#isOption}}?{{/isOption}}: {{&type}},
+    {{/parameters}}
+    signal: AbortSignal
+  ) {
     const res = await request({
-      url: `{{url}}`,
-      method: {{method}},
+      url: `{{&url}}`,
+      method: '{{method}}',
       {{#body}}
-      body: {{
-        {{name}}{{#isOption}}?{{/isOption}}: {{&type}}
-      }},
+      body,
       {{/body}}
+      query: {
       {{#query}}
-      query: {{
-        {{name}}{{#isOption}}?{{/isOption}}: {{&type}}
-      }},
+        {{name}},
       {{/query}}
+      },
+      formData: {
       {{#formData}}
-      formData: {{
-        {{name}}{{#isOption}}?{{/isOption}}: {{&type}}
-      }},
+        {{name}},
       {{/formData}}
+      },
+      
       signal,
     }) 
     return res

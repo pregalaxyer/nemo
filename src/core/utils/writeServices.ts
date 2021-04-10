@@ -1,17 +1,25 @@
 import { writeMustacheFile } from './files'
-import { ServiceController } from '../services/type'
+import { ServiceController } from '../services/index.d'
 import * as fs from 'fs-extra'
 export async function writeServices(
   services: ServiceController[],
   templete: Record<string, string>,
-  path: string
+  path: string,
+  requestPath: string
 ): Promise<void> {
-  const isEmptyPath = await fs.emptyDirSync(path)
-  if(isEmptyPath) {
-    await fs.mkdirSync(path)
+  try {
+    await fs.mkdirsSync(path + '/services')
+    console.log('services', services, templete.service)
+    const res = await Promise.all(
+      services.map(service => 
+        writeMustacheFile(templete.service, {
+          ...service,
+          requestPath
+        }, path + '/services')
+      )
+    )
+  } catch(err) {
+    console.error(err)
   }
-  await fs.mkdirsSync(path + '/services')
-  const res = await Promise.all(
-    services.map(service => writeMustacheFile(templete.service, service, path + '/services'))
-  )
+  
 }

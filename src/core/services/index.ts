@@ -1,13 +1,12 @@
 import { Swagger, Tag, Path, SwaggerResponses, Parameter, ParameterIn } from '../types'
-import { ServiceController,  } from './type.d'
-import * as mustache from 'mustache'
+import { ServiceController,  } from './index.d'
 import { formatRefsLink, formatTypes } from '../interfaces'
-import { TypeItem } from '../interfaces/type'
+import { TypeItem } from '../interfaces/index.d'
 export function getControllers(tags: Tag[]): Record<string, ServiceController> {
   const controllerMap: Record<string, ServiceController> = {}
   tags.forEach(tag => {
     controllerMap[tag.name] = {
-      name: tag.name,
+      name: getServiceName(tag.name),
       description: tag.description,
       imports: [],
       requests: []
@@ -62,6 +61,18 @@ export function convertService(swagger: Swagger): ServiceController[] {
     service.imports = Array.from(new Set(service.imports))
     return service
   })
+}
+
+function getServiceName(name: string): string {
+  const nameArr = name.split('').map(
+    (nameLetter, index) => 
+    index === 0
+      ? nameLetter.toUpperCase()
+      : nameLetter
+  )
+  return nameArr.join('').endsWith('Service')
+    ? nameArr.join('')
+    : nameArr.join('') + 'Service'
 }
 
 export function getResponseType(responses: SwaggerResponses){

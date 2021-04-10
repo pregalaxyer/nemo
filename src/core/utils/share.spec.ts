@@ -17,8 +17,8 @@ describe('fetch swagger api json', () => {
 
 describe('share utils tests', () => {
   test('getTemplates should log all the temps', () => {
-      expect(getTemplates()).resolves.toMatchObject({
-        model: expect.any(String)
-      })
-    })
+    expect(
+      getTemplates()
+    ).resolves.toHaveProperty('model', expect.any(String))
+  })
 })

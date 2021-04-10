@@ -1,21 +1,29 @@
-import { fetchApiJson, getTemplates,  writeInterfaces, writeServices } from './utils'
+import { fetchApiJson, getTemplates,  writeInterfaces, writeServices, folderCheck } from './utils'
 import { convertModels } from './interfaces/index'
 import { convertService } from './services/index'
 import * as path from 'path'
+import * as fs from 'fs-extra'
 
 export async function main({
   url,
-  src
+  src,
+  requestPath
 }: {
   url: string
   src?: string
+  requestPath?: string
 }): Promise<void> {
   const [res, templates ] = await Promise.all([
     fetchApiJson(url),
     getTemplates()
   ])
-  let folder = src || path.resolve(process.cwd(), '/api')
+  let folder =  path.join(process.cwd(), src || '/api')
   if (res) {
+    const isExists = await fs.pathExistsSync(folder)
+    if(isExists) {
+      await fs.removeSync(folder)
+    }
+    await fs.mkdirsSync(folder)
     writeInterfaces(
       convertModels(res.definitions),
       templates,
@@ -24,8 +32,8 @@ export async function main({
     writeServices(
       convertService(res),
       templates,
-      folder
+      folder,
+      requestPath || 'request'
     )
-
   }
 }
