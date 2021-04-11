@@ -8,8 +8,13 @@ export async function writeInterfaces(
   templete: Record<string, string>,
   path: string
 ): Promise<void> {
-  await fs.mkdirsSync(path + '/models')
-  const res = await Promise.all(
-    models.map(model => writeMustacheFile(templete.model, model, path + '/models'))
-  )
+  try {
+    await fs.mkdirsSync(path + '/models')
+    const res = await Promise.all(
+      models.map(model => writeMustacheFile(templete.model, model, path + '/models'))
+    )
+  } catch(err) {
+    console.error(err)
+  }
+  
 }
