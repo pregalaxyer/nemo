@@ -5,7 +5,7 @@ describe('main function', () => {
   beforeAll(async() => {
     await main({
       url: 'https://petstore.swagger.io/v2/swagger.json',
-      src: '/api'
+      output: '/api'
     })
   })
   test('definitions should create all interface files', async () => {
