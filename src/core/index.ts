@@ -6,18 +6,18 @@ import * as fs from 'fs-extra'
 
 export async function main({
   url,
-  src,
+  output,
   requestPath
 }: {
   url: string
-  src?: string
+  output?: string
   requestPath?: string
 }): Promise<void> {
   const [res, templates ] = await Promise.all([
     fetchApiJson(url),
     getTemplates()
   ])
-  let folder =  path.join(process.cwd(), src || '/api')
+  let folder =  path.join(process.cwd(), output || '/api')
   if (res) {
     const isExists = await fs.pathExistsSync(folder)
     if(isExists) {
