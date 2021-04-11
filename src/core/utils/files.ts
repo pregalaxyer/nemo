@@ -13,7 +13,3 @@ export async function writeMustacheFile(temp, view, src) {
     throw Error(`write model file error: ${err}`)
   }
 }
-
-export async function folderCheck(path) {
-  
-}

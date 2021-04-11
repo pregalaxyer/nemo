@@ -14,7 +14,7 @@ describe('writeServices tests',() => {
       description: 'test',
       imports: [],
       requests: []
-    }], templates, '.', '.')
+    }], templates, './.test_folder', '.')
     expect(files.writeMustacheFile).toHaveBeenCalledTimes(1)
     expect(files.writeMustacheFile).toBeCalledWith(templates.service, {
       name: 'test',
@@ -22,6 +22,6 @@ describe('writeServices tests',() => {
       imports: [],
       requests: [],
       requestPath: '.'
-    }, './services')
+    }, './.test_folder/services')
   })
 })

@@ -3,3 +3,4 @@ node_modules
 models
 .history
 api
+.test_folder

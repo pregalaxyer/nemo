@@ -14,13 +14,13 @@ describe('writeInterfaces tests',() => {
       description: 'test',
       imports: [],
       types: []
-    }], templates, '.')
+    }], templates, './.test_folder')
     expect(files.writeMustacheFile).toHaveBeenCalledTimes(1)
     expect(files.writeMustacheFile).toBeCalledWith(templates.model, {
       name: 'test',
       description: 'test',
       imports: [],
       types: []
-    }, './models')
+    }, './.test_folder/models')
   })
 })

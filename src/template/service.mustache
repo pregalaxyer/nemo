@@ -20,7 +20,7 @@ export default class {{name}} {
     {{name}}: {{&type}}{{#isOption}} | undefined{{/isOption}},
     {{/parameters}}
     signal: AbortSignal
-  ) => {
+  ): {{#responseType}}Promise<{{{responseType}}}>{{/responseType}} => {
     const res = await request({
       url: `{{&url}}`,
       method: '{{method}}',

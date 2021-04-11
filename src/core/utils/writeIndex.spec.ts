@@ -9,12 +9,12 @@ describe('writeIndex tests',() => {
     templates = await getTemplates()
   })
   test('writeIndex should call writeMustacheFile', async () => {
-    await writeIndex(['test'], templates, '')
+    await writeIndex(['test'], templates, './.test_folder')
     expect(files.writeMustacheFile).toHaveBeenCalledTimes(1)
     expect(files.writeMustacheFile).toBeCalledWith(templates.index, {
       exports: ['test'],
       name: 'index'
-    }, '')
+    }, './.test_folder')
   })
   test('writeIndex should call writeMustacheFile', async () => {
     writeIndex(null, templates.index, '')
