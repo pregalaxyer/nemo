@@ -1,4 +1,4 @@
-import { fetchApiJson, getTemplates,  writeInterfaces, writeServices, folderCheck } from './utils'
+import { fetchApiJson, getTemplates,  writeInterfaces, writeServices, writeIndex} from './utils'
 import { convertModels } from './interfaces/index'
 import { convertService } from './services/index'
 import * as path from 'path'
@@ -24,16 +24,35 @@ export async function main({
       await fs.removeSync(folder)
     }
     await fs.mkdirsSync(folder)
-    writeInterfaces(
-      convertModels(res.definitions),
+    await Promise.all(
+      [
+        writeInterfaces(
+          convertModels(res.definitions),
+          templates,
+          folder
+        ),
+        writeServices(
+          convertService(res),
+          templates,
+          folder,
+          requestPath || 'request'
+        )
+      ]
+    )
+    const [models, services] = await Promise.all([
+      fs.readdirSync(folder + '/models'),
+      fs.readdirSync(folder + '/services')
+    ])
+    await writeIndex(
+      models.map(
+        model => './models/' + model
+      ).concat(
+        ...services.map(
+          service => './services/' + service
+        )
+      ),
       templates,
       folder
-    )
-    writeServices(
-      convertService(res),
-      templates,
-      folder,
-      requestPath || 'request'
     )
   }
 }

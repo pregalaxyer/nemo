@@ -88,6 +88,11 @@ export function formatTypes(object): {
         type: "Record<string, any>",
         description: object.description
       }
+    case 'file':
+      return {
+        type: "File",
+        description: object.description
+      }
   }
 }
 export function formatRefsLink(ref: string): string {

@@ -8,19 +8,19 @@ import request from '{{requestPath}}'
  * @description {{description}}
  */
 {{/description}}
-export Class {{name}} {
+export default class {{name}} {
   {{#requests}}
   {{#description}}
   /**
    * @description {{description}}
    */
   {{/description}}
-  public static async function {{name}}(
+  public static {{name}} = async (
     {{#parameters}}
     {{name}}{{#isOption}}?{{/isOption}}: {{&type}},
     {{/parameters}}
     signal: AbortSignal
-  ) {
+  ) => {
     const res = await request({
       url: `{{&url}}`,
       method: '{{method}}',
@@ -37,7 +37,6 @@ export Class {{name}} {
         {{name}},
       {{/formData}}
       },
-      
       signal,
     }) 
     return res

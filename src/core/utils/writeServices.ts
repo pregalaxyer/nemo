@@ -1,6 +1,6 @@
 import { writeMustacheFile } from './files'
-import { ServiceController } from '../services/index.d'
-import * as fs from 'fs-extra'
+import { ServiceController } from '@/core/services/index.d'
+import fs from 'fs-extra'
 export async function writeServices(
   services: ServiceController[],
   templete: Record<string, string>,
@@ -9,7 +9,6 @@ export async function writeServices(
 ): Promise<void> {
   try {
     await fs.mkdirsSync(path + '/services')
-    console.log('services', services, templete.service)
     const res = await Promise.all(
       services.map(service => 
         writeMustacheFile(templete.service, {
