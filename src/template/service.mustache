@@ -17,7 +17,7 @@ export default class {{name}} {
   {{/description}}
   public static {{name}} = async (
     {{#parameters}}
-    {{name}}{{#isOption}}?{{/isOption}}: {{&type}},
+    {{name}}: {{&type}}{{#isOption}} | undefined{{/isOption}},
     {{/parameters}}
     signal: AbortSignal
   ) => {
