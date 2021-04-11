@@ -33,6 +33,8 @@ describe('services tests',  () => {
     
   })
 
+  // TODO: getparameters getResponseType getServiceName
+
 
 
 })

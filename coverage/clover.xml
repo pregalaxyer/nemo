@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1618125883057" clover="3.2.0">
-  <project timestamp="1618125883057" name="All files">
-    <metrics statements="104" coveredstatements="98" conditionals="55" coveredconditionals="49" methods="34" coveredmethods="34" elements="193" coveredelements="181" complexity="0" loc="104" ncloc="104" packages="4" files="9" classes="9"/>
+<coverage generated="1618126315413" clover="3.2.0">
+  <project timestamp="1618126315413" name="All files">
+    <metrics statements="103" coveredstatements="97" conditionals="55" coveredconditionals="49" methods="34" coveredmethods="34" elements="192" coveredelements="180" complexity="0" loc="103" ncloc="103" packages="4" files="9" classes="9"/>
     <package name="core">
       <metrics statements="12" coveredstatements="12" conditionals="8" coveredconditionals="5" methods="3" coveredmethods="3"/>
       <file name="index.ts" path="/Users/zengxiangda/Projects/learn/d-ts-codegen/src/core/index.ts">
@@ -97,7 +97,7 @@
       </file>
     </package>
     <package name="core.utils">
-      <metrics statements="28" coveredstatements="23" conditionals="0" coveredconditionals="0" methods="9" coveredmethods="9"/>
+      <metrics statements="27" coveredstatements="22" conditionals="0" coveredconditionals="0" methods="9" coveredmethods="9"/>
       <file name="files.ts" path="/Users/zengxiangda/Projects/learn/d-ts-codegen/src/core/utils/files.ts">
         <metrics statements="4" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="6" count="31" type="stmt"/>
@@ -136,13 +136,12 @@
         <line num="17" count="0" type="stmt"/>
       </file>
       <file name="writeServices.ts" path="/Users/zengxiangda/Projects/learn/d-ts-codegen/src/core/utils/writeServices.ts">
-        <metrics statements="6" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+        <metrics statements="5" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="10" count="2" type="stmt"/>
         <line num="11" count="2" type="stmt"/>
         <line num="12" count="2" type="stmt"/>
-        <line num="13" count="2" type="stmt"/>
-        <line num="15" count="4" type="stmt"/>
-        <line num="22" count="0" type="stmt"/>
+        <line num="14" count="4" type="stmt"/>
+        <line num="21" count="0" type="stmt"/>
       </file>
     </package>
   </project>

@@ -63,7 +63,7 @@ export function convertService(swagger: Swagger): ServiceController[] {
   })
 }
 
-function getServiceName(name: string): string {
+export function getServiceName(name: string): string {
   const nameArr = name.split('').map(
     (nameLetter, index) => 
     index === 0

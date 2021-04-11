@@ -1,5 +1,4 @@
-import { getTemplates } from './share'
-import {fetchApiJson} from './share'
+import { getTemplates, fetchApiJson } from './share'
 
 describe('fetch swagger api json', () => {
   test('fetchApiJson should return a json with swagger schema',  () => {
@@ -16,9 +15,10 @@ describe('fetch swagger api json', () => {
 })
 
 describe('share utils tests', () => {
-  test('getTemplates should log all the temps', () => {
-    expect(
-      getTemplates()
-    ).resolves.toHaveProperty('model', expect.any(String))
+  test('getTemplates should log all the temps', async () => {
+      const templates = await getTemplates()
+      expect( templates ) .toHaveProperty('model', expect.any(String))
+      expect( templates ) .toHaveProperty('service', expect.any(String))
+      expect( templates ) .toHaveProperty('index', expect.any(String))
   })
 })
