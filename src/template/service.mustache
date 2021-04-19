@@ -1,7 +1,7 @@
 {{#imports}}
 import {{.}} from '../models/{{.}}'
 {{/imports}}
-import request from '{{requestPath}}'
+import request from '{{{requestPath}}}'
 
 {{#description}}
 /**
@@ -25,7 +25,7 @@ export default class {{name}} {
       url: `{{&url}}`,
       method: '{{method}}',
       {{#body}}
-      body,
+      body: {{name}},
       {{/body}}
       query: {
       {{#query}}

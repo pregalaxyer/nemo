@@ -35,7 +35,7 @@ export async function main({
           convertService(res),
           templates,
           folder,
-          requestPath || 'request'
+          requestPath || '../request'
         )
       ]
     )

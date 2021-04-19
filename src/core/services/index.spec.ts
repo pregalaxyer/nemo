@@ -1,6 +1,7 @@
 import { getControllers, convertService, getParameters, getResponseType } from './index'
 import { fetchApiJson } from '../utils/share'
 import * as ServiceModule from './index'
+import { Parameter } from '../types'
 
 describe('services tests',  () => {
   let swagger
@@ -35,7 +36,26 @@ describe('services tests',  () => {
 
   // TODO: getparameters getResponseType getServiceName
 
-
+  test('getparameters', () => {
+    const parameters: Parameter[] = [
+      {
+      "in": "body",
+      "name": "request",
+      "description": "request",
+      "required": true,
+      "schema": {
+        "$ref": "#/definitions/AchievementTransferAddRequest"
+        }
+      }
+      ]
+    expect(
+      getParameters(parameters)
+    ).toStrictEqual({
+      'body':
+        [{"description": "request", "imports": ["AchievementTransferAddRequest"], "isOption": true, "name": "request", "type": "AchievementTransferAddRequest"}]
+      
+    })
+  })
 
 })
 

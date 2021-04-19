@@ -64,15 +64,15 @@ export function convertService(swagger: Swagger): ServiceController[] {
 }
 
 export function getServiceName(name: string): string {
-  const nameArr = name.split('').map(
-    (nameLetter, index) => 
-    index === 0
-      ? nameLetter.toUpperCase()
-      : nameLetter
-  )
-  return nameArr.join('').endsWith('Service')
-    ? nameArr.join('')
-    : nameArr.join('') + 'Service'
+  const stringNew =  name.split('-')
+  .map(
+    stringItem => stringItem.replace(
+      stringItem[0],
+      stringItem[0].toUpperCase()
+    )
+  ).join('')
+  console.log(name, stringNew)
+  return stringNew.endsWith('Service') ? stringNew : stringNew + 'Service'
 }
 
 export function getResponseType(responses: SwaggerResponses){
@@ -82,14 +82,17 @@ export function getResponseType(responses: SwaggerResponses){
 export function getParameters(
   parameters:Parameter[]
 ): Partial<Record<ParameterIn, TypeItem[]>> {
+  if (!parameters) return {}
   const parametersObj: Partial<Record<ParameterIn, TypeItem[]>> = {}
   parameters.forEach(parameter => {
     if(!parametersObj[parameter.in]) parametersObj[parameter.in] = []
+    const {type, model, description} = formatTypes(
+      parameter.schema || parameter
+    )
     parametersObj[parameter.in].push({
       name: parameter.name,
-      ...formatTypes(
-        parameter.schema || parameter
-      ),
+      type,
+      imports: model,
       isOption: parameter.required,
       description: parameter.description
     })

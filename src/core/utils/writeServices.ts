@@ -1,5 +1,5 @@
 import { writeMustacheFile } from './files'
-import { ServiceController } from '@/core/services/index.d'
+import { ServiceController } from '../services/index.d'
 import fs from 'fs-extra'
 export async function writeServices(
   services: ServiceController[],

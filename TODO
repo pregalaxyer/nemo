@@ -1,0 +1,5 @@
+mustache:
+  ☐ delete query\format property, when it contains zero items (service.mustache)
+
+fileTests:
+  ☐ should test files render, how to test node files functions?
