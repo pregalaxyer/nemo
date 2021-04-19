@@ -1,0 +1,9 @@
+export type Method = 'post' | 'get' | 'put' | 'delete' | 'head' | 'options' | 'patch' | 'trace'
+export interface Options {
+  url: string
+  method?: Method
+  body?: RequestInit['body']
+  formData?: FormData
+  query?: Record<string, any>
+  signal?: AbortSignal
+}

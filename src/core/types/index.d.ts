@@ -94,7 +94,7 @@ interface BaseRequestPath {
   deprecated: boolean
   security?: Record<string, string[]>
 }
-export type Method = 'post' | 'get' | 'put' | 'delete' | 'head' | 'options' | 'patch'
+export type Method = 'post' | 'get' | 'put' | 'delete' | 'head' | 'options' | 'patch' | 'trace'
 export interface Path extends Partial<Record<Method, BaseRequestPath>> {
   $ref: Items.$ref
   parameters: Array<Parameter | Reference>

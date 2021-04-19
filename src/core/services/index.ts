@@ -71,7 +71,6 @@ export function getServiceName(name: string): string {
       stringItem[0].toUpperCase()
     )
   ).join('')
-  console.log(name, stringNew)
   return stringNew.endsWith('Service') ? stringNew : stringNew + 'Service'
 }
 

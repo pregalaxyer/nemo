@@ -11,9 +11,9 @@ export async function getTemplates(): Promise<{
 }> {
   const templatePath = path.resolve(__dirname, '../../template')
   const temps = await fs.readdirSync(templatePath)
-  const templates: Partial<Record< 'index' | 'model' | 'service', string>>= {}
+  const templates: Partial<Record< 'index' | 'model' | 'service' | 'request' | 'request.d', string>>= {}
   for(let i =0; i < temps.length; i ++) {
-    templates[temps[i].split('.')[0]] = await fs.readFileSync(
+    templates[temps[i].split('.mustache')[0]] = await fs.readFileSync(
       path.join(templatePath, '/' + temps[i]),
       'utf-8'
     )

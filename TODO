@@ -3,3 +3,6 @@ mustache:
 
 fileTests:
   ☐ should test files render, how to test node files functions?
+
+bin:
+  ☐ create a terminal tool

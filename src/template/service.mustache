@@ -19,7 +19,10 @@ export default class {{name}} {
     {{#parameters}}
     {{name}}: {{&type}}{{#isOption}} | undefined{{/isOption}},
     {{/parameters}}
-    signal: AbortSignal
+    /**
+     * signal from abortcontroller is helpful when you want abort a request
+     */
+    signal?: AbortSignal
   ): {{#responseType}}Promise<{{{responseType}}}>{{/responseType}} => {
     const res = await request({
       url: `{{&url}}`,
