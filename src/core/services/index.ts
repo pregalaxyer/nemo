@@ -2,6 +2,15 @@ import { Swagger, Tag, Path, SwaggerResponses, Parameter, ParameterIn } from '..
 import { ServiceController,  } from './index.d'
 import { formatRefsLink, formatTypes } from '../interfaces'
 import { TypeItem } from '../interfaces/index.d'
+/**
+ * A list of tags used by the specification with additional metadata. 
+ * The order of the tags can be used to reflect on their order by the parsing tools. 
+ * Not all tags that are used by the Operation Object must be declared. 
+ * The tags that are not declared may be organized randomly or based on the tools' logic.
+ * Each tag name in the list MUST be unique.
+ * @param tags use tag unique name as service filename
+ * @returns service file maps
+ */
 export function getControllers(tags: Tag[]): Record<string, ServiceController> {
   const controllerMap: Record<string, ServiceController> = {}
   tags.forEach(tag => {
@@ -14,51 +23,56 @@ export function getControllers(tags: Tag[]): Record<string, ServiceController> {
   })
   return controllerMap
 }
-
+/**
+ * we get service controller data from swagger specification
+ * https://swagger.io/specification
+ * @param swagger 
+ * @returns ServiceController
+ */
 export function convertService(swagger: Swagger): ServiceController[] {
   let controllerMap = getControllers(swagger.tags)
   const paths = Object.keys(swagger.paths)
-  paths.forEach(path => {
-    const methods = swagger.paths[path]
-    Object.keys(methods).forEach(method => {
-      const methodWrapper = methods[method]
-      if (controllerMap[methodWrapper.tags[0]]) {
-        const tag = controllerMap[methodWrapper.tags[0]]
-        // here we need to notice not like body, formData, path, query should
-        // behaviour like something scattered
-        // eg: body: `{ key: type, key1: type1} `
-        //  query formData path: `key: type, key1: type1`
-        const params = getParameters(methodWrapper.parameters)
-        let parameters: TypeItem[] = []
-        Object.values(params)
-          .forEach(param => {
-            param.forEach(paramType => {
-              if (paramType.imports) {
-                tag.imports.push(...paramType.imports)
-              }
-              parameters.push(paramType)
-            })
-          });
-        const response = getResponseType(methodWrapper.responses)
-        typeof response !== 'string' && tag.imports.push(...(response.model || []))
-        const request = {
-          method: method.toUpperCase(),
-          description: methodWrapper.summary,
-          url: `${path.replace(/\{(.+)\}/, '${$1}')}`,
-          name: methodWrapper.operationId,
-          responseType:
-            typeof response !== 'string'
-            ? response.type : response,
-          ...params,
-          parameters,
-        }
-        tag.requests.push(request)
-      }
-    })
-  })
+  // get service template data one by one 
+  paths.forEach(path => getServiceMapData(path, swagger, controllerMap ))
   return Object.values(controllerMap).map(service => {
     service.imports = Array.from(new Set(service.imports))
     return service
+  })
+}
+
+function getServiceMapData(
+  path: string,
+  swagger:Swagger,
+  controllerMap:  Record<string, ServiceController>
+) {
+  const methods = swagger.paths[path]
+  Object.keys(methods).forEach(method => {
+    const methodWrapper = methods[method]
+    if (controllerMap[methodWrapper.tags[0]]) {
+      const tag = controllerMap[methodWrapper.tags[0]]
+      // here we need to notice not like body, formData, path, query should
+      // behaviour like something scattered
+      // eg: body: `{ key: type, key1: type1} `
+      //  query formData path: `key: type, key1: type1`
+      const {parametersRecord, imports, parameters} = getParameters(methodWrapper.parameters)
+      tag.imports.push(...(imports || []))
+      // get responsetype
+      const response = getResponseType(methodWrapper.responses)
+      // add import modules
+      typeof response !== 'string' && tag.imports.push(...(response.model || []))
+      const request = {
+        method: method.toUpperCase(),
+        description: methodWrapper.summary,
+        url: `${path.replace(/\{(.+)\}/, '${$1}')}`,
+        name: methodWrapper.operationId,
+        responseType:
+          typeof response !== 'string'
+          ? response.type : response,
+        ...parametersRecord,
+        parameters,
+      }
+      tag.requests.push(request)
+    }
   })
 }
 
@@ -79,21 +93,47 @@ export function getResponseType(responses: SwaggerResponses){
 
 export function getParameters(
   parameters:Parameter[]
-): Partial<Record<ParameterIn, TypeItem[]>> {
+): {
+  parametersRecord?: Partial<Record<ParameterIn, TypeItem[]>>
+  imports?: string[]
+  parameters?: TypeItem[]
+ } {
   if (!parameters) return {}
-  const parametersObj: Partial<Record<ParameterIn, TypeItem[]>> = {}
-  parameters.forEach(parameter => {
-    if(!parametersObj[parameter.in]) parametersObj[parameter.in] = []
+  const parametersRecord: Partial<Record<ParameterIn, TypeItem[]>> = {}
+  let imports: string [] = []
+  // let parametersCopy: TypeItem[] = []
+    
+  //     Object.values(params)
+  //       .forEach(param => {
+  //         param.forEach(paramType => {
+  //           if (paramType.imports) {
+  //             tag.imports.push(...paramType.imports)
+  //           }
+  //           parameters.push(paramType)
+  //         })
+  //       });
+  const params = parameters.map(parameter => {
+    if(!parametersRecord[parameter.in]) parametersRecord[parameter.in] = []
     const {type, model, description} = formatTypes(
       parameter.schema || parameter
     )
-    parametersObj[parameter.in].push({
+    // add imports
+    if (model) {
+      imports.push(...model)
+    }
+    const param = {
       name: parameter.name,
       type,
       imports: model,
       isOption: parameter.required,
       description: parameter.description
-    })
+    }
+    parametersRecord[parameter.in].push(param)
+    return param
   })
-  return parametersObj
+  return {
+    parametersRecord,
+    parameters: params,
+    imports
+  }
 }

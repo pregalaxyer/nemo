@@ -50,7 +50,7 @@ describe('services tests',  () => {
       ]
     expect(
       getParameters(parameters)
-    ).toStrictEqual({
+    ).toHaveProperty('parametersRecord', {
       'body':
         [{"description": "request", "imports": ["AchievementTransferAddRequest"], "isOption": true, "name": "request", "type": "AchievementTransferAddRequest"}]
       

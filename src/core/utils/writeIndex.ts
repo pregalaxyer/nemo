@@ -7,7 +7,11 @@ export async function writeIndex(
   try {
     const res = await
     writeMustacheFile(templete.index, {
-      exports: files,
+      exports: files.map(file => ({
+        filepath: file.replace(/\.ts$/, ''),
+        filename: file.split('/').pop().replace(/\.ts$/, '')
+
+      })),
       name: 'index'
     }, path)
   } catch(err) {

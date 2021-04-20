@@ -12,7 +12,7 @@ describe('writeIndex tests',() => {
     await writeIndex(['test'], templates, './.test_folder')
     expect(files.writeMustacheFile).toHaveBeenCalledTimes(1)
     expect(files.writeMustacheFile).toBeCalledWith(templates.index, {
-      exports: ['test'],
+      exports: [{"filename": "test","filepath": "test",}],
       name: 'index'
     }, './.test_folder')
   })

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">21.43% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>3/14</span>
+                <span class='fraction'>14/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">20% </span>
+                <span class="strong">60% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/10</span>
+                <span class='fraction'>6/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/3</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">21.43% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>3/14</span>
+                <span class='fraction'>14/14</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -138,17 +138,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -161,16 +159,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -197,16 +197,16 @@ export async function main({
     getTemplates()
   ])
   let folder =  path.join(process.cwd(), output || <span class="branch-1 cbranch-no" title="branch not covered" >'/api')</span>
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (res) {
-    const isExists = <span class="cstat-no" title="statement not covered" >await fs.pathExistsSync(folder)</span>
-<span class="cstat-no" title="statement not covered" >    if(isExists) {</span>
-<span class="cstat-no" title="statement not covered" >      await fs.removeSync(folder)</span>
+  <span class="missing-if-branch" title="else path not taken" >E</span>if (res) {
+    const isExists = await fs.pathExistsSync(folder)
+    <span class="missing-if-branch" title="else path not taken" >E</span>if(isExists) {
+      await fs.removeSync(folder)
     }
-<span class="cstat-no" title="statement not covered" >    await fs.mkdirsSync(folder)</span>
-<span class="cstat-no" title="statement not covered" >    if (!requestPath) {</span>
-<span class="cstat-no" title="statement not covered" >      writeRequest(templates, folder)</span>
+    await fs.mkdirsSync(folder)
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (!requestPath) {
+      writeRequest(templates, folder)
     }
-<span class="cstat-no" title="statement not covered" >    await Promise.all(</span>
+    await Promise.all(
       [
         writeInterfaces(
           convertModels(res.definitions),
@@ -221,16 +221,16 @@ export async function main({
         )
       ]
     )
-    const [models, services] = <span class="cstat-no" title="statement not covered" >await Promise.all([</span>
+    const [models, services] = await Promise.all([
       fs.readdirSync(folder + '/models'),
       fs.readdirSync(folder + '/services')
     ])
-<span class="cstat-no" title="statement not covered" >    await writeIndex(</span>
+    await writeIndex(
       models.map(
-<span class="fstat-no" title="function not covered" >        mo</span>del =&gt; <span class="cstat-no" title="statement not covered" >'./models/' + model</span>
+        model =&gt; './models/' + model
       ).concat(
         ...services.map(
-<span class="fstat-no" title="function not covered" >          se</span>rvice =&gt; <span class="cstat-no" title="statement not covered" >'./services/' + service</span>
+          service =&gt; './services/' + service
         )
       ),
       templates,
@@ -244,7 +244,7 @@ export async function main({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Apr 20 2021 15:08:33 GMT+0800 (中国标准时间)
+                at Tue Apr 20 2021 15:51:27 GMT+0800 (中国标准时间)
             </div>
         </div>
         <script src="../prettify.js"></script>
