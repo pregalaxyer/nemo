@@ -17,7 +17,6 @@ export function getControllers(tags: Tag[]): Record<string, ServiceController> {
 
 export function convertService(swagger: Swagger): ServiceController[] {
   let controllerMap = getControllers(swagger.tags)
-  // TODO: convertPaths here
   const paths = Object.keys(swagger.paths)
   paths.forEach(path => {
     const methods = swagger.paths[path]
@@ -43,7 +42,7 @@ export function convertService(swagger: Swagger): ServiceController[] {
         const response = getResponseType(methodWrapper.responses)
         typeof response !== 'string' && tag.imports.push(...(response.model || []))
         const request = {
-          method,
+          method: method.toUpperCase(),
           description: methodWrapper.summary,
           url: `${path.replace(/\{(.+)\}/, '${$1}')}`,
           name: methodWrapper.operationId,
@@ -64,7 +63,7 @@ export function convertService(swagger: Swagger): ServiceController[] {
 }
 
 export function getServiceName(name: string): string {
-  const stringNew =  name.split('-')
+  const stringNew = name.split('-')
   .map(
     stringItem => stringItem.replace(
       stringItem[0],
@@ -75,7 +74,7 @@ export function getServiceName(name: string): string {
 }
 
 export function getResponseType(responses: SwaggerResponses){
-  return responses['200'] && responses['200'].schema ? formatTypes(responses['200'].schema) : 'void'
+  return responses['200'] && responses['200'].schema ? formatTypes(responses['200'].schema) : 'any'
 }
 
 export function getParameters(

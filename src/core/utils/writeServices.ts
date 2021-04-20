@@ -3,7 +3,7 @@ import { ServiceController } from '../services/index.d'
 import fs from 'fs-extra'
 export async function writeServices(
   services: ServiceController[],
-  templete: Record<string, string>,
+  templates: Record<string, string>,
   path: string,
   requestPath: string
 ): Promise<void> {
@@ -11,7 +11,7 @@ export async function writeServices(
     await fs.mkdirsSync(path + '/services')
     const res = await Promise.all(
       services.map(service => 
-        writeMustacheFile(templete.service, {
+        writeMustacheFile(templates.service, {
           ...service,
           requestPath
         }, path + '/services')
