@@ -9,9 +9,24 @@ export async function main({
   output,
   requestPath
 }: {
+  /**
+   * @description swagger api url
+   */
   url: string
+  /**
+   * @description output floder
+   */
   output?: string
+  /**
+   * @description where request module import from
+   */
   requestPath?: string
+  /**
+   * @description request templates only create and remove when it is true
+   * when you only need exportsRequest once, mostly code likes:
+   * * `exportsRequest: !isRequestFloderExsit`
+   */
+  exportsRequest?: boolean
 }): Promise<void> {
   const [res, templates ] = await Promise.all([
     fetchApiJson(url),

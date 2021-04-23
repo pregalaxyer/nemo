@@ -17,14 +17,19 @@ export default class {{name}} {
   {{/description}}
   public static {{name}} = async (
     {{#parameters}}
+    {{#description}}
+    /**
+     * @description {{description}}
+     */
+    {{/description}}
     {{name}}: {{&type}}{{#isOption}} | undefined{{/isOption}},
     {{/parameters}}
     /**
-     * signal from abortcontroller is helpful when you want abort a request
+     * @description signal from abortcontroller is helpful when you want abort a request
      */
     signal?: AbortSignal
   ): {{#responseType}}Promise<{{{responseType}}}>{{/responseType}} => {
-    const res = await request({
+    const res = await request{{#responseType}}<{{{responseType}}}>{{/responseType}}({
       url: `{{&url}}`,
       method: '{{method}}',
       {{#body}}

@@ -3,34 +3,35 @@ import * as queryString from 'query-string'
 
 /**
  * @description default request
- * @TODO: cookies auth functions
+ * *  cookies always set in request headers when http reponse headers has set-cookie 
+ * *  TODO:  auth functions 
  */
-async function request(options: Options) {
-  const res = await fetch(
+export async function request<T>(options: Options): Promise<T>{
+  const res: T = await fetch(
     getUrl(options.url, options.query), 
     {
-      method: options.method || 'get',
+      method: options.method || 'GET',
       body: getRequestBody(options),
       headers: getHeaders(options),
       signal: options.signal
     }
-  )
+  ).then(res => res.json())
   return res
 }
 
-function getUrl(url: string, query: Options['query']) {
-  return url + '?' + queryString.stringify(query)
+export function getUrl(url: string, query: Options['query']) {
+  return query ? url + '?' + queryString.stringify(query) : url
 }
 
-function isString(value: any): value is String {
+export function isString(value: any): value is String {
   return typeof value === 'string'
 }
 
-function isBlob(value: any): value is Blob {
+export function isBlob(value: any): value is Blob {
   return value instanceof Blob
 }
 
-function getHeaders(options:Options ): Headers {
+export function getHeaders(options:Options ): Headers {
   const headers = new Headers({
     Accept: 'application/json',
     ...options.headers
@@ -47,7 +48,7 @@ function getHeaders(options:Options ): Headers {
   return headers
 }
 
-function getFormData(data: Record<string, any>): FormData {
+export function getFormData(data: Record<string, any>): FormData {
   let formData = new FormData()
   Object.keys(data).forEach(key => {
     formData.append(key, data[key])
@@ -56,7 +57,7 @@ function getFormData(data: Record<string, any>): FormData {
 }
 
 
-function getRequestBody(options: Options): BodyInit {
+export function getRequestBody(options: Options): BodyInit {
   if (options.body) {
     return isBlob(options.body) || isBlob(options.body) ? options.body : JSON.stringify(options.body)
   }
