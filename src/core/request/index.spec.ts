@@ -1,9 +1,7 @@
-import { Definition } from '../types'
-import request, { isBlob, isString, getUrl, getHeaders, getFormData, getRequestBody} from './index'
+import request, { isBlob, isString, getUrl, getHeaders, getFormData, getRequestBody } from './index'
 import * as RequestModule from './index'
 import { setupServer } from 'msw/node'
 import {  rest } from 'msw'
-
 const server = setupServer(
   rest.get('/swagger.json', (req, res, ctx) => {
     return res(ctx.json({}))
@@ -13,7 +11,6 @@ const server = setupServer(
 beforeAll(() => {
   global.fetch= require('node-fetch')
   server.listen()
-
 })
 
 // Reset any runtime request handlers we may add during the tests.
@@ -99,11 +96,11 @@ describe('getRequestBody return tests', () => {
 })
 
 describe('request method tests', () => {
-
+  
   test('request will call getUrl, getHeaders, getRequestBody one by one', async() => {
-    console.log(RequestModule)
-    const getUrl = jest.spyOn(RequestModule, 'getUrl')
     const fetch = jest.spyOn(global, 'fetch')
+    // TODO jest spyon not works
+    const getUrl = jest.spyOn(RequestModule, 'getUrl')
     const getHeaders = jest.spyOn(RequestModule, 'getHeaders')
     const getRequestBody = jest.spyOn(RequestModule, 'getRequestBody')
     await request<any>({
@@ -122,5 +119,5 @@ describe('request method tests', () => {
     expect(getUrl).toBeCalledTimes(1)
     expect(getHeaders).toBeCalledTimes(1)
     expect(getRequestBody).toBeCalledTimes(1)
-  }, 2000)
+  }, 5000)
 })

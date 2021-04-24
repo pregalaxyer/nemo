@@ -4,6 +4,7 @@ export async function writeIndex(
   templete: Record<string, string>,
   path: string,
 ): Promise<void> {
+  console.log('files', files)
   try {
     const res = await
     writeMustacheFile(templete.index, {
