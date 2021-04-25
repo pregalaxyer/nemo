@@ -81,8 +81,9 @@ type SwaggerResponses  = Partial<
   Record<ResponseCode,
   Response>
 >
+
 interface BaseRequestPath {
-  tags: string[]
+  tags: string []
   summary: string
   operationId: string
   consumes?: string[]

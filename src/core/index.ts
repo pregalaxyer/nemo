@@ -42,35 +42,45 @@ export async function main({
     if (!requestPath) {
       writeRequest(templates, folder)
     }
-    await Promise.all(
-      [
-        writeInterfaces(
-          convertModels(res.definitions),
-          templates,
-          folder
-        ),
-        writeServices(
-          convertService(res),
-          templates,
-          folder,
-          requestPath || '../request'
-        )
-      ]
-    )
-    const [models, services] = await Promise.all([
-      fs.readdirSync(folder + '/models'),
-      fs.readdirSync(folder + '/services')
-    ])
-    await writeIndex(
-      models.map(
-        model => './models/' + model
-      ).concat(
-        ...services.map(
-          service => './services/' + service
-        )
-      ),
-      templates,
-      folder
-    )
+    try {
+      await Promise.all(
+        [
+          writeInterfaces(
+            convertModels(res.definitions),
+            templates,
+            folder
+          ),
+          writeServices(
+            convertService(res),
+            templates,
+            folder,
+            requestPath || '../request'
+          )
+        ]
+      )
+    } catch(err) {
+      console.error('write models and service error: ', err)
+    }
+    writeExports(templates, folder)
+    
   }
+}
+
+export async function writeExports(templates, folder) {
+  const [models, services] = await Promise.all([
+    fs.readdirSync(folder + '/models'),
+    fs.readdirSync(folder + '/services')
+  ])
+  if (!models.length && !services.length) return
+  await writeIndex(
+    models.map(
+      model => './models/' + model
+    ).concat(
+      ...services.map(
+        service => './services/' + service
+      )
+    ),
+    templates,
+    folder
+  )
 }
