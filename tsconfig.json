@@ -6,7 +6,6 @@
     "lib": ["esnext", "dom", "ES6"],
     "sourceMap": true,
     "baseUrl": ".",
-    "jsx": "react",
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
     "forceConsistentCasingInFileNames": true,
@@ -28,6 +27,7 @@
   "exclude": [
     "node_modules",
     "lib/**",
-    "dist/**"
+    "dist/**",
+    "src/core/.test"
   ]
 }
