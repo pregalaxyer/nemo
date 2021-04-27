@@ -1,8 +1,8 @@
 {
   "name": "@dylan92/nemo",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "swagger typescript codegen",
-  "main": "index.js",
+  "main": "lib/index.js",
   "dependencies": {
     "@babel/preset-typescript": "^7.13.0",
     "@rollup/plugin-commonjs": "^18.0.0",
@@ -22,7 +22,8 @@
     "build": "rollup -c rollup.config.js",
     "test": "jest",
     "test:coverage": "jest --coverage",
-    "codecov": "codecov --token=35e01d30-48ea-4a09-bf88-0737feca5db8"
+    "codecov": "codecov --token=35e01d30-48ea-4a09-bf88-0737feca5db8",
+    "release": "npm publish --access=public"
   },
   "author": "dylan",
   "devDependencies": {
