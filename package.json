@@ -19,7 +19,8 @@
   },
   "scripts": {
     "build": "rollup -c rollup.config.js",
-    "test": "jest --coverage"
+    "test": "jest",
+    "test:coverage": "jest --coverage"
   },
   "author": "dylan",
   "devDependencies": {
