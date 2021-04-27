@@ -1,6 +1,5 @@
-import * as fs from 'fs'
-import * as path from 'path'
-import * as fetch from 'node-fetch'
+
+import fetch from 'node-fetch'
 import { Swagger } from '../types'
 export * from '../../createTemplate'
 /**
