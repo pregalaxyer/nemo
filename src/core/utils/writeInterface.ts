@@ -1,7 +1,7 @@
 
 import { writeMustacheFile } from './files'
 import { Model } from '../interfaces/index.d'
-import * as fs from 'fs-extra'
+const fs = require('fs-extra')
 
 export async function writeInterfaces(
   models: Model[],

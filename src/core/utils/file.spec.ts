@@ -2,7 +2,11 @@ import fs from 'fs-extra'
 import * as path from 'path'
 import * as mustache from 'mustache'
 import { writeMustacheFile } from './files'
-import { getTemplates } from './share'
+jest.mock('mustache', () => ({
+  __esModule: true,
+  render: jest.fn().mockReturnValue('')
+}))
+
 describe('files tests', () => {
   
   test('mustache render have been called', async () => {
@@ -12,6 +16,6 @@ describe('files tests', () => {
       author: 'dylan'
     }
     await writeMustacheFile(testTemp, testData, './.test_folder')
-    // expect(mustache.render).toBeCalledWith(testTemp, testData)
+    expect(mustache.render).toBeCalledWith(testTemp, testData)
   })
 })

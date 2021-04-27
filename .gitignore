@@ -4,3 +4,4 @@ models
 .history
 api
 .test_folder
+*.log

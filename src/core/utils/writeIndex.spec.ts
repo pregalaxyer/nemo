@@ -1,7 +1,10 @@
 import { writeIndex } from './writeIndex'
 import * as files from './files'
 import { getTemplates } from './share'
-jest.mock('./files')
+jest.mock('./files', () => ({
+  _esModule: true,
+  writeMustacheFile: jest.fn()
+}))
 
 describe('writeIndex tests',() => {
   let templates
@@ -16,10 +19,6 @@ describe('writeIndex tests',() => {
       name: 'index'
     }, './.test_folder')
   })
-  test('writeIndex should call writeMustacheFile', async () => {
-    writeIndex(null, templates.index, '')
-    .then().catch(err => expect(err).toThrowError())
-    
-  })
+ 
 
 })

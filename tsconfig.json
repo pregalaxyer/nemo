@@ -4,7 +4,6 @@
     "module": "esnext",
     "target": "esnext",
     "lib": ["esnext", "dom", "ES6"],
-    "sourceMap": true,
     "baseUrl": ".",
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
@@ -28,6 +27,9 @@
     "node_modules",
     "lib/**",
     "dist/**",
-    "src/core/.test"
+    "src/core/.test",
+    "**/*.spec.ts",
+    "coverage",
+    "test"
   ]
 }
