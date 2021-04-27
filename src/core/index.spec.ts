@@ -59,11 +59,11 @@ describe('main function', () => {
 
 describe('writeExports test', () => {
   test('writeExports should call writeIndex', async() => {
-    await writeExports({ index: 'aaa'}, path.join(__dirname, '.test'))
+    await writeExports({ index: 'aaa'}, path.join(__dirname, 'test'))
     expect(writeIndex).toHaveBeenCalledTimes(1)
     expect(writeIndex).toHaveBeenCalledWith(
       ["./models/index.ts", "./services/index.ts"],
       { index: 'aaa'},
-      path.join(__dirname, '.test') )
+      path.join(__dirname, 'test') )
   })
 })
