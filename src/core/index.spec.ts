@@ -47,7 +47,9 @@ describe('main function', () => {
   test('definitions should create all interface files', async () => {
       await main({
         url: 'https://petstore.swagger.io/v2/swagger.json',
-        output: './src/core/test'
+        output: './src/core/test',
+        requestPath: null,
+        exportsRequest: true
       })
       expect(fetchApiJson).toHaveBeenCalledTimes(1)
       expect(fetchApiJson).toHaveBeenCalledWith('https://petstore.swagger.io/v2/swagger.json')

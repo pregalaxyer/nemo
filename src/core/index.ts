@@ -7,7 +7,8 @@ import * as fs from 'fs-extra'
 export default async function main({
   url,
   output,
-  requestPath
+  requestPath,
+  exportsRequest
 }: {
   /**
    * @description swagger api url
@@ -32,6 +33,7 @@ export default async function main({
     fetchApiJson(url),
     getTemplates()
   ])
+  const needExports = exportsRequest === undefined ? true : exportsRequest
   let folder =  path.join(process.cwd(), output || '/api')
   if (res) {
     const isExists = await fs.pathExistsSync(folder)
@@ -39,7 +41,7 @@ export default async function main({
       await fs.removeSync(folder)
     }
     await fs.mkdirsSync(folder)
-    if (!requestPath) {
+    if (!requestPath && needExports) {
       writeRequest(templates, folder)
     }
     try {
