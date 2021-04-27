@@ -1,10 +1,10 @@
-import { fetchApiJson, getTemplates,  writeInterfaces, writeServices, writeIndex, writeRequest} from './utils'
+import { fetchApiJson, getTemplates,  writeInterfaces, writeServices, writeIndex, writeRequest, writeExport } from './utils'
 import { convertModels } from './interfaces/index'
 import { convertService } from './services/index'
 import * as path from 'path'
 import * as fs from 'fs-extra'
 
-export async function main({
+export default async function main({
   url,
   output,
   requestPath
@@ -61,26 +61,8 @@ export async function main({
     } catch(err) {
       console.error('write models and service error: ', err)
     }
-    writeExports(templates, folder)
+    writeExport(templates, folder)
     
   }
 }
 
-export async function writeExports(templates, folder) {
-  const [models, services] = await Promise.all([
-    fs.readdirSync(folder + '/models'),
-    fs.readdirSync(folder + '/services')
-  ])
-  if (!models.length && !services.length) return
-  await writeIndex(
-    models.map(
-      model => './models/' + model
-    ).concat(
-      ...services.map(
-        service => './services/' + service
-      )
-    ),
-    templates,
-    folder
-  )
-}

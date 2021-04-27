@@ -8,10 +8,10 @@ describe('write request tests', () => {
   })
   test('fs module called', async () => {
     const writeMustacheFile = jest.spyOn(files, 'writeMustacheFile')
-    await writeRequest(templates, './.test_folder')
+    await writeRequest(templates, '../.test')
     expect(writeMustacheFile).toHaveBeenCalledTimes(2)
     expect(writeMustacheFile).toHaveBeenCalledWith(templates.request, {
       name: 'index'
-    }, './.test_folder' + '/request')
+    }, '../.test' + '/request')
   })
 })

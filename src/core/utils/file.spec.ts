@@ -15,7 +15,7 @@ describe('files tests', () => {
       name: 'render_test',
       author: 'dylan'
     }
-    await writeMustacheFile(testTemp, testData, './.test_folder')
+    await writeMustacheFile(testTemp, testData, '../.test')
     expect(mustache.render).toBeCalledWith(testTemp, testData)
   })
 })
