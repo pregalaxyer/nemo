@@ -1,5 +1,5 @@
 {
-  "name": "@dylan/nemo",
+  "name": "@dylan92/nemo",
   "version": "0.0.1",
   "description": "swagger typescript codegen",
   "main": "index.js",

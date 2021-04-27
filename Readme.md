@@ -9,7 +9,7 @@
 
 ## Installing
 ```node
-  npm install @nemo
+  npm install @dylan92/nemo
 ```
 
 ## Exmaple
