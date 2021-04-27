@@ -43,7 +43,7 @@ describe('main function', () => {
   beforeAll(async() => {
     await main({
       url: 'https://petstore.swagger.io/v2/swagger.json',
-      output: '/.test_folder'
+      output: path.join(__dirname, 'test')
     })
 
   })
