@@ -22,7 +22,7 @@
     "build": "rollup -c rollup.config.js",
     "test": "jest",
     "test:coverage": "jest --coverage",
-    "codecov": "codecov --token=66c30c23-8954-4892-bef9-fbaed0a2e42b"
+    "codecov": "codecov --token=35e01d30-48ea-4a09-bf88-0737feca5db8"
   },
   "author": "dylan",
   "devDependencies": {
