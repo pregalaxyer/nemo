@@ -3,9 +3,6 @@
 
 <img src="https://img.shields.io/travis/com/diveDylan/nemo?style=plastic"/>
 <img src="https://img.shields.io/codecov/c/github/diveDylan/nemo?style=plastic"/>
-<img src="https://img.shields.io/npm/types/typescript"/>
-<img src="https://img.shields.io/badge/compiler-rollup-brightgreen"/>
-<img src="https://img.shields.io/badge/template-mustache-brightgreen">
 
 ## Installing
 ```node

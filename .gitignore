@@ -4,3 +4,4 @@ node_modules
 api
 .test_folder
 *.log
+coverage
