@@ -101,17 +101,6 @@ export function getParameters(
   if (!parameters) return {}
   const parametersRecord: Partial<Record<ParameterIn, TypeItem[]>> = {}
   let imports: string [] = []
-  // let parametersCopy: TypeItem[] = []
-    
-  //     Object.values(params)
-  //       .forEach(param => {
-  //         param.forEach(paramType => {
-  //           if (paramType.imports) {
-  //             tag.imports.push(...paramType.imports)
-  //           }
-  //           parameters.push(paramType)
-  //         })
-  //       });
   const params = parameters.map(parameter => {
     if(!parametersRecord[parameter.in]) parametersRecord[parameter.in] = []
     const {type, model, description} = formatTypes(
