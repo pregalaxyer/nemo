@@ -1,6 +1,6 @@
 {
   "name": "@dylan92/nemo",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "swagger typescript codegen",
   "main": "lib/index.js",
   "dependencies": {
@@ -23,7 +23,8 @@
     "test": "jest",
     "test:coverage": "jest --coverage",
     "codecov": "codecov --token=35e01d30-48ea-4a09-bf88-0737feca5db8",
-    "release": "npm run build && npm publish --access=public"
+    "release": "npm run build && npm publish --access=public",
+    "publish": "npm publish --access=public"
   },
   "author": "dylan",
   "devDependencies": {
