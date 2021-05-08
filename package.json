@@ -23,7 +23,7 @@
     "test": "jest",
     "test:coverage": "jest --coverage",
     "codecov": "codecov --token=35e01d30-48ea-4a09-bf88-0737feca5db8",
-    "release": "npm publish --access=public"
+    "release": "npm run build && npm publish --access=public"
   },
   "author": "dylan",
   "devDependencies": {
