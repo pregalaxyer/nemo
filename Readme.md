@@ -19,7 +19,7 @@ exceut the file below, your will get your swagger typescript files.
   4. `exportsRequest`: the options for your to decide wether create request folder, always happened when you want save local fetch changes
 
 ```node
-const main = require('@nemo')
+const main = require('@dylan92/nemo')
 
 main({
   url: 'https://petstore.swagger.io/v2/swagger.json',
