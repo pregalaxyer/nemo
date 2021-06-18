@@ -1,6 +1,20 @@
 import main from './index'
 import * as path from 'path'
 import { fetchApiJson, getTemplates, writeRequest, writeIndex, writeServices, writeInterfaces, writeExport} from './utils'
+
+jest.mock('fs-extra', () => {
+  return {
+    _isEsModule: true,
+    writeFileSync: jest.fn(() => {}),
+    pathExistsSync: jest.fn().mockReturnValue(true),
+    removeSync: jest.fn(),
+    mkdirsSync: jest.fn(),
+    readdirSync: jest.fn().mockImplementation(async(path) => {
+      const arr = String(path).indexOf('models') ? ['./models/index.ts'] : ["./services/index.ts"]
+      return arr
+    })
+  };
+});
 jest.mock('./utils', () => ({
   _esModule: true,
   fetchApiJson: jest.fn(async (e) => {

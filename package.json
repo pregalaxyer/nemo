@@ -42,8 +42,7 @@
   "jest": {
     "testPathIgnorePatterns": [
       "<rootDir>/lib",
-      ".test_folder",
-      "test"
+      ".test_folder"
     ]
   },
   "directories": {
@@ -59,7 +58,8 @@
     "typescript",
     "swagger",
     "codegen",
-    "generator"
+    "generator",
+    "openapi"
   ],
   "license": "ISC",
   "bugs": {
