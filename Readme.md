@@ -1,8 +1,9 @@
 <h1 style="text-align: center">nemo🐠</h1>
 <p> a 💪 typescript generator 🔨 for swagger resultful api, based on swagger v2 </p>
-
+<div>
 <img src="https://img.shields.io/travis/com/diveDylan/nemo?style=plastic"/>
 <img src="https://img.shields.io/codecov/c/github/diveDylan/nemo?style=plastic"/>
+</div>
 
 ## Installing
 ```node
