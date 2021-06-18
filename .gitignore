@@ -5,3 +5,5 @@ api
 .test_folder
 *.log
 coverage
+lib
+./tests/.output

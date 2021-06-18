@@ -54,7 +54,14 @@ function getServiceMapData(
       // behaviour like something scattered
       // eg: body: `{ key: type, key1: type1} `
       //  query formData path: `key: type, key1: type1`
-      const {parametersRecord, imports, parameters} = getParameters(methodWrapper.parameters)
+      const {
+        parametersRecord,
+        imports,
+        parameters,
+        hasQuery,
+        hasBody,
+        hasFormData
+      } = getParameters(methodWrapper.parameters)
       tag.imports.push(...(imports || []))
       // get responsetype
       const response = getResponseType(methodWrapper.responses)
@@ -70,6 +77,9 @@ function getServiceMapData(
           ? response.type : response,
         ...parametersRecord,
         parameters,
+        hasQuery,
+        hasBody,
+        hasFormData
       }
       tag.requests.push(request)
     }
@@ -97,6 +107,9 @@ export function getParameters(
   parametersRecord?: Partial<Record<ParameterIn, TypeItem[]>>
   imports?: string[]
   parameters?: TypeItem[]
+  hasQuery?: boolean
+  hasBody?: boolean
+  hasFormData?: boolean
  } {
   if (!parameters) return {}
   const parametersRecord: Partial<Record<ParameterIn, TypeItem[]>> = {}
@@ -123,6 +136,9 @@ export function getParameters(
   return {
     parametersRecord,
     parameters: params,
-    imports
+    imports,
+    hasQuery: !!parametersRecord.query && parametersRecord.query.length > 0,
+    hasBody: !!parametersRecord.body && parametersRecord.body.length > 0,
+    hasFormData: !!parametersRecord.formData && parametersRecord.formData.length > 0
   }
 }

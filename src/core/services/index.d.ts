@@ -18,4 +18,7 @@ export interface BaseRequest {
   body?: TypeItem[]
   formData?: TypeItem[]
   url: string
+  hasQuery: boolean
+  hasBody: boolean
+  hasFormData: boolean
 }

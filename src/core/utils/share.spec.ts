@@ -1,5 +1,5 @@
 import { fetchApiJson } from './share'
-
+import fetch from 'node-fetch'
 describe('fetch swagger api json', () => {
   test('fetchApiJson should return a json with swagger schema',  () => {
       expect(
