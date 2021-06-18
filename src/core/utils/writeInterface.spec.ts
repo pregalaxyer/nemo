@@ -1,12 +1,17 @@
 import { writeInterfaces } from './writeInterface'
 import * as files from './files'
-import { getTemplates } from './share'
 jest.mock('./files')
 
 describe('writeInterfaces tests',() => {
   let templates
   beforeAll(async () => {
-    templates = await getTemplates()
+    templates = {
+      index: 'index',
+      model: 'model',
+      request: 'request',
+      'request.d': 'request.d',
+      service: 'service',
+    }
   })
   test('writeInterfaces should call writeMustacheFile', async () => {
     await writeInterfaces([{

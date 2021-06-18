@@ -1,6 +1,6 @@
 import { writeIndex } from './writeIndex'
 import * as files from './files'
-import { getTemplates } from './share'
+import { registerTemplates } from './registerTemplate'
 jest.mock('./files', () => ({
   _esModule: true,
   writeMustacheFile: jest.fn()
@@ -9,7 +9,13 @@ jest.mock('./files', () => ({
 describe('writeIndex tests',() => {
   let templates
   beforeAll(async () => {
-    templates = await getTemplates()
+    templates = {
+      index: 'index',
+      model: 'model',
+      request: 'request',
+      'request.d': 'request.d',
+      service: 'service',
+    }
   })
   test('writeIndex should call writeMustacheFile', async () => {
     await writeIndex(['test.ts'], templates, '../.test')

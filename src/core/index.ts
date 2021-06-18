@@ -1,4 +1,4 @@
-import { fetchApiJson, getTemplates,  writeInterfaces, writeServices, writeIndex, writeRequest, writeExport } from './utils'
+import { fetchApiJson, registerTemplates,  writeInterfaces, writeServices, writeIndex, writeRequest, writeExport } from './utils'
 import { convertModels } from './interfaces/index'
 import { convertService } from './services/index'
 import * as path from 'path'
@@ -29,10 +29,8 @@ export default async function main({
    */
   exportsRequest?: boolean
 }): Promise<void> {
-  const [res, templates ] = await Promise.all([
-    fetchApiJson(url),
-    getTemplates()
-  ])
+  const templates = registerTemplates()
+  const res = await fetchApiJson(url)
   const needExports = exportsRequest === undefined ? true : exportsRequest
   let folder =  path.join(process.cwd(), output || '/api')
   if (res) {

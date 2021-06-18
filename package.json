@@ -1,6 +1,6 @@
 {
   "name": "@dylan92/nemo",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "swagger typescript codegen",
   "main": "lib/index.js",
   "dependencies": {
@@ -40,6 +40,9 @@
     "tslib": "^2.2.0"
   },
   "jest": {
+    "moduleNameMapper": {
+      "\\.mustache$": "<rootDir>/src/templates/.mock/index.js"
+    },
     "testPathIgnorePatterns": [
       "<rootDir>/lib",
       ".test_folder"

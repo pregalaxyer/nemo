@@ -57,7 +57,7 @@ export function getFormData(data: Record<string, any>): FormData {
 }
 
 
-export function getRequestBody(options: Options): BodyInit ｜ undefined {
+export function getRequestBody(options: Options): BodyInit | undefined {
   if (options.body) {
     return isBlob(options.body) || isBlob(options.body) ? options.body : JSON.stringify(options.body)
   }

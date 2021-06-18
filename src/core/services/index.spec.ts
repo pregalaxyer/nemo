@@ -1,6 +1,5 @@
 import { getControllers, convertService, getParameters, getResponseType } from './index'
 import { fetchApiJson } from '../utils/share'
-import * as ServiceModule from './index'
 import { Parameter } from '../types'
 
 describe('services tests',  () => {

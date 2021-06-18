@@ -1,6 +1,6 @@
 import main from './index'
 import * as path from 'path'
-import { fetchApiJson, getTemplates, writeRequest, writeIndex, writeServices, writeInterfaces, writeExport} from './utils'
+import { fetchApiJson, writeRequest, writeIndex, writeServices, writeInterfaces, writeExport, registerTemplates} from './utils'
 
 jest.mock('fs-extra', () => {
   return {
@@ -30,13 +30,13 @@ jest.mock('./utils', () => ({
       definitions: {}
     }
   }),
-  getTemplates: jest.fn(async() => {
+  registerTemplates: jest.fn(async() => {
     return {
-      index: 'sdsd',
-      serverice: 'ssds',
-      request: 'ss',
-      'request.d': 'ss',
-      model: 'ss'
+      index: 'index',
+      serverice: 'service',
+      request: 'request',
+      'request.d': 'request.d',
+      model: 'models'
     }
   }).mockImplementation(),
   writeServices: jest.fn(async(a, b,c,d) => {
@@ -67,7 +67,7 @@ describe('main function', () => {
       })
       expect(fetchApiJson).toHaveBeenCalledTimes(1)
       expect(fetchApiJson).toHaveBeenCalledWith('https://petstore.swagger.io/v2/swagger.json')
-      expect(getTemplates).toHaveBeenCalledTimes(1)
+      expect(registerTemplates).toHaveBeenCalledTimes(1)
       expect(writeServices).toHaveBeenCalledTimes(1)
       expect(writeInterfaces).toHaveBeenCalledTimes(1)
       expect(writeRequest).toHaveBeenCalledTimes(1)

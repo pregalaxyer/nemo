@@ -1,9 +1,10 @@
 import { writeMustacheFile } from './files'
 import { ServiceController } from '../services/index.d'
 import * as fs from 'fs-extra'
+import { Templates } from './registerTemplate'
 export async function writeServices(
   services: ServiceController[],
-  templates: Record<string, string>,
+  templates: Templates,
   path: string,
   requestPath: string
 ): Promise<void> {

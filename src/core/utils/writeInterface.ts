@@ -1,11 +1,12 @@
 
 import { writeMustacheFile } from './files'
 import { Model } from '../interfaces/index.d'
+import { Templates } from './registerTemplate'
 const fs = require('fs-extra')
 
 export async function writeInterfaces(
   models: Model[],
-  templates: Record<string, string>,
+  templates: Templates,
   path: string
 ): Promise<void> {
   try {

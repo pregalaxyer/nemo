@@ -1,12 +1,17 @@
 import { writeServices } from './writeServices'
 import * as files from './files'
-import { getTemplates } from './share'
 jest.mock('./files')
 
 describe('writeServices tests',() => {
   let templates
   beforeAll(async () => {
-    templates = await getTemplates()
+    templates = {
+      index: 'index',
+      model: 'model',
+      request: 'request',
+      'request.d': 'request.d',
+      service: 'service',
+    }
   })
   test('writeServices should call writeMustacheFile', async () => {
     await writeServices([{

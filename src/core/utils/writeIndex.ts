@@ -1,12 +1,13 @@
 import { writeMustacheFile } from './files'
+import { Templates } from './registerTemplate'
 export async function writeIndex(
   files: string[],
-  templete: Record<string, string>,
+  templates: Templates,
   path: string,
 ): Promise<void> {
   try {
     const res = await
-    writeMustacheFile(templete.index, {
+    writeMustacheFile(templates.index, {
       exports: files.map(file => ({
         filepath: file.replace(/\.ts$/, ''),
         filename: file.split('/').pop().replace(/\.ts$/, '')

@@ -1,9 +1,10 @@
 import { writeMustacheFile } from './files'
 import { Model } from '../interfaces/index.d'
 import * as fs from 'fs-extra'
+import { Templates }  from './registerTemplate'
 
 export async function writeRequest(
-  templates: Record<string, string>,
+  templates: Templates,
   path: string
 ): Promise<void> {
   try {
