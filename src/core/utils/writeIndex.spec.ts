@@ -1,6 +1,5 @@
 import { writeIndex } from './writeIndex'
 import * as files from './files'
-import { registerTemplates } from './registerTemplate'
 jest.mock('./files', () => ({
   _esModule: true,
   writeMustacheFile: jest.fn()

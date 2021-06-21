@@ -31,7 +31,7 @@ export function convertModels(definitions: { [key: string]: Definition } ): Type
             model.types.push({
               ...types,
               name: property,
-              isOption: !!isRequired
+              isOption: !isRequired
             })
             models.push(model)
           }

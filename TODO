@@ -6,3 +6,11 @@ fileTests:
 
 bin:
   ☐ create a terminal tool
+
+one api:
+  ☐ exports for one api
+
+
+rm folder:
+  ☐ only remove sub folder
+

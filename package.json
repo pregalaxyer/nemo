@@ -1,6 +1,6 @@
 {
   "name": "@dylan92/nemo",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "swagger typescript codegen",
   "main": "lib/index.js",
   "dependencies": {
