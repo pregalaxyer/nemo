@@ -1,32 +1,36 @@
+
+Other languages: [English](Readme.md)
+
 <h1 style="text-align: center">nemo🐠</h1>
-<p> a 💪 typescript generator 🔨 for swagger resultful api, based on swagger v2 </p>
+<p style="text-align: center"> 一个自动化生成 `swagger` 的 `typescript` 文件的💪工具，基于 `swagger V2`  </p>
 
-Other languages: [中文版](Readme.zh.md)
 
-<div>
+
+<div style="text-align: center">
 <img src="https://img.shields.io/npm/v/@dylan92/nemo?color=%23&style=plastic" />
 <img src="https://img.shields.io/travis/com/diveDylan/nemo?style=plastic"/>
 <img src="https://img.shields.io/codecov/c/github/diveDylan/nemo?style=plastic"/>
 <img src="https://img.shields.io/npm/dw/@dylan92/nemo?style=plastic">
-
 </div>
 
-## Installing
+## 安装
+
 ```node
   npm install @dylan92/nemo
   // or
   yarn add @dylan92/nemo
 ```
 
-## Example
-excute the file below, your will get your swagger typescript files.
-<b>options</b>:
+
+## 用法
+
+### 参数:
   
-  1. `url`: your resultful swagger json url
-  2. `output`: the folder for your swagger typescript files
-  3. `requestPath`: customer request, such as `axios` or `umi-request`
-  4. `exportsRequest`: the options for your to decide wether create request folder, always happened when you want save local fetch changes
-  5. `paths`: exports by paths filter
+  1. `url`: `swagger` 项目的 `api json` 地址
+  2. `output`: `typescript` 文件的输出目录
+  3. `requestPath`: 第三方请求库，如果需要自定义请求
+  4. `exportsRequest`: 是否需要再次输出请求目录
+  5. `paths`: 路径，用于输出制定路径的文件
 
 ```typescript
 
@@ -55,7 +59,9 @@ interface SwaggerConfig {
   exportsRequest?: boolean
 }
 ```
+在你的项目新建一个 `swagger.js` 文件，复制一下代码，然后 `node swagger.js`，脚本会自动生成 `models`、`services` 目录和一个导出文件
 ```node
+// swagger.js
 const main = require('@dylan92/nemo')
 
 main({
@@ -65,9 +71,11 @@ main({
 
 ```
 
-## AbortController
-We takes [AbortController](https://developer.mozilla.org/en-US/docs/Web/API/AbortController) as a important parameters for fetch or other xhr request.
-It become more clear when you are a react hooks user.
+### AbortController
+
+这是一个比较新且必要的请求属性，它使请求变得可控。接口消耗的时长是不确定的，作为交互代价，你在某些业务场景使用不同参数请求了相同的接口，一般拿的是最后一份数据（在 `hooks` 中这种副作用尤为明显），下面是一份伪代码
+
+
 ```js
 // react.js
 // thinks your have two tabs: tabA, tabB
@@ -91,18 +99,5 @@ fetchList({
 // when change tab
 abortController.abort()
 ```
-
-
-
-
-
-
-
-
-
-## TODO
-- [ ] terminal tool
-- [ ] bin tests
-- [ ] swagger v3 support
 
 

@@ -9,6 +9,7 @@ test('lib excute', async () => {
     url: 'https://petstore.swagger.io/v2/swagger.json',
     output: './tests/.output',
     requestPath: null,
+    paths: ['/pet'],
     exportsRequest: true
   })
   
