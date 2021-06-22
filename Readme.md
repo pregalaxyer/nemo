@@ -11,6 +11,8 @@
 ## Installing
 ```node
   npm install @dylan92/nemo
+  // or
+  yarn add @dylan92/nemo
 ```
 
 ## Exmaple
@@ -51,7 +53,7 @@ interface SwaggerConfig {
 }
 ```
 ```node
-const main = require('@dylan92/nemo')
+const main = require('@dylan92/nemo').default
 
 main({
   url: 'https://petstore.swagger.io/v2/swagger.json',
