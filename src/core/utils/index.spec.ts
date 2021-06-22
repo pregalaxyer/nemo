@@ -9,4 +9,5 @@ test('exports modules', () => {
   expect(exportModules).toHaveProperty('writeRequest')
   expect(exportModules).toHaveProperty('writeIndex')
   expect(exportModules).toHaveProperty('writeExport')
+  expect(exportModules).toHaveProperty('handlePaths')
 })
