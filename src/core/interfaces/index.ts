@@ -2,7 +2,6 @@ import { Definition } from '../types'
 import * as Types from './index.d'
 
 
-const numberTypes = ['number', 'interge']
 /**
  * @param {definitions} swagger definitions
  */
