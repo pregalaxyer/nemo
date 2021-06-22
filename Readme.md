@@ -18,7 +18,35 @@ exceut the file below, your will get your swagger typescript files.
   2. `output`: the folder for your swagger typescript files
   3. `requestPath`: customer request, such as `axios` or `umi-request`
   4. `exportsRequest`: the options for your to decide wether create request folder, always happened when you want save local fetch changes
+  5. `paths`: exports by paths filter
 
+```typescript
+
+interface SwaggerConfig {
+  /**
+   * @description swagger api url
+   */
+  url: string
+  /**
+   * @description single-api or apis
+   */
+  paths?: string[]
+  /**
+   * @description output floder
+   */
+  output?: string
+  /**
+   * @description where request module import from
+   */
+  requestPath?: string
+  /**
+   * @description request templates only create and remove when it is true
+   * when you only need exportsRequest once, mostly code likes:
+   * * `exportsRequest: !isRequestFloderExsit`
+   */
+  exportsRequest?: boolean
+}
+```
 ```node
 const main = require('@dylan92/nemo')
 
