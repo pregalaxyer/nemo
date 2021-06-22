@@ -1,5 +1,5 @@
 import { Definition } from '../types'
-import {converDefinitionProperty, formatArrayTypes, formatStringEnums, formatTypes, convertModels } from './index'
+import {convertDefinitionProperty, formatArrayTypes, formatStringEnums, formatTypes, convertModels } from './index'
 
 describe('illegal words should replace by _', () => {
   // case A: ResponseDto«List«HomeLocationInfoResponse»»
@@ -7,17 +7,17 @@ describe('illegal words should replace by _', () => {
   // case C: ResponseDto«Map«string,Map«string,string»»»
   test('ResponseDto«List«HomeLocationInfoResponse»» should rewrite', () => {
       expect(
-        converDefinitionProperty('ResponseDto«List«HomeLocationInfoResponse»»')
+        convertDefinitionProperty('ResponseDto«List«HomeLocationInfoResponse»»')
       ).toEqual('ResponseDto_List_HomeLocationInfoResponse')
     })
   test('ResponseDto«Map«int,CustomerBudgetInfoResponse» should rewrite', () => {
       expect(
-        converDefinitionProperty('ResponseDto«Map«int,CustomerBudgetInfoResponse»')
+        convertDefinitionProperty('ResponseDto«Map«int,CustomerBudgetInfoResponse»')
       ).toEqual('ResponseDto_Map_int_CustomerBudgetInfoResponse')
     })
   test('ResponseDto«Map«string,Map«string,string»»» should rewrite', () => {
       expect(
-        converDefinitionProperty('ResponseDto«Map«string,Map«string,string»»»')
+        convertDefinitionProperty('ResponseDto«Map«string,Map«string,string»»»')
       ).toEqual('ResponseDto_Map_string_Map_string_string')
     })
 })
@@ -146,8 +146,8 @@ const convertModelsCases = [
 
 describe.each(
   convertModelsCases
-)('.converModels', (a, b, c) => {
-  test(`converModels ${a} should return something likes`, () => {
+)('.convertModels', (a, b, c) => {
+  test(`convertModels ${a} should return something likes`, () => {
     // @ts-ignore
     expect(convertModels(b)).toContainEqual(c)
   })

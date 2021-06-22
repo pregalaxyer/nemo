@@ -1,8 +1,8 @@
 export interface Model {
-  name?: string
-  imports?: string[]
-  types?: TypeItem[]
-  description?: string
+  name: string
+  imports: string[]
+  types: TypeItem[]
+  description: string
 }
 
 export interface TypeItem {

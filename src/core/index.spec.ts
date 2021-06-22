@@ -1,6 +1,6 @@
-import main from './index'
-import * as path from 'path'
-import { fetchApiJson, writeRequest, writeIndex, writeServices, writeInterfaces, writeExport, registerTemplates} from './utils'
+import main, { getModelAndServices } from './index'
+
+import { fetchApiJson, writeRequest,  writeServices, writeInterfaces, writeExport, registerTemplates} from './utils'
 
 jest.mock('fs-extra', () => {
   return {
@@ -17,18 +17,10 @@ jest.mock('fs-extra', () => {
 });
 jest.mock('./utils', () => ({
   _esModule: true,
-  fetchApiJson: jest.fn(async (e) => {
-    return {
-      swagger: '2.0.0',
-      tags: [{
-        name: 'test',
-        description: 'test'
-      }],
-      paths: {
-
-      },
-      definitions: {}
-    }
+  fetchApiJson: jest.fn().mockImplementation(async (url) => {
+    const fetch = require('node-fetch')
+    const res = await fetch(url).then(res => res.json())
+    return res
   }),
   registerTemplates: jest.fn(async() => {
     return {
@@ -73,5 +65,11 @@ describe('main function', () => {
       expect(writeRequest).toHaveBeenCalledTimes(1)
       expect(writeExport).toHaveBeenCalledTimes(1)
     })
+  test('single api should return link models and paths', async () => {
+    const res = await fetchApiJson('https://petstore.swagger.io/v2/swagger.json')
+    const {models, services} = getModelAndServices(res,['/pet'])
+    expect(services).toHaveLength(1)
+    expect(models).toHaveLength(3)
+  })
 })
 

@@ -11,7 +11,7 @@ export function convertModels(definitions: { [key: string]: Definition } ): Type
   const interfaceNames = Object.keys(definitions)
   interfaceNames.forEach(interfaceName => {
     const model: Types.Model = {
-      name: converDefinitionProperty(definitions[interfaceName].title || interfaceName),
+      name: convertDefinitionProperty(definitions[interfaceName].title || interfaceName),
       imports: [],
       types: [],
       description: definitions[interfaceName].description
@@ -33,9 +33,10 @@ export function convertModels(definitions: { [key: string]: Definition } ): Type
               name: property,
               isOption: !isRequired
             })
-            models.push(model)
+            
           }
         )
+        models.push(model)
         break
     }
   })
@@ -46,7 +47,7 @@ export function convertModels(definitions: { [key: string]: Definition } ): Type
  * @param { definitionProperty } the definitionName 
  * @returns format string join with '_'
  */
-export function converDefinitionProperty(definitionProperty: string): string {
+export function convertDefinitionProperty(definitionProperty: string): string {
   return definitionProperty.replace(/\W+$/, '').replace(/\W+/g, '_')
 }
 
@@ -96,7 +97,7 @@ export function formatTypes(object): {
   }
 }
 export function formatRefsLink(ref: string): string {
-  return converDefinitionProperty(ref.split('#/definitions/')[1])
+  return convertDefinitionProperty(ref.split('#/definitions/')[1])
 }
 
 /**
