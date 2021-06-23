@@ -1,7 +1,9 @@
 import qs from 'qs'
 
-export interface Options extends RequestInit {
-  url: string
+type RequestInitWithoutBodyInit = Omit<RequestInit, 'body'>
+
+export interface Options extends RequestInitWithoutBodyInit, Record<string, any> {
+  body?: Record<string, any>
   formData?: Record<string, any>
   query?: Record<string, any>
 }
