@@ -1,17 +1,20 @@
 
-Other languages: [English](Readme.md)
+[English](Readme.md)
 
 <h1 style="text-align: center">nemo🐠</h1>
-<p style="text-align: center"> 一个自动化生成 `swagger` 的 `typescript` 文件的💪工具，基于 `swagger V2`  </p>
-
-
-
 <div style="text-align: center">
 <img src="https://img.shields.io/npm/v/@dylan92/nemo?color=%23&style=plastic" />
 <img src="https://img.shields.io/travis/com/diveDylan/nemo?style=plastic"/>
 <img src="https://img.shields.io/codecov/c/github/diveDylan/nemo?style=plastic"/>
 <img src="https://img.shields.io/npm/dw/@dylan92/nemo?style=plastic">
 </div>
+<p style="text-align: center"> 
+一个自动化生成 <code>swagger</code> 的 <code>typescript</code> 文件的💪工具，基于 <code>swagger V2</code>
+</p>
+
+
+
+
 
 ## 安装
 
