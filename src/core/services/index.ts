@@ -1,6 +1,13 @@
+/**
+ * * Swagger V3
+ * @notice https://editor.swagger.io/?_ga=2.129656330.728723237.1624434404-1915285820.1624243698
+ * convert api json to v3
+ * * requestBody -> parameters in body & formData content 
+ * * parameters -> parameters in query
+ */
 import { Swagger, Tag, Path, SwaggerResponses, Parameter, ParameterIn } from '../types'
 import { ServiceController,  } from './index.d'
-import { formatRefsLink, formatTypes } from '../interfaces'
+import { formatTypes } from '../interfaces'
 import { TypeItem } from '../interfaces/index.d'
 /**
  * A list of tags used by the specification with additional metadata. 
