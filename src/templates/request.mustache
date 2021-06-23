@@ -1,14 +1,13 @@
 import { Options } from './index.d'
-import * as queryString from 'query-string'
+import qs from 'qs'
 
 /**
  * @description default request
  * *  cookies always set in request headers when http reponse headers has set-cookie 
- * *  TODO:  auth functions 
  */
-export async function request<T>(options: Options): Promise<T>{
+export async function request<T>(url, options: RequestInit): Promise<T>{
   const res: T = await fetch(
-    getUrl(options.url, options.query), 
+    getUrl(url, options.query), 
     {
       method: options.method || 'GET',
       body: getRequestBody(options),
@@ -20,7 +19,7 @@ export async function request<T>(options: Options): Promise<T>{
 }
 
 export function getUrl(url: string, query: Options['query']) {
-  return query ? url + '?' + queryString.stringify(query) : url
+  return query ? url + '?' + qs.stringify(query) : url
 }
 
 export function isString(value: any): value is String {

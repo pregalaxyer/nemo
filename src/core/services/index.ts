@@ -52,9 +52,9 @@ function getServiceMapData(
     if (controllerMap[methodWrapper.tags[0]]) {
       const tag = controllerMap[methodWrapper.tags[0]]
       // here we need to notice not like body, formData, path, query should
-      // behaviour like something scattered
+      // be a collection types
       // eg: body: `{ key: type, key1: type1} `
-      //  query formData path: `key: type, key1: type1`
+      // query formData path: `key: type, key1: type1`
       const {
         parametersRecord,
         imports,

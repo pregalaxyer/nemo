@@ -28,9 +28,8 @@ export default class {{name}} {
      * @description signal from abortcontroller is helpful when you want abort a request
      */
     signal?: AbortSignal
-  ) => {
-    const res = await request({
-      url: `{{&url}}`,
+  ){{#responseType}}:Promise<{{{responseType}}}>{{/responseType}} => {
+    const res = await request{{#responseType}}<{{{responseType}}}>{{/responseType}}(`{{&url}}`, {
       method: '{{method}}',
       {{#hasBody}}
       {{#body}}
