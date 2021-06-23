@@ -9,7 +9,7 @@
 <img src="https://img.shields.io/npm/dw/@dylan92/nemo?style=plastic">
 </div>
 <p style="text-align: center"> 
-一个自动化生成 <code>swagger</code> 的 <code>typescript</code> 文件的💪工具，基于 <code>swagger V2</code>
+一个自动化生成 <code>swagger typescript</code> 文件的💪工具，基于 <code>swagger V2</code>
 </p>
 
 
