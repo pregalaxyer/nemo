@@ -1,15 +1,15 @@
 import index from '../../templates/index.mustache'
 import model from '../../templates/model.mustache'
 import request from '../../templates/request.mustache'
-import requestD from '../../templates/request.d.mustache'
 import service from '../../templates/service.mustache'
+import utils from '../../templates/utils.mustache'
 
 export interface Templates {
   index: string
   model: string
   request: string
-  'request.d': string
   service: string
+  utils: string
 }
 export function decodeBase64(base64String: string): string {
   if (typeof base64String !== 'string') return ''
@@ -22,7 +22,7 @@ export function registerTemplates(): Templates {
     index: decodeBase64(index),
     model: decodeBase64(model),
     request: decodeBase64(request),
-    "request.d": decodeBase64(requestD),
     service: decodeBase64(service),
+    utils: decodeBase64(utils),
   }
 }

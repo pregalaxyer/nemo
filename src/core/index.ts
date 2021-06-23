@@ -1,4 +1,5 @@
 import { fetchApiJson, registerTemplates,  writeInterfaces, writeServices, writeRequest, writeExport, handlePaths } from './utils'
+import { writeMustacheFile  } from './utils/files'
 import * as path from 'path'
 import * as fs from 'fs-extra'
 
@@ -60,7 +61,8 @@ export default async function main({
             templates,
             folder,
             requestPath || '../request'
-          )
+          ),
+          writeMustacheFile(templates.utils, {name: 'utils'}, folder)
         ]
       )
     } catch(err) {

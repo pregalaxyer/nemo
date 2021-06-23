@@ -14,7 +14,7 @@ describe('write request tests', () => {
   test('fs module called', async () => {
     const writeMustacheFile = jest.spyOn(files, 'writeMustacheFile')
     await writeRequest(templates, '../.test')
-    expect(writeMustacheFile).toHaveBeenCalledTimes(2)
+    expect(writeMustacheFile).toHaveBeenCalledTimes(1)
     expect(writeMustacheFile).toHaveBeenCalledWith(templates.request, {
       name: 'index'
     }, '../.test' + '/request')

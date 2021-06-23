@@ -11,4 +11,5 @@ test('registerTemplates should return templates', () => {
   expect(registerTemplates()).toHaveProperty('index')
   expect(registerTemplates()).toHaveProperty('request')
   expect(registerTemplates()).toHaveProperty('model')
+  expect(registerTemplates()).toHaveProperty('utils')
 })

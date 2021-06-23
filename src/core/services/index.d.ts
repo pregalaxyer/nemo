@@ -12,7 +12,7 @@ export interface ServiceController {
 export interface BaseRequest {
   name: string
   description: string
-  response?: string
+  responseType?: string
   parameters?: TypeItem[]
   query?: TypeItem[]
   body?: TypeItem[]

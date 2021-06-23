@@ -1,8 +1,9 @@
-import { writeExport } from './writeExport'
+import { writeExport, writeIndex } from './writeExport'
 import * as path from 'path'
 import fs from 'fs-extra'
-import {writeIndex  } from './writeIndex'
-jest.mock('./writeIndex')
+// import {writeIndex  } from './writeIndex'
+// import { writeIndex } from './writeIndex'
+import * as files from './files'
 jest.mock('fs-extra', () => {
   return {
     _isEsModule: true,
@@ -15,15 +16,46 @@ jest.mock('fs-extra', () => {
     })
   };
 });
+jest.mock('./files', () => ({
+  _esModule: true,
+  writeMustacheFile: jest.fn()
+}))
+
+describe('writeIndex tests',() => {
+  let templates
+  beforeAll(async () => {
+    jest.restoreAllMocks()
+    templates = {
+      index: 'index',
+      model: 'model',
+      request: 'request',
+      'request.d': 'request.d',
+      service: 'service',
+    }
+  })
+  test('writeIndex should call writeMustacheFile', async () => {
+    await writeIndex(['test.ts'], templates, '../.test')
+    expect(files.writeMustacheFile).toHaveBeenCalledTimes(1)
+    expect(files.writeMustacheFile).toBeCalledWith(templates.index, {
+      exports: [{"filename": "test","filepath": "test",}],
+      name: 'index'
+    }, '../.test')
+  })
 
 
-describe('writeExports test', () => {
   test('writeExports should call writeIndex', async() => {
     await writeExport({ index: 'aaa'}, path.join(__dirname, '../.test'))
-    expect(writeIndex).toHaveBeenCalledTimes(1)
-    expect(writeIndex).toHaveBeenCalledWith(
-      ["./models/index.ts", "./services/index.ts"],
-      { index: 'aaa'},
-      path.join(__dirname, '../.test') )
+    expect(files.writeMustacheFile).toHaveBeenCalled()
+    expect(files.writeMustacheFile).toHaveBeenCalledWith('aaa', {
+      exports: [{"filename": "index","filepath": "./models/index",},{
+        "filename": "index","filepath": "./services/index",
+      }],
+      name: 'index'
+    },
+      path.join(__dirname, '../.test')
+    )
   })
+
 })
+
+

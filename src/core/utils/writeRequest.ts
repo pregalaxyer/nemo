@@ -9,14 +9,11 @@ export async function writeRequest(
 ): Promise<void> {
   try {
     await fs.mkdirsSync(path + '/request')
-    await Promise.all([
-      writeMustacheFile(templates.request, {
-        name: 'index'
-      }, path + '/request' ),
-      writeMustacheFile(templates['request.d'], {
-        name: 'index.d'
-      }, path + '/request' )
-    ])
+    await writeMustacheFile(
+      templates.request,
+      { name: 'index' },
+      path + '/request'
+    )
   } catch(err) {
     console.error(err)
   }

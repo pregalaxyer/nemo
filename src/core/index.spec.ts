@@ -33,15 +33,13 @@ jest.mock('./utils', () => ({
       }
     ]
   }),
-  registerTemplates: jest.fn(async() => {
-    return {
-      index: 'index',
-      serverice: 'service',
-      request: 'request',
-      'request.d': 'request.d',
-      model: 'models'
-    }
-  }).mockImplementation(),
+  registerTemplates: jest.fn().mockReturnValue({
+    index: 'index',
+    serverice: 'service',
+    request: 'request',
+    model: 'models',
+    utils: 'utils'
+  }),
   writeServices: jest.fn(async(a, b,c,d) => {
 
   }).mockImplementation(),
