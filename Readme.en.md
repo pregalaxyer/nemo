@@ -86,7 +86,7 @@ request<ResponseType>(url: string, options: Options)
 import fetch from `${library}`
 import { getRequestBody, Options  } from `${output}/utils`
 
-export default async function request<T>(url, options) {
+export default async function <T>(url, options) {
   const body: BodyInit | undefined = getRequestBody(options)
   const data = await request<T>(url, Object.assign(options, {body}))
   return data

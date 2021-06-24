@@ -12,7 +12,7 @@ export function getUrl(url: string, query: Options['query']) {
   return query ? url + '?' + qs.stringify(query) : url
 }
 
-export function isString(value: any): value is String {
+export function isString(value: any): value is string {
   return typeof value === 'string'
 }
 
@@ -48,7 +48,7 @@ export function getFormData(data: Record<string, any>): FormData {
 
 export function getRequestBody(options: Options): BodyInit | undefined {
   if (options.body) {
-    return isBlob(options.body) || isBlob(options.body) ? options.body : JSON.stringify(options.body)
+    return isBlob(options.body) || isString(options.body) ? options.body : JSON.stringify(options.body)
   }
   if (options.formData) {
     return getFormData(options.formData)
