@@ -8,6 +8,7 @@
 <img src="https://img.shields.io/travis/com/diveDylan/nemo?style=plastic"/>
 <img src="https://img.shields.io/codecov/c/github/diveDylan/nemo?style=plastic"/>
 <img src="https://img.shields.io/npm/dw/@dylan92/nemo?style=plastic">
+<img src="https://img.shields.io/badge/pkg--manage-pnpm-orange">
 </div>
 
 <p  style="text-align: center"> a 💪 typescript generator 🔨 for swagger resultful api, based on swagger v2 </p>
@@ -61,6 +62,9 @@ interface SwaggerConfig {
 ```
 ```node
 const main = require('@dylan92/nemo')
+
+// with esm
+import main from '@dylan92/nemo'
 
 main({
   url: 'https://petstore.swagger.io/v2/swagger.json',

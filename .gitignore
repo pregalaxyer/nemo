@@ -7,3 +7,4 @@ api
 coverage
 lib
 tests/.output
+esm

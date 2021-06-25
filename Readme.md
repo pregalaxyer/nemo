@@ -7,6 +7,7 @@
 <img src="https://img.shields.io/travis/com/diveDylan/nemo?style=plastic"/>
 <img src="https://img.shields.io/codecov/c/github/diveDylan/nemo?style=plastic"/>
 <img src="https://img.shields.io/npm/dw/@dylan92/nemo?style=plastic">
+<img src="https://img.shields.io/badge/pkg--manage-pnpm-orange">
 </div>
 <p style="text-align: center"> 
 一个自动化生成 <code>swagger typescript</code> 文件的💪工具，基于 <code>swagger V2</code>
@@ -66,6 +67,9 @@ interface SwaggerConfig {
 ```node
 // swagger.js
 const main = require('@dylan92/nemo')
+
+// with esm
+import main from '@dylan92/nemo'
 
 main({
   url: 'https://petstore.swagger.io/v2/swagger.json',
