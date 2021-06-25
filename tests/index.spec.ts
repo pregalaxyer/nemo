@@ -1,6 +1,6 @@
 // TODO for lib test
 
-import  main from '../lib/index'
+import  main from '../esm/index'
 import fs from 'fs-extra'
 import path from 'path'
 
@@ -12,7 +12,7 @@ test('lib excute', async () => {
     paths: ['/pet'],
     exportsRequest: true
   })
-  
+
   const [models, services] = await Promise.all([
     fs.readdirSync(path.resolve(__dirname, '.output/models')),
     fs.readdirSync(path.resolve(__dirname,'.output/services'))
