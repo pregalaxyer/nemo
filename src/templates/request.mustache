@@ -1,13 +1,17 @@
+/**
+ * * notice this file create by nemo
+ * * like it! Give me a star 🌟 https://github.com/diveDylan/nemo
+ */
 import { Options } from '../utils'
 import { getUrl, getRequestBody, getHeaders } from '../utils'
 
 /**
  * @description default request
- * *  cookies always set in request headers when http reponse headers has set-cookie 
+ * *  cookies always set in request headers when http reponse headers has set-cookie
  */
 export async function request<T>(url, options: Options): Promise<T>{
   const res: T = await fetch(
-    getUrl(url, options.query), 
+    getUrl(url, options.query),
     {
       method: options.method || 'GET',
       body: getRequestBody(options),
