@@ -9,10 +9,12 @@
     "@rollup/plugin-commonjs": "^18.0.0",
     "@types/mustache": "^4.1.1",
     "all": "^0.0.0",
+    "chalk": "^4.1.1",
     "codecov": "^3.8.1",
     "fs-extra": "^9.1.0",
     "mustache": "^4.2.0",
     "node-fetch": "^2.6.1",
+    "ora": "^5.4.1",
     "query-string": "^7.0.0",
     "rimraf": "^3.0.2",
     "rollup": "^2.45.2",
@@ -48,6 +50,11 @@
     "testPathIgnorePatterns": [
       "<rootDir>/lib",
       ".test_folder"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/src/templates/",
+      "/src/core/utils/index.ts",
+      "/esm/"
     ]
   },
   "directories": {

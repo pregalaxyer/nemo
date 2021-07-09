@@ -18,5 +18,10 @@ describe('write request tests', () => {
     expect(writeMustacheFile).toHaveBeenCalledWith(templates.request, {
       name: 'index'
     }, '../.test' + '/request')
+    let error = jest.spyOn(global.console, 'error')
+    // @ts-ignore
+    await writeRequest({}, null, '')
+    expect(error).toBeCalled()
+
   })
 })

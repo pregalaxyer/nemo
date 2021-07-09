@@ -27,5 +27,9 @@ describe('writeInterfaces tests',() => {
       imports: [],
       types: []
     }, '../.test/models')
+    let error = jest.spyOn(global.console, 'error')
+    // @ts-ignore
+    await writeInterfaces({}, null, '../.test')
+    expect(error).toBeCalled()
   })
 })

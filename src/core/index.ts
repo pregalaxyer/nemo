@@ -69,7 +69,7 @@ export default async function main({
       console.error('write models and service error: ', err)
     }
     writeExport(templates, folder)
-    
+
   }
 }
 

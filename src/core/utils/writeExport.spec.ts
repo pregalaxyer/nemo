@@ -54,6 +54,9 @@ describe('writeIndex tests',() => {
     },
       path.join(__dirname, '../.test')
     )
+    let error = jest.spyOn(global.console, 'error')
+    await writeIndex([], null, '')
+    expect(error).toBeCalled()
   })
 
 })
