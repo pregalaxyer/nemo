@@ -4,6 +4,7 @@
 <h1 style="text-align: center">nemo🐠</h1>
 <div style="text-align: center">
 <img src="https://img.shields.io/npm/v/@dylan92/nemo?color=%23&style=plastic" />
+<img src="https://img.shields.io/npm/l/@dylan92/nemo" />
 <img src="https://img.shields.io/travis/com/diveDylan/nemo?style=plastic"/>
 <img src="https://img.shields.io/codecov/c/github/diveDylan/nemo?style=plastic"/>
 <img src="https://img.shields.io/npm/dm/@dylan92/nemo?style=plastic">
