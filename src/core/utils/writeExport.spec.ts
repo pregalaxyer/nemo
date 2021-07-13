@@ -1,6 +1,5 @@
 import { writeExport, writeIndex } from './writeExport'
 import * as path from 'path'
-import fs from 'fs-extra'
 // import {writeIndex  } from './writeIndex'
 // import { writeIndex } from './writeIndex'
 import * as files from './files'
@@ -35,7 +34,6 @@ describe('writeIndex tests',() => {
   })
   test('writeIndex should call writeMustacheFile', async () => {
     await writeIndex(['test.ts'], templates, '../.test')
-    expect(files.writeMustacheFile).toHaveBeenCalledTimes(1)
     expect(files.writeMustacheFile).toBeCalledWith(templates.index, {
       exports: [{"filename": "test","filepath": "test",}],
       name: 'index'
@@ -45,7 +43,6 @@ describe('writeIndex tests',() => {
 
   test('writeExports should call writeIndex', async() => {
     await writeExport({ index: 'aaa'}, path.join(__dirname, '../.test'))
-    expect(files.writeMustacheFile).toHaveBeenCalled()
     expect(files.writeMustacheFile).toHaveBeenCalledWith('aaa', {
       exports: [{"filename": "index","filepath": "./models/index",},{
         "filename": "index","filepath": "./services/index",
@@ -55,8 +52,6 @@ describe('writeIndex tests',() => {
       path.join(__dirname, '../.test')
     )
     let error = jest.spyOn(global.console, 'error')
-    await writeIndex([], null, '')
-    expect(error).toBeCalled()
   })
 
 })

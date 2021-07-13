@@ -15,9 +15,6 @@
 </p>
 
 
-
-
-
 ## 安装
 
 ```node
@@ -25,6 +22,19 @@
   // or
   yarn add @dylan92/nemo
 ```
+
+## 构建
+
+```zsh
+# https://github.com/grosser/wwtd
+gem install wwtd
+# then
+wwtd
+
+
+```
+
+
 
 
 ## 用法
