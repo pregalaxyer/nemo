@@ -31,7 +31,6 @@ gem install wwtd
 # then
 wwtd
 
-
 ```
 
 

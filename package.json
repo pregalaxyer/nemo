@@ -11,6 +11,8 @@
     "all": "^0.0.0",
     "chalk": "^4.1.1",
     "codecov": "^3.8.1",
+    "commitizen": "^4.2.4",
+    "cz-conventional-changelog": "^3.3.0",
     "fs-extra": "^9.1.0",
     "mustache": "^4.2.0",
     "node-fetch": "^2.6.1",
@@ -42,6 +44,22 @@
     "jest": "^26.6.3",
     "msw": "^0.28.2",
     "tslib": "^2.2.0"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "lint-staged": {
+    "{src,test}/**/*.ts": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    }
   },
   "jest": {
     "moduleNameMapper": {
