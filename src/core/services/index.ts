@@ -2,7 +2,7 @@
  * * Swagger V3
  * @notice https://editor.swagger.io/?_ga=2.129656330.728723237.1624434404-1915285820.1624243698
  * convert api json to v3
- * * requestBody -> parameters in body & formData content 
+ * * requestBody -> parameters in body & formData content
  * * parameters -> parameters in query
  */
 import { Swagger, Tag, Path, SwaggerResponses, Parameter, ParameterIn } from '../types'
@@ -10,9 +10,9 @@ import { ServiceController,  } from './index.d'
 import { formatTypes } from '../interfaces'
 import { TypeItem } from '../interfaces/index.d'
 /**
- * A list of tags used by the specification with additional metadata. 
- * The order of the tags can be used to reflect on their order by the parsing tools. 
- * Not all tags that are used by the Operation Object must be declared. 
+ * A list of tags used by the specification with additional metadata.
+ * The order of the tags can be used to reflect on their order by the parsing tools.
+ * Not all tags that are used by the Operation Object must be declared.
  * The tags that are not declared may be organized randomly or based on the tools' logic.
  * Each tag name in the list MUST be unique.
  * @param tags use tag unique name as service filename
@@ -33,13 +33,13 @@ export function getControllers(tags: Tag[]): Record<string, ServiceController> {
 /**
  * we get service controller data from swagger specification
  * https://swagger.io/specification
- * @param swagger 
+ * @param swagger
  * @returns ServiceController
  */
 export function convertService(swagger: Swagger): ServiceController[] {
   let controllerMap = getControllers(swagger.tags)
   const paths = Object.keys(swagger.paths)
-  // get service template data one by one 
+  // get service template data one by one
   paths.forEach(path => getServiceMapData(path, swagger, controllerMap ))
   return Object.values(controllerMap).map(service => {
     service.imports = Array.from(new Set(service.imports))
@@ -48,7 +48,7 @@ export function convertService(swagger: Swagger): ServiceController[] {
 }
 
 
-function getServiceMapData(
+export function getServiceMapData(
   path: string,
   swagger:Swagger,
   controllerMap:  Record<string, ServiceController>
@@ -58,10 +58,6 @@ function getServiceMapData(
     const methodWrapper = methods[method]
     if (controllerMap[methodWrapper.tags[0]]) {
       const tag = controllerMap[methodWrapper.tags[0]]
-      // here we need to notice not like body, formData, path, query should
-      // be a collection types
-      // eg: body: `{ key: type, key1: type1} `
-      // query formData path: `key: type, key1: type1`
       const {
         parametersRecord,
         imports,
@@ -109,6 +105,12 @@ export function getResponseType(responses: SwaggerResponses){
   return responses['200'] && responses['200'].schema ? formatTypes(responses['200'].schema) : 'any'
 }
 
+/**
+* here we need to notice not like body, formData, path, query should
+* be a collection types
+* eg: body: `{ key: type, key1: type1} `
+* query formData path: `key: type, key1: type1`
+ */
 export function getParameters(
   parameters:Parameter[]
 ): {

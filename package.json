@@ -1,6 +1,6 @@
 {
   "name": "@dylan92/nemo",
-  "version": "0.1.5",
+  "version": "0.1.10",
   "description": "swagger typescript codegen",
   "main": "lib/index.js",
   "module": "esm/index.js",
@@ -9,10 +9,14 @@
     "@rollup/plugin-commonjs": "^18.0.0",
     "@types/mustache": "^4.1.1",
     "all": "^0.0.0",
+    "chalk": "^4.1.1",
     "codecov": "^3.8.1",
+    "commitizen": "^4.2.4",
+    "cz-conventional-changelog": "^3.3.0",
     "fs-extra": "^9.1.0",
     "mustache": "^4.2.0",
     "node-fetch": "^2.6.1",
+    "ora": "^5.4.1",
     "query-string": "^7.0.0",
     "rimraf": "^3.0.2",
     "rollup": "^2.45.2",
@@ -41,6 +45,22 @@
     "msw": "^0.28.2",
     "tslib": "^2.2.0"
   },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "lint-staged": {
+    "{src,test}/**/*.ts": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    }
+  },
   "jest": {
     "moduleNameMapper": {
       "\\.mustache$": "<rootDir>/src/templates/.mock/index.js"
@@ -48,11 +68,17 @@
     "testPathIgnorePatterns": [
       "<rootDir>/lib",
       ".test_folder"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/src/templates/",
+      "/src/core/utils/index.ts",
+      "/esm/"
     ]
   },
   "directories": {
     "lib": "lib",
-    "test": "test"
+    "test": "test",
+    "esm": "esm"
   },
   "repository": {
     "type": "git",
@@ -66,7 +92,7 @@
     "generator",
     "openapi"
   ],
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/diveDylan/nemo/issues"
   },

@@ -17,9 +17,14 @@ jest.mock('fs-extra', () => {
 jest.mock('./utils', () => ({
   _esModule: true,
   fetchApiJson: jest.fn().mockImplementation(async (url) => {
-    const fetch = require('node-fetch')
-    const res = await fetch(url).then(res => res.json())
-    return res
+    if (url ) {
+      const fetch = require('node-fetch')
+      const res = await fetch(url).then(res => res.json())
+      return res
+    }else {
+      return false
+    }
+
   }),
   handlePaths: jest.fn().mockReturnValue({
     models: [
@@ -57,8 +62,11 @@ jest.mock('./utils', () => ({
   })
 
 }))
+beforeEach(() => {
+  jest.clearAllMocks()
+})
 describe('main function', () => {
-  
+
   test('definitions should create all interface files', async () => {
       await main({
         url: 'https://petstore.swagger.io/v2/swagger.json',
@@ -74,7 +82,20 @@ describe('main function', () => {
       expect(writeInterfaces).toHaveBeenCalledTimes(1)
       expect(writeRequest).toHaveBeenCalledTimes(1)
       expect(writeExport).toHaveBeenCalledTimes(1)
+
     })
-  
+
+    test('no json data', async () => {
+      await main({
+        url: '',
+        output: './src/core/test',
+        requestPath: null,
+        exportsRequest: true
+      })
+      expect(writeInterfaces).toHaveBeenCalledTimes(0)
+      expect(writeRequest).toHaveBeenCalledTimes(0)
+      expect(writeExport).toHaveBeenCalledTimes(0)
+    })
+
 })
 

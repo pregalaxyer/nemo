@@ -1,21 +1,15 @@
-import fs from 'fs-extra'
+import * as fs from 'fs-extra'
 import * as mustache from 'mustache'
 import { writeMustacheFile } from './files'
 jest.mock('mustache', () => ({
   __esModule: true,
   render: jest.fn().mockReturnValue('')
 }))
+
 jest.mock('fs-extra', () => {
   return {
     _isEsModule: true,
     writeFileSync: jest.fn(() => {}),
-    pathExistsSync: jest.fn().mockReturnValue(true),
-    removeSync: jest.fn(),
-    mkdirsSync: jest.fn(),
-    readdirSync: jest.fn().mockImplementation(async(path) => {
-      const arr = String(path).indexOf('models') ? ['./models/index.ts'] : ["./services/index.ts"]
-      return arr
-    })
   };
 });
 describe('files tests', () => {
@@ -26,9 +20,11 @@ describe('files tests', () => {
       name: 'render_test',
       author: 'dylan'
     }
-
     await writeMustacheFile(testTemp, testData, '../.test')
     expect(mustache.render).toBeCalledWith(testTemp, testData)
     expect(fs.writeFileSync).toBeCalled()
+    // @ts-ignore
+    writeMustacheFile(testTemp, null, '../.test').catch(err => expect(err).toBeDefined())
+
   })
 })

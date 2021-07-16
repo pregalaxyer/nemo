@@ -1,5 +1,17 @@
 import { writeRequest } from './writeRequest'
-import * as files from './files'
+import * as fs from 'fs-extra'
+import {writeMustacheFile } from './files'
+jest.mock('fs-extra', () => ({
+  __esModule: true,
+  mkdirsSync: jest.fn().mockImplementation(async (path: string) => {
+    if (path.startsWith('undefined')) throw Error()
+    return true
+  })
+}))
+jest.mock('./files', () => ({
+  __esModule: true,
+  writeMustacheFile: jest.fn().mockReturnValue(Promise.resolve(true))
+}))
 describe('write request tests', () => {
   let templates
   beforeAll(async () => {
@@ -11,12 +23,12 @@ describe('write request tests', () => {
       service: 'service',
     }
   })
-  test('fs module called', async () => {
-    const writeMustacheFile = jest.spyOn(files, 'writeMustacheFile')
+  test('fs and writeMustacheFile module called', async () => {
     await writeRequest(templates, '../.test')
+    expect(fs.mkdirsSync).toBeCalled()
+    // @ts-ignore
+    await writeRequest({}, 'undefined')
     expect(writeMustacheFile).toHaveBeenCalledTimes(1)
-    expect(writeMustacheFile).toHaveBeenCalledWith(templates.request, {
-      name: 'index'
-    }, '../.test' + '/request')
+
   })
 })
