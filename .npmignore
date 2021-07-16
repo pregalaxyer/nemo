@@ -1,0 +1,8 @@
+node_modules
+.history
+api
+.test_folder
+*.log
+coverage
+tests
+tests/.output
