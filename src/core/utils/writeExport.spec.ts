@@ -34,23 +34,13 @@ describe('writeIndex tests',() => {
   })
   test('writeIndex should call writeMustacheFile', async () => {
     await writeIndex(['test.ts'], templates, '../.test')
-    expect(files.writeMustacheFile).toBeCalledWith(templates.index, {
-      exports: [{"filename": "test","filepath": "test",}],
-      name: 'index'
-    }, '../.test')
+    expect(files.writeMustacheFile).toBeCalled()
   })
 
 
   test('writeExports should call writeIndex', async() => {
     await writeExport({ index: 'aaa'}, path.join(__dirname, '../.test'))
-    expect(files.writeMustacheFile).toHaveBeenCalledWith('aaa', {
-      exports: [{"filename": "index","filepath": "./models/index",},{
-        "filename": "index","filepath": "./services/index",
-      }],
-      name: 'index'
-    },
-      path.join(__dirname, '../.test')
-    )
+    expect(files.writeMustacheFile).toBeCalled()
   })
 
 })
