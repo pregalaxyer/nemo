@@ -1,6 +1,6 @@
 {
   "name": "@dylan92/nemo",
-  "version": "0.1.8",
+  "version": "0.1.10",
   "description": "swagger typescript codegen",
   "main": "lib/index.js",
   "module": "esm/index.js",
@@ -77,7 +77,8 @@
   },
   "directories": {
     "lib": "lib",
-    "test": "test"
+    "test": "test",
+    "esm": "esm"
   },
   "repository": {
     "type": "git",

@@ -13,8 +13,6 @@ export async function writeIndex(
     })),
     name: 'index'
   }, path)
-
-
 }
 
 export async function writeExport(templates, folder) {
