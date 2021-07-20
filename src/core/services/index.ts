@@ -2,8 +2,9 @@
  * * Swagger V3
  * @notice https://editor.swagger.io/?_ga=2.129656330.728723237.1624434404-1915285820.1624243698
  * convert api json to v3
- * * requestBody -> parameters in body & formData content
+ * * requestBody -> parameters in body & formData content (nested in media type object)
  * * parameters -> parameters in query
+ * * responses -> responses object (nested in media type object)
  */
 import { Swagger, Tag, Path, SwaggerResponses, Parameter, ParameterIn } from '../types'
 import { ServiceController,  } from './index.d'
