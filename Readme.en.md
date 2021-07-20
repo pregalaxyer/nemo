@@ -44,7 +44,7 @@ interface SwaggerConfig {
   /**
    * @description single-api or apis
    */
-  paths?: string[]
+  paths?: Array<string | Regexp>
   /**
    * @description output floder
    */
