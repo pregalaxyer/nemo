@@ -11,7 +11,7 @@ interface SwaggerConfig {
   /**
    * @description single-api or apis
    */
-  paths?: string[]
+  paths?: Array<string|RegExp>
   /**
    * @description output floder
    */
