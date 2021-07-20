@@ -11,11 +11,11 @@ export async function writeInterfaces(
 ): Promise<void> {
   try {
     await fs.mkdirsSync(path + '/models')
-    const res = await Promise.all(
+    await Promise.all(
       models.map(model => writeMustacheFile(templates.model, model, path + '/models'))
     )
   } catch(err) {
     console.error(err)
   }
-  
+
 }
