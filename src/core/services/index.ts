@@ -5,6 +5,8 @@
  * * requestBody -> parameters in body & formData content (nested in media type object)
  * * parameters -> parameters in query
  * * responses -> responses object (nested in media type object)
+ * * definitions -> components[schemas]
+ * * schemas required outside handler
  */
 import { Swagger, Tag, Path, SwaggerResponses, Parameter, ParameterIn } from '../types'
 import { ServiceController,  } from './index.d'
