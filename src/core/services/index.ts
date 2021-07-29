@@ -71,7 +71,6 @@ export function getServiceMapData(
         hasQuery,
         hasBody,
         hasFormData,
-        hasHeader
       } = getParameters(methodWrapper.parameters)
       tag.imports.push(...(imports || []))
       // get responsetype
@@ -91,7 +90,6 @@ export function getServiceMapData(
         hasQuery,
         hasBody,
         hasFormData,
-        hasHeader,
       }
       tag.requests.push(request)
     }
@@ -118,6 +116,7 @@ export function getResponseType(responses: SwaggerResponses){
 * be a collection types
 * eg: body: `{ key: type, key1: type1} `
 * query formData path: `key: type, key1: type1`
+* *notice schema: https://swagger.io/specification/v2/#parameterObject
  */
 export function getParameters(
   parameters:Parameter[]
@@ -128,7 +127,6 @@ export function getParameters(
   hasQuery?: boolean
   hasBody?: boolean
   hasFormData?: boolean
-  hasHeader?: boolean
  } {
   if (!parameters) return {}
   const parametersRecord: Partial<Record<ParameterIn, TypeItem[]>> = {}
@@ -159,6 +157,5 @@ export function getParameters(
     hasQuery: !!parametersRecord.query && parametersRecord.query.length > 0,
     hasBody: !!parametersRecord.body && parametersRecord.body.length > 0,
     hasFormData: !!parametersRecord.formData && parametersRecord.formData.length > 0,
-    hasHeader:  !!parametersRecord.formData && parametersRecord.formData.length > 0,
   }
 }
