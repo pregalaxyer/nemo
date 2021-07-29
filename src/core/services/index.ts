@@ -48,6 +48,10 @@ export function convertService(swagger: Swagger): ServiceController[] {
   })
 }
 
+export function handlerBasePath(path: string): string {
+  return path === '/' || !path ? '' : path
+}
+
 
 export function getServiceMapData(
   path: string,
@@ -55,6 +59,7 @@ export function getServiceMapData(
   controllerMap:  Record<string, ServiceController>
 ) {
   const methods = swagger.paths[path]
+  const basePath = handlerBasePath(swagger.basePath)
   Object.keys(methods).forEach(method => {
     const methodWrapper = methods[method]
     if (controllerMap[methodWrapper.tags[0]]) {
@@ -65,7 +70,7 @@ export function getServiceMapData(
         parameters,
         hasQuery,
         hasBody,
-        hasFormData
+        hasFormData,
       } = getParameters(methodWrapper.parameters)
       tag.imports.push(...(imports || []))
       // get responsetype
@@ -75,7 +80,7 @@ export function getServiceMapData(
       const request = {
         method: method.toUpperCase(),
         description: methodWrapper.summary,
-        url: `${path.replace(/\{(.+)\}/, '${$1}')}`,
+        url: basePath + `${path.replace(/\{(.+)\}/, '${$1}')}`,
         name: methodWrapper.operationId,
         responseType:
           typeof response !== 'string'
@@ -84,7 +89,7 @@ export function getServiceMapData(
         parameters,
         hasQuery,
         hasBody,
-        hasFormData
+        hasFormData,
       }
       tag.requests.push(request)
     }
@@ -111,6 +116,7 @@ export function getResponseType(responses: SwaggerResponses){
 * be a collection types
 * eg: body: `{ key: type, key1: type1} `
 * query formData path: `key: type, key1: type1`
+* *notice schema: https://swagger.io/specification/v2/#parameterObject
  */
 export function getParameters(
   parameters:Parameter[]
@@ -150,6 +156,6 @@ export function getParameters(
     imports,
     hasQuery: !!parametersRecord.query && parametersRecord.query.length > 0,
     hasBody: !!parametersRecord.body && parametersRecord.body.length > 0,
-    hasFormData: !!parametersRecord.formData && parametersRecord.formData.length > 0
+    hasFormData: !!parametersRecord.formData && parametersRecord.formData.length > 0,
   }
 }
