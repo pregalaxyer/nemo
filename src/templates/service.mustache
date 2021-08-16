@@ -5,7 +5,7 @@
 {{#imports}}
 import {{.}} from '../models/{{.}}'
 {{/imports}}
-import request from '{{{requestPath}}}'
+import _request from '{{{requestPath}}}'
 
 {{#description}}
 /**
@@ -33,7 +33,7 @@ export default class {{name}} {
      */
     signal?: AbortSignal
   ){{#responseType}}:Promise<{{{responseType}}}>{{/responseType}} => {
-    const res = await request{{#responseType}}<{{{responseType}}}>{{/responseType}}(`{{&url}}`, {
+    const res = await _request{{#responseType}}<{{{responseType}}}>{{/responseType}}(`{{&url}}`, {
       method: '{{method}}',
       {{#hasBody}}
       {{#body}}
