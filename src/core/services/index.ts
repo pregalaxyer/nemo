@@ -140,7 +140,7 @@ export function getParameters(
       name: parameter.name,
       type,
       imports: model,
-      isOption: parameter.required,
+      isOption: !parameter.required,
       description: parameter.description
     }
     parametersRecord[parameter.in].push(param)
