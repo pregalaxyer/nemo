@@ -26,7 +26,7 @@ export default class {{name}} {
      * @description {{description}}
      */
     {{/description}}
-    {{name}}: {{&type}}{{#isOption}} | undefined{{/isOption}},
+    {{name}}{{#isOption}}?{{/isOption}}: {{&type}},
     {{/parameters}}
     /**
      * @description signal from abortcontroller is helpful when you want abort a request
