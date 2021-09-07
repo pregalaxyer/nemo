@@ -1,4 +1,4 @@
-import { getControllers, convertService, getParameters, getResponseType, getServiceMapData } from './index'
+import { getControllers, convertService, getParameters, getResponseType, getServiceMapData, handlerBasePath } from './index'
 import { fetchApiJson } from '../utils/share'
 import { Parameter } from '../types'
 
@@ -64,6 +64,11 @@ describe('services tests',  () => {
     let controllerMap = getControllers(swagger.tags)
     getServiceMapData('/pet', swagger, controllerMap)
     expect(controllerMap.pet.requests.length).toBeGreaterThan(1)
+  })
+
+  test('handlerBasePath will deal null, undefined', () => {
+    expect(handlerBasePath(null)).toBe('')
+    expect(handlerBasePath('/v2')).toBe('/v2')
   })
 
 })

@@ -6,7 +6,7 @@ import path from 'path'
 
 test('lib excute', async () => {
   await main({
-    url: 'https://openapi-gateway-dev.ocjfuli.com/openapigw/app/crm/v2/api-docs',
+    url: 'https://petstore.swagger.io/v2/swagger.json',
     output: './tests/.output',
     requestPath: null,
     paths: undefined,
