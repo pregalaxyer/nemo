@@ -51,7 +51,7 @@ describe('services tests',  () => {
       getParameters(parameters)
     ).toHaveProperty('parametersRecord', {
       'body':
-        [{"description": "request", "imports": ["AchievementTransferAddRequest"], "isOption": true, "name": "request", "type": "AchievementTransferAddRequest"}]
+        [{"description": "request", "imports": ["AchievementTransferAddRequest"], "isOption": false, "name": "request", "type": "AchievementTransferAddRequest"}]
 
     })
   })

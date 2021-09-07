@@ -16,7 +16,6 @@ export async function request<T>(url, options: Options): Promise<T>{
       method: options.method || 'GET',
       body: getRequestBody(options),
       headers: getHeaders(options),
-      signal: options.signal
     }
   ).then(res => res.json())
   return res

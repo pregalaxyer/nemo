@@ -5,7 +5,7 @@
 {{#imports}}
 import {{.}} from '../models/{{.}}'
 {{/imports}}
-import request from '{{{requestPath}}}'
+import _request from '{{{requestPath}}}'
 
 {{#description}}
 /**
@@ -26,14 +26,10 @@ export default class {{name}} {
      * @description {{description}}
      */
     {{/description}}
-    {{name}}: {{&type}}{{#isOption}} | undefined{{/isOption}},
+    {{name}}{{#isOption}}?{{/isOption}}: {{&type}},
     {{/parameters}}
-    /**
-     * @description signal from abortcontroller is helpful when you want abort a request
-     */
-    signal?: AbortSignal
   ){{#responseType}}:Promise<{{{responseType}}}>{{/responseType}} => {
-    const res = await request{{#responseType}}<{{{responseType}}}>{{/responseType}}(`{{&url}}`, {
+    const res = await _request{{#responseType}}<{{{responseType}}}>{{/responseType}}(`{{&url}}`, {
       method: '{{method}}',
       {{#hasBody}}
       {{#body}}
@@ -54,7 +50,6 @@ export default class {{name}} {
       {{/formData}}
       },
       {{/hasFormData}}
-      signal,
     })
     return res
   }

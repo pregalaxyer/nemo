@@ -112,33 +112,4 @@ export default async function <T>(url, options) {
 }
 ```
 
-### AbortController
-
-这是一个比较新且必要的请求属性，它使请求变得可控。接口消耗的时长是不确定的，作为交互代价，你在某些业务场景使用不同参数请求了相同的接口，一般拿的是最后一份数据（在 `hooks` 中这种副作用尤为明显），下面是一份伪代码
-
-
-```js
-// react.js
-// thinks your have two tabs: tabA, tabB
-// when you forgot abortcontroller
-fetchList({
-  tab: tabName
-}).then(res => setList(res.list))
-// change to tabB from tabA, tabA has lowsql or cost more times
-// step one: in tabA, expect tabAList
-fetchList({
-  tab: tabA
-})
-// step two: in tabB, expect tabBList
-fetchList({
-  tab: tabB
-})
-// after all, list is tabAList
-fetchList({
-  tab: tabName
-}, abortControllerSignal)
-// when change tab
-abortController.abort()
-```
-
 

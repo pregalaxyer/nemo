@@ -9,8 +9,9 @@ export function convertModels(definitions: { [key: string]: Definition } ): Type
   const models: Types.Model[] = []
   const interfaceNames = Object.keys(definitions)
   interfaceNames.forEach(interfaceName => {
+    const modelName = convertDefinitionProperty(definitions[interfaceName].title || interfaceName)
     const model: Types.Model = {
-      name: convertDefinitionProperty(definitions[interfaceName].title || interfaceName),
+      name: modelName,
       imports: [],
       types: [],
       description: definitions[interfaceName].description
@@ -22,17 +23,18 @@ export function convertModels(definitions: { [key: string]: Definition } ): Type
         ).forEach(
           property => {
             const types = formatTypes(definitions[interfaceName].properties[property])
-            const isRequired = definitions[interfaceName].required 
+            const isRequired = definitions[interfaceName].required
               && definitions[interfaceName].required.includes(property)
             types.model
               && types.model.length
-              && model.imports.push(...types.model)
+              && model.imports.push(...types.model.filter(name => name !== modelName))
+            model.imports = Array.from(new Set(model.imports))
             model.types.push({
               ...types,
               name: property,
               isOption: !isRequired
             })
-            
+
           }
         )
         models.push(model)
@@ -42,8 +44,8 @@ export function convertModels(definitions: { [key: string]: Definition } ): Type
   return models
 }
 /**
- * 
- * @param { definitionProperty } the definitionName 
+ *
+ * @param { definitionProperty } the definitionName
  * @returns format string join with '_'
  */
 export function convertDefinitionProperty(definitionProperty: string): string {
@@ -71,7 +73,7 @@ export function formatTypes(object): {
     case 'number':
     case 'integer':
       return { type: 'number', description: object.description}
-    case 'string': 
+    case 'string':
       return {
         type: object.enum ? formatStringEnums(object.enum) : 'string',
         description: object.description
