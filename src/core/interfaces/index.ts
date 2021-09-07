@@ -28,6 +28,7 @@ export function convertModels(definitions: { [key: string]: Definition } ): Type
             types.model
               && types.model.length
               && model.imports.push(...types.model.filter(name => name !== modelName))
+            model.imports = Array.from(new Set(model.imports))
             model.types.push({
               ...types,
               name: property,

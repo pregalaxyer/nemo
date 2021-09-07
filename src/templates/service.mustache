@@ -28,10 +28,6 @@ export default class {{name}} {
     {{/description}}
     {{name}}{{#isOption}}?{{/isOption}}: {{&type}},
     {{/parameters}}
-    /**
-     * @description signal from abortcontroller is helpful when you want abort a request
-     */
-    signal?: AbortSignal
   ){{#responseType}}:Promise<{{{responseType}}}>{{/responseType}} => {
     const res = await _request{{#responseType}}<{{{responseType}}}>{{/responseType}}(`{{&url}}`, {
       method: '{{method}}',
@@ -54,7 +50,6 @@ export default class {{name}} {
       {{/formData}}
       },
       {{/hasFormData}}
-      signal,
     })
     return res
   }

@@ -100,38 +100,6 @@ export default async function <T>(url, options) {
 
 
 
-## AbortController
-We takes [AbortController](https://developer.mozilla.org/en-US/docs/Web/API/AbortController) as a important parameters for fetch or other xhr request.
-It become more clear when you are a react hooks user.
-```js
-// react.js
-// thinks your have two tabs: tabA, tabB
-// when you forgot abortcontroller
-fetchList({
-  tab: tabName
-}).then(res => setList(res.list))
-// change to tabB from tabA, tabA has lowsql or cost more times
-// step one: in tabA, expect tabAList
-fetchList({
-  tab: tabA
-})
-// step two: in tabB, expect tabBList
-fetchList({
-  tab: tabB
-})
-// after all, list is tabAList
-fetchList({
-  tab: tabName
-}, abortControllerSignal)
-// when change tab
-abortController.abort()
-```
-
-
-
-
-
-
 
 
 
