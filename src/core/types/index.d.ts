@@ -62,7 +62,7 @@ export interface Swagger {
   paths: Path
   definitions: Record<string, Definition>
 }
-export type ParameterIn = 'body' | 'query' | 'path' | 'formData'
+export type ParameterIn = 'body' | 'query' | 'path' | 'formData' | 'header'
 export interface Parameter extends Partial<Items> {
   in: ParameterIn
   name: string
