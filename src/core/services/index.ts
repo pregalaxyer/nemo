@@ -83,7 +83,7 @@ export function getServiceMapData(
         method: method.toUpperCase(),
         description: methodWrapper.summary,
         url: basePath + `${path.replace(/\{(.+)\}/, '${$1}')}`,
-        name: methodWrapper.operationId,
+        name: methodWrapper.operationId.replace(/\_d$/, ''),
         responseType:
           typeof response !== 'string'
           ? response.type : response,
@@ -97,6 +97,7 @@ export function getServiceMapData(
     }
   })
 }
+
 
 export function getServiceName(name: string): string {
   const stringNew = name.split('-')
