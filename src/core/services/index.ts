@@ -82,7 +82,7 @@ export function getServiceMapData(
       const request = {
         method: method.toUpperCase(),
         description: methodWrapper.summary,
-        url: basePath + `${path.replace(/\{(.+)\}/, '${$1}')}`,
+        url: `${path.replace(/\{(.+)\}/, '${$1}')}`,
         name: methodWrapper.operationId.replace(/\_d$/, ''),
         responseType:
           typeof response !== 'string'
