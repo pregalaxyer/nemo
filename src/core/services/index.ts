@@ -83,7 +83,7 @@ export function getServiceMapData(
         method: method.toUpperCase(),
         description: methodWrapper.summary,
         url: `${path.replace(/\{(.+)\}/, '${$1}')}`,
-        name: methodWrapper.operationId.replace(/\_d$/, ''),
+        name: methodWrapper.operationId.replace(/\_\d+$/, ''),
         responseType:
           typeof response !== 'string'
           ? response.type : response,
