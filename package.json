@@ -1,6 +1,6 @@
 {
-  "name": "@dylan92/nemo",
-  "version": "1.0.1",
+  "name": "@pregalaxyer/nemo",
+  "version": "1.0.2",
   "description": "swagger typescript codegen",
   "main": "lib/index.js",
   "module": "esm/index.js",
@@ -29,8 +29,8 @@
     "test": "jest",
     "test:coverage": "jest --coverage",
     "codecov": "codecov --token=35e01d30-48ea-4a09-bf88-0737feca5db8",
-    "release": "npm run build && npm publish --access=public",
-    "publish": "npm publish --access=public"
+    "release": "yarn build && npm publish --access=public",
+    "publish": "yarn build && npm publish --access=public"
   },
   "author": "dylan",
   "devDependencies": {
@@ -77,12 +77,11 @@
   },
   "directories": {
     "lib": "lib",
-    "test": "test",
-    "esm": "esm"
+    "test": "tests"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/diveDylan/nemo.git"
+    "url": "git+https://github.com/pregalaxyer/nemo.git"
   },
   "keywords": [
     "nemo",
@@ -94,7 +93,7 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/diveDylan/nemo/issues"
+    "url": "https://github.com/pregalaxyer/nemo/issues"
   },
-  "homepage": "https://github.com/diveDylan/nemo#readme"
+  "homepage": "https://github.com/pregalaxyer/nemo#readme"
 }

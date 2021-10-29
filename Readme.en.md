@@ -8,7 +8,7 @@
 <img src="https://img.shields.io/npm/l/@dylan92/nemo" />
 <img src="https://img.shields.io/travis/com/diveDylan/nemo?style=plastic"/>
 <img src="https://img.shields.io/codecov/c/github/diveDylan/nemo?style=plastic"/>
-<img src="https://img.shields.io/npm/dm/@dylan92/nemo?style=plastic">
+<img src="https://img.shields.io/npm/dm/@pregalaxyer/nemo?style=plastic">
 <img src="https://img.shields.io/badge/pkg--manage-pnpm-orange">
 </div>
 
@@ -19,9 +19,9 @@
 
 ## Installing
 ```node
-  npm install @dylan92/nemo
+  npm install @pregalaxyer/nemo
   // or
-  yarn add @dylan92/nemo
+  yarn add @pregalaxyer/nemo
 ```
 
 ## Example
@@ -62,10 +62,10 @@ interface SwaggerConfig {
 }
 ```
 ```node
-const main = require('@dylan92/nemo')
+const main = require('@pregalaxyer/nemo')
 
 // with esm
-import main from '@dylan92/nemo'
+import main from '@pregalaxyer/nemo'
 
 main({
   url: 'https://petstore.swagger.io/v2/swagger.json',
