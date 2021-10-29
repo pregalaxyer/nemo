@@ -7,7 +7,7 @@
 <img src="https://img.shields.io/npm/l/@dylan92/nemo" />
 <img src="https://img.shields.io/travis/com/diveDylan/nemo?style=plastic"/>
 <img src="https://img.shields.io/codecov/c/github/diveDylan/nemo?style=plastic"/>
-<img src="https://img.shields.io/npm/dm/@dylan92/nemo?style=plastic">
+<img src="https://img.shields.io/npm/dm/@pregalaxyer/nemo?style=plastic">
 <img src="https://img.shields.io/badge/pkg--manage-pnpm-orange">
 </div>
 <p style="text-align: center"> 
@@ -18,9 +18,9 @@
 ## 安装
 
 ```node
-  npm install @dylan92/nemo
+  npm install @pregalaxyer/nemo
   // or
-  yarn add @dylan92/nemo
+  yarn add @pregalaxyer/nemo
 ```
 
 ## 构建
