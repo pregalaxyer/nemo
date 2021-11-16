@@ -45,6 +45,7 @@ jest.mock('./utils', () => ({
     model: 'models',
     utils: 'utils'
   }),
+  fixedEncodeURI: jest.fn().mockImplementation(url => url),
   writeServices: jest.fn(async(a, b,c,d) => {
 
   }).mockImplementation(),

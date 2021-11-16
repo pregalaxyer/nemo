@@ -1,7 +1,8 @@
-import { fetchApiJson, registerTemplates,  writeInterfaces, writeServices, writeRequest, writeExport, handlePaths } from './utils'
+import { fetchApiJson, registerTemplates,  writeInterfaces, writeServices, writeRequest, writeExport, handlePaths, fixedEncodeURI } from './utils'
 import { writeMustacheFile  } from './utils/files'
 import * as path from 'path'
 import * as fs from 'fs-extra'
+
 
 interface SwaggerConfig {
   /**
@@ -35,7 +36,7 @@ export default async function main({
   exportsRequest
 }: SwaggerConfig): Promise<void> {
   const templates = registerTemplates()
-  const res = await fetchApiJson(url)
+  const res = await fetchApiJson(fixedEncodeURI(url))
   const needExports = exportsRequest === undefined ? true : exportsRequest
   let folder =  path.join(process.cwd(), output || '/api')
   if (res) {

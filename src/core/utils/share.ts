@@ -15,8 +15,15 @@ export async function fetchApiJson(url: string): Promise<Swagger> {
     spinner.succeed()
     return res
   } catch(err) {
-    spinner.fail(err)
+    spinner.fail(err.toString())
   }
+}
+
+/**
+ * https://datatracker.ietf.org/doc/html/rfc3986
+ */
+export function fixedEncodeURI (str: string): string {
+  return encodeURI(str).replace(/%5B/g, '[').replace(/%5D/g, ']');
 }
 
 

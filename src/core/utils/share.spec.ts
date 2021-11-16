@@ -1,4 +1,4 @@
-import { fetchApiJson } from './share'
+import { fetchApiJson, fixedEncodeURI } from './share'
 import fetch from 'node-fetch'
 import ora from 'ora'
 jest.mock('ora', () => ({
@@ -49,6 +49,12 @@ describe('fetch swagger api json', () => {
       expect(ora().start).toBeCalled()
       await fetchApiJson('localhost')
       expect(ora().start().fail).toBeCalled()
+    })
+
+    test('fixedEncodeURI test with normal url or chinese word url', () => {
+      expect(fixedEncodeURI('https://www.facebook.com')).toBe('https://www.facebook.com')
+      expect(fixedEncodeURI('https://www.facebook.com?city=上海')).toBe('https://www.facebook.com?city=%E4%B8%8A%E6%B5%B7'
+      )
     })
 })
 
