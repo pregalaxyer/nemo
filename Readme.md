@@ -76,10 +76,10 @@ interface SwaggerConfig {
 在你的项目新建一个 `swagger.js` 文件，复制一下代码，然后 `node swagger.js`，脚本会自动生成 `models`、`services` 目录和一个导出文件
 ```node
 // swagger.js
-const main = require('@dylan92/nemo')
+const main = require('@pregalaxyer/nemo')
 
 // with esm
-import main from '@dylan92/nemo'
+import main from '@pregalaxyer/nemo'
 
 main({
   url: 'https://petstore.swagger.io/v2/swagger.json',

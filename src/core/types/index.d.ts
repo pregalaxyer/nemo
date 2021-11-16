@@ -59,7 +59,7 @@ export interface Swagger {
   consumes?: string[]
   produces?: string[]
   tags: Tag[]
-  paths: Path
+  paths: Record<string, Path>
   definitions: Record<string, Definition>
 }
 export type ParameterIn = 'body' | 'query' | 'path' | 'formData' | 'header'
