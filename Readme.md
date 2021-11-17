@@ -23,18 +23,6 @@
   yarn add @pregalaxyer/nemo
 ```
 
-## 构建
-
-```zsh
-# https://github.com/grosser/wwtd
-gem install wwtd
-# then
-wwtd
-
-```
-
-
-
 
 ## 用法
 
@@ -73,7 +61,7 @@ interface SwaggerConfig {
   exportsRequest?: boolean
 }
 ```
-在你的项目新建一个 `swagger.js` 文件，复制一下代码，然后 `node swagger.js`，脚本会自动生成 `models`、`services` 目录和一个导出文件
+在项目中新建一个 `swagger.js` 文件，复制一下代码，然后 `node swagger.js`，脚本会自动生成 `models`、`services` 目录和一个导出文件
 ```node
 // swagger.js
 const main = require('@pregalaxyer/nemo')
@@ -87,7 +75,8 @@ main({
 })
 
 ```
-只需要两分钟即可接入第三方库，你需要大概了解入参的 `interface` ，然后书写转换一个简易转换函数即可开箱即用
+### 自定义请求库
+开箱即用：只需要两分钟即可接入第三方库，你需要大概了解入参的 `interface` ，然后书写转换一个简易转换函数
 
 ```typescript
 type RequestInitWithoutBodyInit = Omit<RequestInit, 'body'>
