@@ -3,7 +3,6 @@
 import  main from '../esm/index'
 import fs from 'fs-extra'
 import path from 'path'
-import { formatArrayTypes } from '../src/core/interfaces'
 
 test('lib excute', async () => {
   await main({

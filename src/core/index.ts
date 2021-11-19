@@ -49,6 +49,7 @@ export default async function main({
       writeRequest(templates, folder)
     }
     const { models, services} = handlePaths(res, paths)
+    console.log(services)
     try {
       await Promise.all(
         [
