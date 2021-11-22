@@ -4,6 +4,9 @@
   "description": "swagger typescript codegen",
   "main": "lib/index.js",
   "module": "esm/index.js",
+  "bin": {
+    "nemo": "./bin/index.js"
+  },
   "dependencies": {
     "@babel/preset-typescript": "^7.13.0",
     "@rollup/plugin-commonjs": "^18.0.0",
@@ -74,7 +77,7 @@
       "/src/core/utils/index.ts",
       "/esm/"
     ],
-    "collectCoverage":true
+    "collectCoverage": true
   },
   "directories": {
     "lib": "lib",

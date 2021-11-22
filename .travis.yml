@@ -1,10 +1,10 @@
 language: node_js
 node_js:
-    - 14
-    - 13
+  - 14
+  - 13
 install:
-    - yarn
+  - yarn
 script:
-    - yarn build
-    - yarn test:coverage
-    - yarn codecov
+  - yarn build
+  - yarn test:cov
+  - yarn codecov
