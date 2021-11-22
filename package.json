@@ -1,6 +1,6 @@
 {
   "name": "@pregalaxyer/nemo",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "swagger typescript codegen",
   "main": "lib/index.js",
   "module": "esm/index.js",
@@ -27,7 +27,7 @@
   "scripts": {
     "build": "rollup -c rollup.config.js",
     "test": "jest",
-    "test:coverage": "jest --coverage",
+    "test:cov": "jest --coverage",
     "codecov": "codecov --token=6c1c080c-00f9-433a-9103-0eb1fb1cd078",
     "release": "yarn build && npm publish --access=public",
     "publish": "yarn build && npm publish --access=public"
@@ -73,7 +73,8 @@
       "/src/templates/",
       "/src/core/utils/index.ts",
       "/esm/"
-    ]
+    ],
+    "collectCoverage":true
   },
   "directories": {
     "lib": "lib",
@@ -89,7 +90,8 @@
     "swagger",
     "codegen",
     "generator",
-    "openapi"
+    "openapi",
+    "pregalaxyer"
   ],
   "license": "MIT",
   "bugs": {
