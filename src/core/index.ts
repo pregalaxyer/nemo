@@ -4,7 +4,7 @@ import * as path from 'path'
 import * as fs from 'fs-extra'
 
 
-export interface SwaggerConfig {
+interface SwaggerConfig {
   /**
    * @description swagger api url
    */
