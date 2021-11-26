@@ -4,7 +4,7 @@ import * as path from 'path'
 import * as fs from 'fs-extra'
 
 
-interface SwaggerConfig {
+export interface SwaggerConfig {
   /**
    * @description swagger api url
    */
@@ -49,7 +49,6 @@ export default async function main({
       writeRequest(templates, folder)
     }
     const { models, services} = handlePaths(res, paths)
-    console.log(services)
     try {
       await Promise.all(
         [
