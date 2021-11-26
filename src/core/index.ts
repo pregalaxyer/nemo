@@ -9,11 +9,11 @@ export default async function main({
   output,
   paths=undefined,
   requestPath,
-  exportsRequest = true
+  exportsRequest
 }: SwaggerConfig): Promise<void> {
   const templates = registerTemplates()
   const res = await fetchApiJson(fixedEncodeURI(url))
-  const needExports = exportsRequest
+  const needExports = exportsRequest === undefined ? true : exportsRequest
   let folder =  path.join(process.cwd(), output || '/api')
   if (res) {
     const isExists = await fs.pathExistsSync(folder)
