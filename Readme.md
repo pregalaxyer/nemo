@@ -21,7 +21,11 @@
   npm install @pregalaxyer/nemo
   // or
   yarn add @pregalaxyer/nemo
+  // install global
+  npm i -g @pregalaxyer/nemo
+
 ```
+
 
 
 ## 用法
@@ -71,10 +75,19 @@ import main from '@pregalaxyer/nemo'
 
 main({
   url: 'https://petstore.swagger.io/v2/swagger.json',
-  output: './src/core/test'
+  output: './src/api'
 })
 
 ```
+**终端调用**
+
+``` bash
+@pregalaxyer/nemo convert -i https://petstore.swagger.io/v2/swagger.json -o ./src/api
+# or after install global
+npx @pregalaxyer/nemo convert -i https://petstore.swagger.io/v2/swagger.json -o ./src/api
+
+```
+
 ### 自定义请求库
 开箱即用：只需要两分钟即可接入第三方库，你需要大概了解入参的 `interface` ，然后书写转换一个简易转换函数
 

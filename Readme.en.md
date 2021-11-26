@@ -17,11 +17,14 @@
 
 
 
-## Installing
+## Install
+
 ```node
   npm install @pregalaxyer/nemo
   // or
   yarn add @pregalaxyer/nemo
+  // install global
+  npm install @pregalaxyer/nemo -g
 ```
 
 ## Example
@@ -61,6 +64,7 @@ interface SwaggerConfig {
   exportsRequest?: boolean
 }
 ```
+`swagger.js`
 ```node
 const main = require('@pregalaxyer/nemo')
 
@@ -69,10 +73,21 @@ import main from '@pregalaxyer/nemo'
 
 main({
   url: 'https://petstore.swagger.io/v2/swagger.json',
-  output: './src/core/test'
+  output: './src/api'
 })
 
 ```
+
+**Terminal Bash**
+
+``` bash
+@pregalaxyer/nemo convert -i https://petstore.swagger.io/v2/swagger.json -o ./src/api
+# or after install global
+npx @pregalaxyer/nemo convert -i https://petstore.swagger.io/v2/swagger.json -o ./src/api
+
+```
+
+## Change request library
 It easy for you to use other request library. Example:
 
 ```typescript
@@ -104,8 +119,6 @@ export default async function <T>(url, options) {
 
 
 ## TODO
-- [ ] terminal tool
-- [ ] bin tests
 - [ ] swagger v3 support
 
 

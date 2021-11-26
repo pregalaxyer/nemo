@@ -47,7 +47,9 @@ jest.mock('./utils', () => ({
   }),
   fixedEncodeURI: jest.fn().mockImplementation(url => url),
   writeServices: jest.fn(async(a, b,c,d) => {
-
+    if (d === 'error') {
+      throw 2
+    }
   }).mockImplementation(),
   writeInterfaces: jest.fn(async(a, b,c) => {
 
@@ -68,7 +70,7 @@ beforeEach(() => {
 })
 describe('main function', () => {
 
-  test('definitions should create all interface files', async () => {
+  test('Definitions should create all interface files', async () => {
       await main({
         url: 'https://petstore.swagger.io/v2/swagger.json',
         output: './src/core/test',
@@ -86,7 +88,7 @@ describe('main function', () => {
 
     })
 
-    test('no json data', async () => {
+    test('Json data is null', async () => {
       await main({
         url: '',
         output: './src/core/test',
@@ -96,6 +98,27 @@ describe('main function', () => {
       expect(writeInterfaces).toHaveBeenCalledTimes(0)
       expect(writeRequest).toHaveBeenCalledTimes(0)
       expect(writeExport).toHaveBeenCalledTimes(0)
+    })
+
+    test('Append file error log', async () => {
+      try {
+        await await main({
+          url: 'https://petstore.swagger.io/v2/swagger.json',
+          output: './src/core/test',
+          requestPath: 'error',
+          exportsRequest: true
+        })
+      } catch(err) {
+        expect(err).toBe(2)
+      }
+    })
+    test('No export request', async () => {
+      await await main({
+        url: 'https://petstore.swagger.io/v2/swagger.json',
+        output: './src/core/test',
+        exportsRequest: false
+      })
+      expect(writeRequest).toBeCalledTimes(0)
     })
 
 })
