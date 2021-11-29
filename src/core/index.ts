@@ -2,32 +2,8 @@ import { fetchApiJson, registerTemplates,  writeInterfaces, writeServices, write
 import { writeMustacheFile  } from './utils/files'
 import * as path from 'path'
 import * as fs from 'fs-extra'
+import { SwaggerConfig } from './index.d'
 
-
-interface SwaggerConfig {
-  /**
-   * @description swagger api url
-   */
-  url: string
-  /**
-   * @description single-api or apis
-   */
-  paths?: Array<string|RegExp>
-  /**
-   * @description output floder
-   */
-  output?: string
-  /**
-   * @description where request module import from
-   */
-  requestPath?: string
-  /**
-   * @description request templates only create and remove when it is true
-   * when you only need exportsRequest once, mostly code likes:
-   * * `exportsRequest: !isRequestFloderExsit`
-   */
-  exportsRequest?: boolean
-}
 export default async function main({
   url,
   output,
@@ -49,7 +25,6 @@ export default async function main({
       writeRequest(templates, folder)
     }
     const { models, services} = handlePaths(res, paths)
-    console.log(services)
     try {
       await Promise.all(
         [

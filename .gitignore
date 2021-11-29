@@ -8,3 +8,4 @@ coverage
 lib
 tests/.output
 esm
+bin/.output

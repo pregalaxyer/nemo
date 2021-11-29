@@ -1,23 +1,37 @@
-#!/usr/bin/env node
-process.title = "@pregalaxyer/nemo";
-const { program } = require("commander");
-const nemoMail = require("../lib/index");
-program
-  .allowUnknownOption()
-  .version(require("../package.json").version)
-  .usage("npx @pregalaxyer/nemo mail --url xxx --output xxx");
-// npx @pregalaxyer/nemo mail --url http://10.8.101.10:8010/v2/api-docs --output ./src/api/test
-// !by test ↓
-// node bin/index.js mail --url http://10.8.101.10:8010/v2/api-docs --output ./src/api/test
-program
-  .command("mail")
-  .option("-U, --url [path]", "swagger api url")
-  .option("-O, --output [path]", "output floder")
-  .option("-P, --paths [names]", "single-api or apis")
-  .option("-R, --requestPath [path]", "where request module import from")
-  .option("-E, --exportsRequest", "request templates only create and remove")
-  .description("This is a tiger-cli tool.")
-  .action((options) => {
-    nemoMail(options);
-  });
-program.parse(process.argv);
+const yargs = require("yargs");
+const { version, name } = require("../package.json");
+const nemo = require("../lib/index");
+
+const cli = yargs
+  .scriptName(name)
+  .version(version)
+  .strict()
+  .alias("h", "help")
+  .alias("v", "version");
+
+let argv = cli
+  .command("convert [options]", "Convert swagger schema to typescript files")
+  .option("input", {
+    alias: "i",
+    description: "Swagger api schema json url",
+    type: "string",
+    demandOption: true,
+  })
+  .option("output", {
+    alias: "o",
+    description: "Output folder path",
+    type: "string",
+    demandOption: true,
+  })
+  .option("library", {
+    alias: "li",
+    description: "Request library path",
+    type: "string",
+  })
+  .showHelpOnFail(true).argv;
+
+nemo({
+  url: argv.input,
+  output: argv.output,
+  requestPath: argv.library,
+});
