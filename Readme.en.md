@@ -103,7 +103,7 @@ request<ResponseType>(url: string, options: Options)
 
 
 // your request file
-import fetch from `${library}`
+import request from `${library}`
 import { getRequestBody, Options  } from `${output}/utils`
 
 export default async function <T>(url, options) {
