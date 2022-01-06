@@ -1,6 +1,10 @@
 import { Definition } from '../types'
 import * as Types from './index.d'
 
+/**
+ * fix property with - in object bugs
+ */
+export const propertyGetter: (property: string) => string = property => /\-/g.test(property) ? `'${property}'` : property
 
 /**
  * @param {definitions} swagger definitions
@@ -31,7 +35,7 @@ export function convertModels(definitions: { [key: string]: Definition } ): Type
             model.imports = Array.from(new Set(model.imports))
             model.types.push({
               ...types,
-              name: property,
+              name: propertyGetter(property),
               isOption: !isRequired
             })
 
