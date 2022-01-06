@@ -1,0 +1,26 @@
+name: pull_request
+
+on: 
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  pull_request_build_unit_tests:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          issue-message: 'Message that will be displayed on users first issue'
+          pr-message: 'Message that will be displayed on users first pull request'
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - run: npm install
+      - run: npm run build
+      - run: npm run test:cov
+      - run: npm run codecov
+      
