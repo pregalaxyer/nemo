@@ -1,5 +1,5 @@
 import { Definition } from '../types'
-import {convertDefinitionProperty, formatArrayTypes, formatStringEnums, formatTypes, convertModels } from './index'
+import {convertDefinitionProperty, formatArrayTypes, formatStringEnums, formatTypes, convertModels, formatRefsLink, propertyGetter } from './index'
 
 describe('illegal words should replace by _', () => {
   // case A: ResponseDto«List«HomeLocationInfoResponse»»
@@ -36,21 +36,21 @@ const formatArrayTypesCase = [
   [
     {
       "type": "array",
-      "description": "节点目标详情集合",
+      "description": "list",
       "items": {
-        "$ref": "#/definitions/NodeTargetDetailDto"
+        "$ref": "#/definitions/Node"
       }
     },
     {
-      type: 'Array<NodeTargetDetailDto>',
-      model: ['NodeTargetDetailDto'],
-      description: "节点目标详情集合",
+      type: 'Array<Node>',
+      model: ['Node'],
+      description: "list",
     }
   ],
   [
     {
       "type": "array",
-      "description": "idsList集合",
+      "description": "list",
       "items": {
         "type": "integer",
         "format": "init32"
@@ -59,13 +59,13 @@ const formatArrayTypesCase = [
     {
       type: 'Array<number>',
       model: [],
-      description: "idsList集合",
+      description: "list",
     }
   ],
   [
     {
       "type": "array",
-      "description": "财季下拉框",
+      "description": "quarter",
       "items": {
         "type": "string",
         "enum": [
@@ -79,7 +79,7 @@ const formatArrayTypesCase = [
     {
       type: "Array<'Q1' | 'Q2' | 'Q3' | 'Q4'>",
       model: [],
-      description: "财季下拉框",
+      description: "quarter",
     }
   ],
 
@@ -88,7 +88,7 @@ const formatArrayTypesCase = [
 
 describe.each(
   formatArrayTypesCase
-)('.formatArrayTypes', 
+)('.formatArrayTypes',
 // @ts-ignore
 (typeItem, expected) => {
   test(` format as array types`, () => {
@@ -100,44 +100,41 @@ describe.each(
 
 const convertModelsCases = [
   [
-    'NodeTargetDetailDto',
+    'Node',
     {
-      "NodeTargetDetailDto": {
+      "Node": {
         "type": "object",
         "properties": {
-          "apartValue": {
-            "type": "number",
-            "description": "设置值"
-          },
-          "bossName": {
+
+          "name": {
             "type": "string",
-            "description": "负责人名称"
+            "description": "name"
           },
-          "businessId": {
+          "id": {
             "type": "integer",
             "format": "int64",
-            "description": "业务ID"
+            "description": "ID"
           },
-          "sale": {
-            $ref: '#/definitions/SaleInfo',
-            description: '销售信息'
+          "user": {
+            $ref: '#/definitions/user',
+            description: 'user'
           },
-          "setQuarter": {
+          "quarter": {
             "type": "array",
-            "description": "设置季度集合",
+            "description": "quarter",
             "items": {
               "type": "string"
             }
           },
         },
-        "title": "NodeTargetDetailDto",
-        "description": "节点目标详情数据"
+        "title": "Node",
+        "description": "node"
         },
     },
     {
-      name: 'NodeTargetDetailDto',
-      imports: ["SaleInfo"],
-      "description": "节点目标详情数据",
+      name: 'Node',
+      imports: ["user"],
+      "description": "node",
       types: expect.any(Array),
 
     }
@@ -153,3 +150,39 @@ describe.each(
   })
 })
 
+
+it('formatRefsLink test', () => {
+  expect(formatRefsLink('#/definitions/typename')).toBe('typename')
+})
+
+describe('formatTypes unit tests', () => {
+  it('with ref', () => {
+    const refObject = {
+      $ref: '#/definitions/typename',
+      description: 'ref typename test'
+    }
+    expect(formatTypes(refObject)).toHaveProperty('type', 'typename')
+  })
+
+  it('number test', () => {
+    const numberObject = {
+      type: 'number',
+      description: 'number object'
+    }
+    expect(formatTypes(numberObject)).toHaveProperty('type', 'number')
+  })
+  it('boolean test', () => {
+    const booleanObject = {
+      type: 'boolean',
+      description: 'boolean object'
+    }
+    expect(formatTypes(booleanObject)).toHaveProperty('type', 'boolean')
+  })
+
+
+})
+
+it('propertyGetter', () => {
+  expect(propertyGetter('first-name')).toBe("'first-name'")
+  expect(propertyGetter('firstName')).toBe('firstName')
+})
