@@ -20,7 +20,7 @@ export async function fetchApiJson(url: string): Promise<Swagger> {
 }
 
 /**
- * https://datatracker.ietf.org/doc/html/rfc3986
+ * @description https://datatracker.ietf.org/doc/html/rfc3986
  */
 export function fixedEncodeURI (str: string): string {
   return encodeURI(str).replace(/%5B/g, '[').replace(/%5D/g, ']');
