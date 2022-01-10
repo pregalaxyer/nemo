@@ -21,15 +21,13 @@ export function convertModels(definitions: Record<string, Definition> ): Types.M
       description: definitions[interfaceName].description,
       extends: undefined
     }
-    switch(definitions[interfaceName].type) {
-      case 'object':
-        objectHandler(definitions[interfaceName], model, modelName)
-        models.push(model)
-        break
-      case 'allOf':
-        allOfHandler(definitions[interfaceName], model, modelName)
-        models.push(model)
-        break
+    if(definitions[interfaceName].type === 'object') {
+      objectHandler(definitions[interfaceName], model, modelName)
+      models.push(model)
+    }
+    if (Array.isArray(definitions[interfaceName].allOf)) {
+      allOfHandler(definitions[interfaceName], model, modelName)
+      models.push(model)
     }
   })
   return models

@@ -124,7 +124,7 @@ const convertModelsCase: Record<string, Definition> =
             "description": "ID"
           },
           "user": {
-            $ref: '#/definitions/user',
+            $ref: '#/definitions/User',
             description: 'user'
           },
           "quarter": {
@@ -139,14 +139,27 @@ const convertModelsCase: Record<string, Definition> =
         "description": "node"
         },
     }
-
+const allOfCase = {
+  title: 'allOfCase',
+  allOf: [
+    {
+      $ref: '#/definitions/User'
+    },
+    convertModelsCase['Node']
+  ]
+}
 
 describe('convertModels', () => {
   test(`convertModel result check`, () => {
     // @ts-ignore
-    const res = convertModels(convertModelsCase)
+    const res = convertModels({
+      ...convertModelsCase,
+      allOfCase
+    })
     expect(res[0].types).toHaveLength(4)
     expect(res[0].imports).toHaveLength(1)
+    expect(res[1].imports).toHaveLength(1)
+    expect(res[1].extends).toBeDefined()
   })
 })
 
@@ -209,14 +222,7 @@ describe('handlers test here', () => {
       imports: [],
       extends: undefined
     }
-    allOfHandler({
-      allOf: [
-        {
-          $ref: '#/definitions/User'
-        },
-        convertModelsCase['Node']
-      ]
-    }, allOfModel, 'Node')
+    allOfHandler(allOfCase, allOfModel, 'Node')
     expect(allOfModel.extends).toBe('User')
     expect(allOfModel.types).toHaveLength(4)
   })
