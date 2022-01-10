@@ -1,7 +1,7 @@
 // TODO for lib test
 
 import main from '../esm/index'
-import fs from 'fs-extra'
+import * as fs from 'fs-extra'
 import path from 'path'
 
 test('lib excute', async () => {

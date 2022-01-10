@@ -1,5 +1,16 @@
 import { Definition } from '../types'
-import {convertDefinitionProperty, formatArrayTypes, formatStringEnums, formatTypes, convertModels, formatRefsLink, propertyGetter } from './index'
+import {
+  convertDefinitionProperty,
+  formatArrayTypes,
+  formatStringEnums,
+  formatTypes,
+  convertModels,
+  formatRefsLink,
+  propertyGetter,
+  allOfHandler,
+  objectHandler
+} from './index'
+import { Model } from './index.d'
 
 describe('illegal words should replace by _', () => {
   // case A: ResponseDto«List«HomeLocationInfoResponse»»
@@ -24,7 +35,7 @@ describe('illegal words should replace by _', () => {
 
 // test enum format
 describe('string enum format to string types', () => {
-  it('string enum qutar', () => {
+  test('string enum quarter', () => {
     expect(
       formatStringEnums(['Q1','Q2','Q3','Q4'])
     ).toBe("'Q1' | 'Q2' | 'Q3' | 'Q4'")
@@ -98,14 +109,11 @@ describe.each(
   })
 })
 
-const convertModelsCases = [
-  [
-    'Node',
+const convertModelsCase: Record<string, Definition> =
     {
       "Node": {
         "type": "object",
         "properties": {
-
           "name": {
             "type": "string",
             "description": "name"
@@ -116,7 +124,7 @@ const convertModelsCases = [
             "description": "ID"
           },
           "user": {
-            $ref: '#/definitions/user',
+            $ref: '#/definitions/User',
             description: 'user'
           },
           "quarter": {
@@ -130,23 +138,28 @@ const convertModelsCases = [
         "title": "Node",
         "description": "node"
         },
-    },
-    {
-      name: 'Node',
-      imports: ["user"],
-      "description": "node",
-      types: expect.any(Array),
-
     }
+const allOfCase = {
+  title: 'allOfCase',
+  allOf: [
+    {
+      $ref: '#/definitions/User'
+    },
+    convertModelsCase['Node']
   ]
-]
+}
 
-describe.each(
-  convertModelsCases
-)('.convertModels', (a, b, c) => {
-  test(`convertModels ${a} should return something likes`, () => {
+describe('convertModels', () => {
+  test(`convertModel result check`, () => {
     // @ts-ignore
-    expect(convertModels(b)).toContainEqual(c)
+    const res = convertModels({
+      ...convertModelsCase,
+      allOfCase
+    })
+    expect(res[0].types).toHaveLength(4)
+    expect(res[0].imports).toHaveLength(1)
+    expect(res[1].imports).toHaveLength(1)
+    expect(res[1].extends).toBeDefined()
   })
 })
 
@@ -156,7 +169,7 @@ it('formatRefsLink test', () => {
 })
 
 describe('formatTypes unit tests', () => {
-  it('with ref', () => {
+  test('with ref', () => {
     const refObject = {
       $ref: '#/definitions/typename',
       description: 'ref typename test'
@@ -164,14 +177,14 @@ describe('formatTypes unit tests', () => {
     expect(formatTypes(refObject)).toHaveProperty('type', 'typename')
   })
 
-  it('number test', () => {
+  test('number test', () => {
     const numberObject = {
       type: 'number',
       description: 'number object'
     }
     expect(formatTypes(numberObject)).toHaveProperty('type', 'number')
   })
-  it('boolean test', () => {
+  test('boolean test', () => {
     const booleanObject = {
       type: 'boolean',
       description: 'boolean object'
@@ -185,4 +198,32 @@ describe('formatTypes unit tests', () => {
 it('propertyGetter', () => {
   expect(propertyGetter('first-name')).toBe("'first-name'")
   expect(propertyGetter('firstName')).toBe('firstName')
+})
+
+
+describe('handlers test here', () => {
+  test('object handler', () => {
+    const objectModel = {
+      name: '',
+      description: '',
+      types: [],
+      imports: [],
+    }
+    objectHandler(convertModelsCase['Node'], objectModel, 'Node')
+    expect(objectModel.imports).toHaveLength(1)
+    expect(objectModel.types).toHaveLength(4)
+  })
+
+  test('allOf handler', () => {
+    const allOfModel: Model = {
+      name: '',
+      description: '',
+      types: [],
+      imports: [],
+      extends: undefined
+    }
+    allOfHandler(allOfCase, allOfModel, 'Node')
+    expect(allOfModel.extends).toBe('User')
+    expect(allOfModel.types).toHaveLength(4)
+  })
 })

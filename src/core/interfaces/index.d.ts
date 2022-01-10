@@ -3,6 +3,7 @@ export interface Model {
   imports: string[]
   types: TypeItem[]
   description: string
+  extends?: string
 }
 
 export interface TypeItem {
