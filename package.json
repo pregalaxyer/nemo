@@ -33,8 +33,8 @@
     "test": "jest",
     "test:cov": "jest --coverage",
     "codecov": "codecov --token=6c1c080c-00f9-433a-9103-0eb1fb1cd078",
-    "release": "yarn build && npm publish --access=public",
-    "publish": "yarn build && npm publish --access=public"
+    "release": "pnpm build && pnpm publish --access=public",
+    "publish": "pnpm build && pnpm publish --access=public"
   },
   "author": "dylan",
   "devDependencies": {
