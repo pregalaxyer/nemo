@@ -27,7 +27,7 @@ export default class {{name}} {
     const res = await _request{{#responseType}}<{{{responseType}}}>{{/responseType}}(`{{&url}}`, {
       method: '{{method}}',
       {{#header.length}}
-      header: {
+      headers: {
         {{#header}}
         {{>alias}}
         {{/header}}
