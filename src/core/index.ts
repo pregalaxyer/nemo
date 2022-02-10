@@ -23,7 +23,7 @@ export default async function main({
     }
     await fs.mkdirsSync(folder)
     if (!requestPath && needExports) {
-      writeRequest(templates, folder)
+      await writeRequest(templates, folder)
     }
     const { models, services} = handlePaths(res, paths)
     try {

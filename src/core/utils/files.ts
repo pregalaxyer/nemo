@@ -6,9 +6,9 @@ const log = console.log
 export async function writeMustacheFile(temp: string, view: {
   name: string
   [key: string]: any
-}, src: string) {
+}, src: string, templateMap?: Record<string, string> ) {
   try {
-    const modelData = mustache.render(temp, view)
+    const modelData = mustache.render(temp, view, templateMap || {})
     const file = path.join(src, `./${view.name}.ts`)
     await fs.writeFileSync(
       file,

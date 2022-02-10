@@ -1,10 +1,12 @@
-import { Definition, Items, Parameter } from '../types'
+import { Definition, Parameter } from '../types'
 import * as Types from './index.d'
+import { VARIABLES_ILLEGAL_REG } from '../utils/const'
+
 
 /**
  * fix property with - in object bugs
  */
-export const propertyGetter: (property: string) => string = property => /\-/g.test(property) ? `'${property}'` : property
+export const propertyGetter: (property: string) => string = property => VARIABLES_ILLEGAL_REG.test(property) ? "'" + property + "'" : property
 
 /**
  * @param {definitions} swagger definitions
