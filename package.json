@@ -1,6 +1,6 @@
 {
   "name": "@pregalaxyer/nemo",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "swagger typescript codegen",
   "main": "lib/index.js",
   "module": "esm/index.js",
