@@ -11,15 +11,18 @@ export async function writeServices(
   try {
     await fs.mkdirsSync(path + '/services')
     const res = await Promise.all(
-      services.map(service => 
+      services.map(service =>
         writeMustacheFile(templates.service, {
           ...service,
           requestPath
-        }, path + '/services')
+        }, path + '/services', {
+          parameters: templates.parameters,
+          alias: templates.alias
+        })
       )
     )
   } catch(err) {
     console.error(err)
   }
-  
+
 }

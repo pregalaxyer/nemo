@@ -12,4 +12,5 @@ export interface TypeItem {
   description: string
   isOption?: boolean
   imports?: string[]
+  alias?: string // when name is illegal variable
 }

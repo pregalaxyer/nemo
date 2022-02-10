@@ -27,7 +27,10 @@ describe('writeServices tests',() => {
       imports: [],
       requests: [],
       requestPath: '.'
-    }, '../.test/services')
+    }, '../.test/services', {
+      parameters: templates.parameters,
+      alias: templates.alias
+    })
     let error = jest.spyOn(global.console, 'error')
     // @ts-ignore
     await writeServices({}, null, '')
