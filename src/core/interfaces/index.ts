@@ -6,7 +6,7 @@ import { VARIABLES_ILLEGAL_REG } from '../utils/const'
 /**
  * fix property with - in object bugs
  */
-export const propertyGetter: (property: string) => string = property => VARIABLES_ILLEGAL_REG.test(property) ? "'" + property + "'" : property
+export const propertyGetter: (property: string) => string = property => property.search(VARIABLES_ILLEGAL_REG) > -1 ? "'" + property + "'" : property
 
 /**
  * @param {definitions} swagger definitions

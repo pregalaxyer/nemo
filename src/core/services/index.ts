@@ -71,9 +71,6 @@ export function getServiceMapData(
         parametersRecord,
         imports,
         parameters,
-        hasQuery,
-        hasBody,
-        hasFormData,
       } = getParameters(methodWrapper.parameters)
       tag.imports.push(...(imports || []))
       // get responsetype
@@ -112,7 +109,7 @@ export function getResponseType(responses: SwaggerResponses){
   return responses['200'] && responses['200'].schema ? formatTypes(responses['200'].schema) : 'any'
 }
 
-export const createAlias = (name: string): string | undefined => VARIABLES_ILLEGAL_REG.test(name) ? name.replace(VARIABLES_ILLEGAL_REG, '_') : undefined
+export const createAlias = (name: string): string | undefined => name.search(VARIABLES_ILLEGAL_REG) > - 1 ? name.replace(VARIABLES_ILLEGAL_REG, '_') : undefined
 
 /**
 * here we need to notice not like body, formData, path, query should
@@ -144,11 +141,8 @@ export function getParameters(
     if (model) {
       imports.push(...model)
     }
+    console.log(parameter.name, parameter.name.search(VARIABLES_ILLEGAL_REG), createAlias(parameter.name) )
     const param: TypeItem = {
-      /**
-       * magic code create alias must be first, then format name
-       * it maybe regexp bugs
-       */
       alias: createAlias(parameter.name),
       name: propertyGetter(parameter.name),
       type,
