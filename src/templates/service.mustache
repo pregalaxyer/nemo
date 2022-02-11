@@ -33,13 +33,14 @@ export default class {{name}} {
         {{/header}}
       },
       {{/header.length}}
-      {{#body.length}}
       {{#body}}
-      body: {
-        {{>alias}}
-      },
+      {{^alias}}
+      body:{{{name}}},
+      {{/alias}}
+      {{#alias}}
+      body:{{{alias}}},
+      {{/alias}}
       {{/body}}
-      {{/body.length}}
       {{#query.length}}
       query: {
       {{#query}}

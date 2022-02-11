@@ -54,12 +54,13 @@ describe('services tests',  () => {
         "name": "user-name",
         "in": "header",
         "description": "user-name",
-        "required": false,
+        "required": true,
         "type": "string"
       }
     ]
 
     const { parametersRecord: params, parameters: parametersList } = getParameters(parameters)
+    console.log(params.header)
     expect(parametersList[1]).toHaveProperty('alias', 'user_name')
     expect(params.body).toHaveLength(1)
     expect(params.header).toHaveLength(1)

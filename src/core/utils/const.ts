@@ -55,7 +55,8 @@ export const RESERVED_WORDS = [
  * @description illegal words in varibles
  * @example: ❌ user-name (user name) user.name
  * @example: ✅ user_name $user_name
+ * @notice Regexp.test with save lastIndex
  */
-export const VARIABLES_ILLEGAL_REG = /[^\w|^\$]/g
+export const VARIABLES_ILLEGAL_REG =/[^\w|^\$]/g
 
 export const VARIABLES_SEPARATOR = '_'
