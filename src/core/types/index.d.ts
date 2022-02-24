@@ -14,7 +14,7 @@ export interface Schema extends Partial<Items> {
   allOf: Definition[]
   title: string
   properties: Record<string, Partial<Schema>>
-  additionalProperties: Record<string, Schema>
+
 }
 export interface Items {
   type: string
@@ -36,6 +36,7 @@ export interface Items {
   uniqueItems: boolean
   enum: any[]
   multipleOf: number
+  additionalProperties: Record<string, Schema>
 }
 export interface Definition extends Partial<Schema>{
 }
@@ -61,6 +62,7 @@ export interface Swagger {
   tags: Tag[]
   paths: Record<string, Path>
   definitions: Record<string, Definition>
+  additionalProperties: Record<string, Schema>
 }
 export type ParameterIn = 'body' | 'query' | 'path' | 'formData' | 'header'
 export interface Parameter extends Partial<Items> {

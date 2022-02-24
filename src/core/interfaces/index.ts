@@ -43,6 +43,16 @@ export function convertModels(definitions: Record<string, Definition> ): Types.M
 export function convertDefinitionProperty(definitionProperty: string): string {
   return definitionProperty.replace(/\W+$/, '').replace(/\W+/g, '_')
 }
+
+/**
+ * @description transform Map<k,v> => Record<k, v>
+ * @notice map used with additionalProperties
+ *
+ */
+export function mapHandler() {
+
+}
+
 /**
  * @description Models with Composition
  * transform with typescript extends keywords
@@ -121,8 +131,16 @@ export function formatTypes(object: Definition | Parameter): {
         description: object.description
       }
     case 'object':
+      if (object.additionalProperties) {
+        const typeRes =formatTypes(object.additionalProperties)
+        return {
+          type: typeRes.type,
+          description: object.description,
+          model: typeRes.model || []
+        }
+      }
       return {
-        type: "Record<string, any>",
+        type: `Record<string, any>`,
         description: object.description
       }
     case 'file':
@@ -132,6 +150,40 @@ export function formatTypes(object: Definition | Parameter): {
       }
   }
 }
+
+// export function getAdditionalPropertiesType (additionalProperties) {
+//   if (additionalProperties.$ref) {
+//     const model = formatRefsLink(additionalProperties.$ref)
+//     return {
+//       type: model,
+//       model: [model],
+//     }
+//   }
+//   switch(additionalProperties.type) {
+//     case 'number':
+//     case 'integer':
+//       return { type: 'number' }
+//     case 'string':
+//       return {
+//         type: additionalProperties.enum ? formatStringEnums(additionalProperties.enum) : 'string',
+//       }
+//     case 'array':
+//       return formatArrayTypes(additionalProperties as Definition)
+//     case 'boolean':
+//       return {
+//         type: 'boolean',
+//       }
+//     case 'object':
+//       return {
+//         type: additionalProperties.additionalProperties  ? `Record<string,${getAdditionalPropertiesType(additionalProperties.additionalProperties)}>` : "Record<string, any>"
+//       }
+//     case 'file':
+//       return {
+//         type: "File",
+//       }
+//   }
+// }
+
 export function formatRefsLink(ref: string): string {
   return convertDefinitionProperty(ref.split('#/definitions/')[1])
 }
