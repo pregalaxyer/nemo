@@ -2,7 +2,8 @@ import { convertModels } from "../interfaces/index";
 import { Swagger } from "../types";
 import { convertService } from "../services/index";
 export const handleTsPath = (path: string) => {
-  return path.replaceAll(/\.ts/g, (str) => {
+  if (!path) return "";
+  return path.replace(/\.ts/g, (str) => {
     return "";
   });
 };
