@@ -3,9 +3,7 @@ import { Swagger } from "../types";
 import { convertService } from "../services/index";
 export const handleTsPath = (path: string) => {
   if (typeof path !== "string") return path;
-  return path.replace(/\.ts$/g, () => {
-    return "";
-  });
+  return path.replace(/\.ts$/g, "");
 };
 export function handlePaths(res: Swagger, paths?: Array<string | RegExp>) {
   let models = [],
