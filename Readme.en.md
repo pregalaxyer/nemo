@@ -6,7 +6,7 @@
 <div  style="text-align: center">
 <img src="https://img.shields.io/npm/v/@pregalaxyer/nemo?color=%23&style=plastic" />
 <img src="https://img.shields.io/npm/l/@pregalaxyer/nemo" />
-<img src="https://img.shields.io/travis/com/pregalaxyer/nemo?style=plastic"/>
+<img src="https://img.shields.io/github/workflow/status/pregalaxyer/nemo/Pull%20Request"/>
 <img src="https://img.shields.io/codecov/c/github/pregalaxyer/nemo?style=plastic"/>
 <img src="https://img.shields.io/npm/dm/@pregalaxyer/nemo?style=plastic">
 <img src="https://img.shields.io/badge/pkg--manage-pnpm-orange">
@@ -103,7 +103,7 @@ request<ResponseType>(url: string, options: Options)
 
 
 // your request file
-import fetch from `${library}`
+import request from `${library}`
 import { getRequestBody, Options  } from `${output}/utils`
 
 export default async function <T>(url, options) {

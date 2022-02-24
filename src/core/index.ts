@@ -3,6 +3,7 @@ import { writeMustacheFile  } from './utils/files'
 import * as path from 'path'
 import * as fs from 'fs-extra'
 import { SwaggerConfig } from './index.d'
+import { Swagger } from './types'
 
 export default async function main({
   url,
@@ -22,7 +23,7 @@ export default async function main({
     }
     await fs.mkdirsSync(folder)
     if (!requestPath && needExports) {
-      writeRequest(templates, folder)
+      await writeRequest(templates, folder)
     }
     const { models, services} = handlePaths(res, paths)
     try {

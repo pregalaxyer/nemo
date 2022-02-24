@@ -3,6 +3,7 @@ export interface Model {
   imports: string[]
   types: TypeItem[]
   description: string
+  extends?: string
 }
 
 export interface TypeItem {
@@ -11,4 +12,5 @@ export interface TypeItem {
   description: string
   isOption?: boolean
   imports?: string[]
+  alias?: string // when name is illegal variable
 }

@@ -1,4 +1,4 @@
-import { getControllers, convertService, getParameters, getResponseType, getServiceMapData, handlerBasePath } from './index'
+import { getControllers, convertService, getParameters, getResponseType, getServiceMapData, handlerBasePath, createAlias } from './index'
 import { fetchApiJson } from '../utils/share'
 import { Parameter } from '../types'
 
@@ -33,6 +33,10 @@ describe('services tests',  () => {
 
   })
 
+  test('create alias replace illegal word with "-"', () => {
+    expect(createAlias('user-name')).toBe('user_name')
+  })
+
   // TODO: getparameters getResponseType getServiceName
 
   test('getparameters', () => {
@@ -45,15 +49,21 @@ describe('services tests',  () => {
       "schema": {
         "$ref": "#/definitions/AchievementTransferAddRequest"
         }
+      },
+      {
+        "name": "user-name",
+        "in": "header",
+        "description": "user-name",
+        "required": true,
+        "type": "string"
       }
-      ]
-    expect(
-      getParameters(parameters)
-    ).toHaveProperty('parametersRecord', {
-      'body':
-        [{"description": "request", "imports": ["AchievementTransferAddRequest"], "isOption": false, "name": "request", "type": "AchievementTransferAddRequest"}]
+    ]
 
-    })
+    const { parametersRecord: params, parameters: parametersList } = getParameters(parameters)
+    console.log(params.header)
+    expect(parametersList[1]).toHaveProperty('alias', 'user_name')
+    expect(params.body).toHaveLength(1)
+    expect(params.header).toHaveLength(1)
   })
 
   test('getResponseType should log response type', () => {
@@ -72,4 +82,5 @@ describe('services tests',  () => {
   })
 
 })
+
 

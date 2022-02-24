@@ -8,7 +8,7 @@ import {{.}} from './{{.}}'
 /**
  * @description {{description}}
  */
-export default interface {{name}} {
+export default interface {{name}}{{#extends}} extends {{extends}}{{/extends}} {
   {{#types}}
   {{#description}}
   /**

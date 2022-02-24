@@ -21,35 +21,40 @@ export default class {{name}} {
   {{/description}}
   public static {{name}} = async (
     {{#parameters}}
-    {{#description}}
-    /**
-     * @description {{description}}
-     */
-    {{/description}}
-    {{name}}{{#isOption}}?{{/isOption}}: {{&type}},
+    {{>parameters}}
     {{/parameters}}
   ){{#responseType}}:Promise<{{{responseType}}}>{{/responseType}} => {
     const res = await _request{{#responseType}}<{{{responseType}}}>{{/responseType}}(`{{&url}}`, {
       method: '{{method}}',
-      {{#hasBody}}
+      {{#header.length}}
+      headers: {
+        {{#header}}
+        {{>alias}}
+        {{/header}}
+      },
+      {{/header.length}}
       {{#body}}
-      body: {{name}},
+      {{^alias}}
+      body:{{{name}}},
+      {{/alias}}
+      {{#alias}}
+      body:{{{alias}}},
+      {{/alias}}
       {{/body}}
-      {{/hasBody}}
-      {{#hasQuery}}
+      {{#query.length}}
       query: {
       {{#query}}
-        {{name}},
+        {{>alias}}
       {{/query}}
       },
-      {{/hasQuery}}
-      {{#hasFormData}}
+      {{/query.length}}
+      {{#formData.length}}
       formData: {
       {{#formData}}
-        {{name}},
+        {{>alias}}
       {{/formData}}
       },
-      {{/hasFormData}}
+      {{/formData.length}}
     })
     return res
   }

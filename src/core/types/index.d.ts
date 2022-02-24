@@ -4,16 +4,16 @@
  * @url https://swagger.io/specification/v2
  */
 export type Type = 'object' | 'integer' | 'number' | 'string' | 'array' | 'boolean'
-export interface HeadersObject extends Items{
+export interface HeadersObject extends Items {
   description: string
 }
 
-export interface Schema extends Items {
+export interface Schema extends Partial<Items> {
   required: string[]
   description: string
-  allOf: any
+  allOf: Definition[]
   title: string
-  properties: Record<string, Schema>
+  properties: Record<string, Partial<Schema>>
   additionalProperties: Record<string, Schema>
 }
 export interface Items {
@@ -21,7 +21,7 @@ export interface Items {
   $ref: string
   enum: string[]
   format: string
-  items: Items
+  items: Partial<Items>
   collectionFormat: string
   default: any
   maximum: number

@@ -1,0 +1,11 @@
+{{#description}}
+/**
+  * @description {{description}}
+  */
+{{/description}}
+{{#alias}}
+{{{.}}}{{#isOption}}?{{/isOption}}: {{&type}},
+{{/alias}}
+{{^alias}}
+{{{name}}}{{#isOption}}?{{/isOption}}: {{&type}},
+{{/alias}}

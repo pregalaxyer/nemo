@@ -10,8 +10,10 @@
  */
 import { Swagger, Tag, Path, SwaggerResponses, Parameter, ParameterIn } from '../types'
 import { ServiceController,  } from './index.d'
-import { formatTypes } from '../interfaces'
+import { formatTypes, propertyGetter } from '../interfaces'
 import { TypeItem } from '../interfaces/index.d'
+import { VARIABLES_ILLEGAL_REG } from '../utils/const'
+
 /**
  * A list of tags used by the specification with additional metadata.
  * The order of the tags can be used to reflect on their order by the parsing tools.
@@ -61,7 +63,6 @@ export function getServiceMapData(
   controllerMap:  Record<string, ServiceController>
 ) {
   const methods = swagger.paths[path]
-  const basePath = handlerBasePath(swagger.basePath)
   Object.keys(methods).forEach(method => {
     const methodWrapper = methods[method]
     if (controllerMap[methodWrapper.tags[0]]) {
@@ -70,9 +71,6 @@ export function getServiceMapData(
         parametersRecord,
         imports,
         parameters,
-        hasQuery,
-        hasBody,
-        hasFormData,
       } = getParameters(methodWrapper.parameters)
       tag.imports.push(...(imports || []))
       // get responsetype
@@ -89,9 +87,6 @@ export function getServiceMapData(
           ? response.type : response,
         ...parametersRecord,
         parameters,
-        hasQuery,
-        hasBody,
-        hasFormData,
       }
       tag.requests.push(request)
     }
@@ -114,12 +109,15 @@ export function getResponseType(responses: SwaggerResponses){
   return responses['200'] && responses['200'].schema ? formatTypes(responses['200'].schema) : 'any'
 }
 
+export const createAlias = (name: string): string | undefined => name.search(VARIABLES_ILLEGAL_REG) > - 1 ? name.replace(VARIABLES_ILLEGAL_REG, '_') : undefined
+
 /**
 * here we need to notice not like body, formData, path, query should
 * be a collection types
 * eg: body: `{ key: type, key1: type1} `
 * query formData path: `key: type, key1: type1`
 * *notice schema: https://swagger.io/specification/v2/#parameterObject
+*
  */
 export function getParameters(
   parameters:Parameter[]
@@ -143,22 +141,22 @@ export function getParameters(
     if (model) {
       imports.push(...model)
     }
-    const param = {
-      name: parameter.name,
+    console.log(parameter.name, parameter.name.search(VARIABLES_ILLEGAL_REG), createAlias(parameter.name) )
+    const param: TypeItem = {
+      alias: createAlias(parameter.name),
+      name: propertyGetter(parameter.name),
       type,
       imports: model,
       isOption: !parameter.required,
-      description: parameter.description
+      description: parameter.description,
+
     }
     parametersRecord[parameter.in].push(param)
     return param
-  })
+  }).sort((a, b) => Number(!!a.isOption) - Number(!!b.isOption)) // optional params append at the tail
   return {
     parametersRecord,
     parameters: params,
     imports,
-    hasQuery: !!parametersRecord.query && parametersRecord.query.length > 0,
-    hasBody: !!parametersRecord.body && parametersRecord.body.length > 0,
-    hasFormData: !!parametersRecord.formData && parametersRecord.formData.length > 0,
   }
 }

@@ -20,8 +20,8 @@ describe('files tests', () => {
       name: 'render_test',
       author: 'dylan'
     }
-    await writeMustacheFile(testTemp, testData, '../.test')
-    expect(mustache.render).toBeCalledWith(testTemp, testData)
+    await writeMustacheFile(testTemp, testData, '../.test', {})
+    expect(mustache.render).toBeCalledWith(testTemp, testData, {})
     expect(fs.writeFileSync).toBeCalled()
     // @ts-ignore
     writeMustacheFile(testTemp, null, '../.test').catch(err => expect(err).toBeDefined())

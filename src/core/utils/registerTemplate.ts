@@ -3,6 +3,8 @@ import model from '../../templates/model.mustache'
 import request from '../../templates/request.mustache'
 import service from '../../templates/service.mustache'
 import utils from '../../templates/utils.mustache'
+import alias from '../../templates/alias.mustache'
+import parameters from '../../templates/parameters.mustache'
 
 export interface Templates {
   index: string
@@ -10,6 +12,8 @@ export interface Templates {
   request: string
   service: string
   utils: string
+  alias: string
+  parameters: string
 }
 export function decodeBase64(base64String: string): string {
   if (typeof base64String !== 'string') return ''
@@ -24,5 +28,7 @@ export function registerTemplates(): Templates {
     request: decodeBase64(request),
     service: decodeBase64(service),
     utils: decodeBase64(utils),
+    alias: decodeBase64(alias),
+    parameters: decodeBase64(parameters),
   }
 }
