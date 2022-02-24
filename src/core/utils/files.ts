@@ -14,7 +14,7 @@ export async function writeMustacheFile(
 ) {
   try {
     const modelData = mustache.render(temp, view, templateMap || {});
-    const file = path.join(src, `./${view.name}`);
+    const file = path.join(src, `./${view.name}.ts`);
     await fs.writeFileSync(file, modelData);
     log(`🐠 nemo log: ` + chalk.yellow.underline(file) + " created ✨");
   } catch (err) {
