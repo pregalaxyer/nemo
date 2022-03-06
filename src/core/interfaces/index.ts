@@ -112,9 +112,9 @@ export function mapHandler(
  */
 export function transformTitle(title: string) {
   return title
-    .replaceAll(MAP_REG_GLOBAL, 'Record<')
-    .replaceAll(/»/g, '>')
-    .replaceAll(',', ', ')
+    .replace(MAP_REG_GLOBAL, 'Record<')
+    .replace(/»/g, '>')
+    .replace(/\,/g, ', ')
 }
 
 /**
