@@ -8,6 +8,11 @@ import {{.}} from './{{.}}'
 /**
  * @description {{description}}
  */
+{{#useType}}
+type {{name}} = {{#types}}{{&type}}{{/types}}
+export default {{name}}
+{{/useType}}
+{{^useType}}
 export default interface {{name}}{{#extends}} extends {{extends}}{{/extends}} {
   {{#types}}
   {{#description}}
@@ -18,3 +23,5 @@ export default interface {{name}}{{#extends}} extends {{extends}}{{/extends}} {
   {{name}}{{#isOption}}?{{/isOption}}: {{&type}}
   {{/types}}
 }
+{{/useType}}
+

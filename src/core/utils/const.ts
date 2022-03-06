@@ -60,3 +60,14 @@ export const RESERVED_WORDS = [
 export const VARIABLES_ILLEGAL_REG =/[^\w|^\$]/g
 
 export const VARIABLES_SEPARATOR = '_'
+
+export const MAP_REG = /Map«/
+
+export const MAP_REG_GLOBAL = /Map«/g
+
+export const MAP_PREFIX = 'Map«'
+
+export const MAP_INNER_REG =/«Map.+»/
+
+export const MAP_CONTENT_REG = /^«(.+)»$/
+
