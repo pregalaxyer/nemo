@@ -141,7 +141,6 @@ export function getParameters(
     if (model) {
       imports.push(...model)
     }
-    console.log(parameter.name, parameter.name.search(VARIABLES_ILLEGAL_REG), createAlias(parameter.name) )
     const param: TypeItem = {
       alias: createAlias(parameter.name),
       name: propertyGetter(parameter.name),

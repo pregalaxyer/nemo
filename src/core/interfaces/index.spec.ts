@@ -8,37 +8,41 @@ import {
   formatRefsLink,
   propertyGetter,
   allOfHandler,
-  objectHandler
+  objectHandler,
+  transformTitle,
+  getMapPrefix,
 } from './index'
 import { Model } from './index.d'
 
 describe('illegal words should replace by _', () => {
-  // case A: ResponseDto«List«HomeLocationInfoResponse»»
-  // case B: ResponseDto«Map«int,CustomerBudgetInfoResponse»
-  // case C: ResponseDto«Map«string,Map«string,string»»»
-  test('ResponseDto«List«HomeLocationInfoResponse»» should rewrite', () => {
-      expect(
-        convertDefinitionProperty('ResponseDto«List«HomeLocationInfoResponse»»')
-      ).toEqual('ResponseDto_List_HomeLocationInfoResponse')
-    })
-  test('ResponseDto«Map«int,CustomerBudgetInfoResponse» should rewrite', () => {
-      expect(
-        convertDefinitionProperty('ResponseDto«Map«int,CustomerBudgetInfoResponse»')
-      ).toEqual('ResponseDto_Map_int_CustomerBudgetInfoResponse')
-    })
-  test('ResponseDto«Map«string,Map«string,string»»» should rewrite', () => {
-      expect(
-        convertDefinitionProperty('ResponseDto«Map«string,Map«string,string»»»')
-      ).toEqual('ResponseDto_Map_string_Map_string_string')
-    })
+  // case A: List«InfoResponse»
+  // case B: Map«int,InfoResponse
+  // case C: Map«string,Map«string,string»»
+  test('List«InfoResponse»» should rewrite', () => {
+    expect(
+      convertDefinitionProperty('List«InfoResponse»')
+    ).toEqual('List_InfoResponse')
+  })
+  test('Map«int,InfoResponse» should rewrite', () => {
+    expect(
+      convertDefinitionProperty(
+        'Map«int,InfoResponse»'
+      )
+    ).toEqual('Map_int_InfoResponse')
+  })
+  test('Map«string,Map«string,string»»» should rewrite', () => {
+    expect(
+      convertDefinitionProperty('Map«string,Map«string,string»»')
+    ).toEqual('Map_string_Map_string_string')
+  })
 })
 
 // test enum format
 describe('string enum format to string types', () => {
   test('string enum quarter', () => {
-    expect(
-      formatStringEnums(['Q1','Q2','Q3','Q4'])
-    ).toBe("'Q1' | 'Q2' | 'Q3' | 'Q4'")
+    expect(formatStringEnums(['Q1', 'Q2', 'Q3', 'Q4'])).toBe(
+      "'Q1' | 'Q2' | 'Q3' | 'Q4'"
+    )
   })
 })
 
@@ -46,107 +50,129 @@ describe('string enum format to string types', () => {
 const formatArrayTypesCase = [
   [
     {
-      "type": "array",
-      "description": "list",
-      "items": {
-        "$ref": "#/definitions/Node"
-      }
+      type: 'array',
+      description: 'list',
+      items: {
+        $ref: '#/definitions/Node',
+      },
     },
     {
       type: 'Array<Node>',
       model: ['Node'],
-      description: "list",
-    }
+      description: 'list',
+    },
   ],
   [
     {
-      "type": "array",
-      "description": "list",
-      "items": {
-        "type": "integer",
-        "format": "init32"
-      }
+      type: 'array',
+      description: 'list',
+      items: {
+        type: 'integer',
+        format: 'init32',
+      },
     },
     {
       type: 'Array<number>',
       model: [],
-      description: "list",
-    }
+      description: 'list',
+    },
   ],
   [
     {
-      "type": "array",
-      "description": "quarter",
-      "items": {
-        "type": "string",
-        "enum": [
-          "Q1",
-          "Q2",
-          "Q3",
-          "Q4",
-        ]
-      }
+      type: 'array',
+      description: 'quarter',
+      items: {
+        type: 'string',
+        enum: ['Q1', 'Q2', 'Q3', 'Q4'],
+      },
     },
     {
       type: "Array<'Q1' | 'Q2' | 'Q3' | 'Q4'>",
       model: [],
-      description: "quarter",
-    }
+      description: 'quarter',
+    },
   ],
-
 ]
 
+describe.each(formatArrayTypesCase)(
+  '.formatArrayTypes',
+  // @ts-ignore
+  (typeItem, expected) => {
+    test(` format as array types`, () => {
+      expect(formatArrayTypes(typeItem as Definition)).toMatchObject(expected)
+    })
+  }
+)
 
-describe.each(
-  formatArrayTypesCase
-)('.formatArrayTypes',
-// @ts-ignore
-(typeItem, expected) => {
-  test(` format as array types`, () => {
-    expect(
-      formatArrayTypes(typeItem as Definition)
-    ).toMatchObject(expected)
-  })
-})
-
-const convertModelsCase: Record<string, Definition> =
-    {
-      "Node": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "description": "name"
-          },
-          "id": {
-            "type": "integer",
-            "format": "int64",
-            "description": "ID"
-          },
-          "user": {
-            $ref: '#/definitions/User',
-            description: 'user'
-          },
-          "quarter": {
-            "type": "array",
-            "description": "quarter",
-            "items": {
-              "type": "string"
-            }
-          },
+const convertModelsCase: Record<string, Definition> = {
+  Node: {
+    type: 'object',
+    properties: {
+      name: {
+        type: 'string',
+        description: 'name',
+      },
+      id: {
+        type: 'integer',
+        format: 'int64',
+        description: 'ID',
+      },
+      user: {
+        $ref: '#/definitions/User',
+        description: 'user',
+      },
+      quarter: {
+        type: 'array',
+        description: 'quarter',
+        items: {
+          type: 'string',
         },
-        "title": "Node",
-        "description": "node"
-        },
-    }
+      },
+    },
+    title: 'Node',
+    description: 'node',
+  },
+}
 const allOfCase = {
   title: 'allOfCase',
   allOf: [
     {
-      $ref: '#/definitions/User'
+      $ref: '#/definitions/User',
     },
-    convertModelsCase['Node']
-  ]
+    convertModelsCase['Node'],
+  ],
+}
+
+const mapCase = {
+  'Map«string,string»»': {
+    type: 'object',
+    title: 'Map«string,string»»',
+    additionalProperties: {
+      $ref: '#/definitions/Map',
+    },
+  },
+  'Map«int,string»»': {
+    type: "object",
+    title: "Map«int,string»",
+    additionalProperties: {
+      type: "string"
+    }
+  },
+  'Res«Map«string,User»»': {
+    type: 'object',
+    properties: {
+      code: {
+        type: 'number',
+        description: 'response code'
+      },
+      data: {
+        type: 'object',
+        additionalProperties: {
+          $ref: '#/definitions/User'
+        }
+      }
+    }
+  }
 }
 
 describe('convertModels', () => {
@@ -154,15 +180,19 @@ describe('convertModels', () => {
     // @ts-ignore
     const res = convertModels({
       ...convertModelsCase,
-      allOfCase
+      allOfCase,
     })
     expect(res[0].types).toHaveLength(4)
     expect(res[0].imports).toHaveLength(1)
     expect(res[1].imports).toHaveLength(1)
     expect(res[1].extends).toBeDefined()
+    // @ts-ignore
+    const mapModels = convertModels(mapCase)
+    expect(mapModels[0].types).toHaveLength(1)
+    expect(mapModels[1].types).toHaveLength(1)
+    expect(mapModels[2].imports).toHaveLength(1)
   })
 })
-
 
 it('formatRefsLink test', () => {
   expect(formatRefsLink('#/definitions/typename')).toBe('typename')
@@ -172,7 +202,7 @@ describe('formatTypes unit tests', () => {
   test('with ref', () => {
     const refObject = {
       $ref: '#/definitions/typename',
-      description: 'ref typename test'
+      description: 'ref typename test',
     }
     expect(formatTypes(refObject)).toHaveProperty('type', 'typename')
   })
@@ -180,26 +210,73 @@ describe('formatTypes unit tests', () => {
   test('number test', () => {
     const numberObject = {
       type: 'number',
-      description: 'number object'
+      description: 'number object',
     }
     expect(formatTypes(numberObject)).toHaveProperty('type', 'number')
   })
   test('boolean test', () => {
     const booleanObject = {
       type: 'boolean',
-      description: 'boolean object'
+      description: 'boolean object',
     }
     expect(formatTypes(booleanObject)).toHaveProperty('type', 'boolean')
   })
+  test('map ref test', () => {
+    const mapTestSchemaWithMap = {
+      type: 'object',
+      title: 'Map«string,Map«string,string»»',
+      additionalProperties: {
+        $ref: '#/definitions/Map',
+      },
+    }
 
+    const mapType = formatTypes(
+      // @ts-ignore
+      mapTestSchemaWithMap,
+      mapTestSchemaWithMap.title.split(',')
+    ).type
+    expect(mapType).toBe('Record<string, Record<string, string>>')
+  })
 
+  test('base map test', () => {
+    const mapTestSchema = {
+      type: 'object',
+      title: 'Map«string,string»',
+      additionalProperties: {
+        type: 'string',
+      },
+    }
+    const baseType = formatTypes(
+      // @ts-ignore
+      mapTestSchema,
+      mapTestSchema.title.split(',')
+    ).type
+    expect(baseType).toBe('Record<string, string>')
+  })
+
+  test('nest map test', () => {
+    const mapTestSchemaInner = {
+      type: 'object',
+      additionalProperties: {
+        type: 'object',
+        additionalProperties: {
+          type: 'string',
+        },
+      },
+    }
+    const nestType = formatTypes(
+      // @ts-ignore
+      mapTestSchemaInner,
+      'Map«string,Map«string,string»»'.split(',')
+    ).type
+    expect(nestType).toBe('Record<string, Record<string, string>>')
+  })
 })
 
 it('propertyGetter', () => {
   expect(propertyGetter('first-name')).toBe("'first-name'")
   expect(propertyGetter('firstName')).toBe('firstName')
 })
-
 
 describe('handlers test here', () => {
   test('object handler', () => {
@@ -220,10 +297,20 @@ describe('handlers test here', () => {
       description: '',
       types: [],
       imports: [],
-      extends: undefined
+      extends: undefined,
     }
     allOfHandler(allOfCase, allOfModel, 'Node')
     expect(allOfModel.extends).toBe('User')
     expect(allOfModel.types).toHaveLength(4)
   })
+})
+
+it('transform title test', () => {
+  expect(transformTitle('Map«string,string»')).toBe('Record<string, string>')
+})
+
+it('get map prefix', () => {
+  expect(getMapPrefix('')).toBe('')
+  expect(getMapPrefix('Map«string')).toBe('Record<string, ')
+  expect(getMapPrefix('Map«int')).toBe('Record<number, ')
 })
