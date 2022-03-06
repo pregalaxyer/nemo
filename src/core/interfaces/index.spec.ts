@@ -144,11 +144,11 @@ const allOfCase = {
 }
 
 const mapCase = {
-  'Map«string,string»»': {
+  'Map«string,User»': {
     type: 'object',
-    title: 'Map«string,string»»',
+    title: 'Map«string,User»',
     additionalProperties: {
-      $ref: '#/definitions/Map',
+      $ref: '#/definitions/User',
     },
   },
   'Map«int,string»»': {
@@ -221,6 +221,22 @@ describe('formatTypes unit tests', () => {
     }
     expect(formatTypes(booleanObject)).toHaveProperty('type', 'boolean')
   })
+
+  test('no additionalProperties object', () => {
+    expect(formatTypes({
+      title: 'object',
+      type: 'object',
+      description: 'object'
+    }).type).toBe('Record<string, any>')
+  })
+
+  test('file type', () => {
+    expect(formatTypes({
+      title: 'file',
+      type: 'file',
+      description: 'file'
+    }).type).toBe('File')
+  })
   test('map ref test', () => {
     const mapTestSchemaWithMap = {
       type: 'object',
@@ -252,7 +268,13 @@ describe('formatTypes unit tests', () => {
       mapTestSchema.title.split(',')
     ).type
     expect(baseType).toBe('Record<string, string>')
+    // const baseNoPrefixType = formatTypes(
+    //   // @ts-ignore
+    //   mapTestSchema
+    // ).type
+    // expect(baseNoPrefixType).toBe('Record<string, string>')
   })
+
 
   test('nest map test', () => {
     const mapTestSchemaInner = {
