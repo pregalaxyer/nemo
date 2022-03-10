@@ -4,5 +4,5 @@
  * * like it! Give me a star 🌟 https://github.com/pregalaxyer/nemo
  */
 {{#exports}}
-export { default as {{filename}} } from '{{{filepath}}}'
+export { {{#isDefault}}default as {{/isDefault}}{{filename}} } from '{{{filepath}}}'
 {{/exports}}
