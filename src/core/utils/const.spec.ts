@@ -1,4 +1,8 @@
-import { RESERVED_WORDS, VARIABLES_ILLEGAL_REG, VARIABLES_SEPARATOR } from './const'
+import {
+  RESERVED_WORDS,
+  VARIABLES_ILLEGAL_REG,
+  VARIABLES_SEPARATOR,
+} from './const'
 
 it('reserved words should include delete ', () => {
   expect(RESERVED_WORDS).toContain('delete')

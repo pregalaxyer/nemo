@@ -15,25 +15,20 @@ import {
 import { Model } from './index.d'
 
 describe('illegal words should replace by _', () => {
-  // case A: List«InfoResponse»
-  // case B: Map«int,InfoResponse
-  // case C: Map«string,Map«string,string»»
   test('List«InfoResponse»» should rewrite', () => {
-    expect(
-      convertDefinitionProperty('List«InfoResponse»')
-    ).toEqual('List_InfoResponse')
+    expect(convertDefinitionProperty('List«InfoResponse»')).toEqual(
+      'List_InfoResponse',
+    )
   })
   test('Map«int,InfoResponse» should rewrite', () => {
-    expect(
-      convertDefinitionProperty(
-        'Map«int,InfoResponse»'
-      )
-    ).toEqual('Map_int_InfoResponse')
+    expect(convertDefinitionProperty('Map«int,InfoResponse»')).toEqual(
+      'Map_int_InfoResponse',
+    )
   })
   test('Map«string,Map«string,string»»» should rewrite', () => {
-    expect(
-      convertDefinitionProperty('Map«string,Map«string,string»»')
-    ).toEqual('Map_string_Map_string_string')
+    expect(convertDefinitionProperty('Map«string,Map«string,string»»')).toEqual(
+      'Map_string_Map_string_string',
+    )
   })
 })
 
@@ -41,7 +36,7 @@ describe('illegal words should replace by _', () => {
 describe('string enum format to string types', () => {
   test('string enum quarter', () => {
     expect(formatStringEnums(['Q1', 'Q2', 'Q3', 'Q4'])).toBe(
-      "'Q1' | 'Q2' | 'Q3' | 'Q4'"
+      "'Q1' | 'Q2' | 'Q3' | 'Q4'",
     )
   })
 })
@@ -101,7 +96,7 @@ describe.each(formatArrayTypesCase)(
     test(` format as array types`, () => {
       expect(formatArrayTypes(typeItem as Definition)).toMatchObject(expected)
     })
-  }
+  },
 )
 
 const convertModelsCase: Record<string, Definition> = {
@@ -152,27 +147,27 @@ const mapCase = {
     },
   },
   'Map«int,string»»': {
-    type: "object",
-    title: "Map«int,string»",
+    type: 'object',
+    title: 'Map«int,string»',
     additionalProperties: {
-      type: "string"
-    }
+      type: 'string',
+    },
   },
   'Res«Map«string,User»»': {
     type: 'object',
     properties: {
       code: {
         type: 'number',
-        description: 'response code'
+        description: 'response code',
       },
       data: {
         type: 'object',
         additionalProperties: {
-          $ref: '#/definitions/User'
-        }
-      }
-    }
-  }
+          $ref: '#/definitions/User',
+        },
+      },
+    },
+  },
 }
 
 describe('convertModels', () => {
@@ -223,19 +218,23 @@ describe('formatTypes unit tests', () => {
   })
 
   test('no additionalProperties object', () => {
-    expect(formatTypes({
-      title: 'object',
-      type: 'object',
-      description: 'object'
-    }).type).toBe('Record<string, any>')
+    expect(
+      formatTypes({
+        title: 'object',
+        type: 'object',
+        description: 'object',
+      }).type,
+    ).toBe('Record<string, any>')
   })
 
   test('file type', () => {
-    expect(formatTypes({
-      title: 'file',
-      type: 'file',
-      description: 'file'
-    }).type).toBe('File')
+    expect(
+      formatTypes({
+        title: 'file',
+        type: 'file',
+        description: 'file',
+      }).type,
+    ).toBe('File')
   })
   test('map ref test', () => {
     const mapTestSchemaWithMap = {
@@ -249,7 +248,7 @@ describe('formatTypes unit tests', () => {
     const mapType = formatTypes(
       // @ts-ignore
       mapTestSchemaWithMap,
-      mapTestSchemaWithMap.title.split(',')
+      mapTestSchemaWithMap.title.split(','),
     ).type
     expect(mapType).toBe('Record<string, Record<string, string>>')
   })
@@ -265,7 +264,7 @@ describe('formatTypes unit tests', () => {
     const baseType = formatTypes(
       // @ts-ignore
       mapTestSchema,
-      mapTestSchema.title.split(',')
+      mapTestSchema.title.split(','),
     ).type
     expect(baseType).toBe('Record<string, string>')
     // const baseNoPrefixType = formatTypes(
@@ -274,7 +273,6 @@ describe('formatTypes unit tests', () => {
     // ).type
     // expect(baseNoPrefixType).toBe('Record<string, string>')
   })
-
 
   test('nest map test', () => {
     const mapTestSchemaInner = {
@@ -289,7 +287,7 @@ describe('formatTypes unit tests', () => {
     const nestType = formatTypes(
       // @ts-ignore
       mapTestSchemaInner,
-      'Map«string,Map«string,string»»'.split(',')
+      'Map«string,Map«string,string»»'.split(','),
     ).type
     expect(nestType).toBe('Record<string, Record<string, string>>')
   })

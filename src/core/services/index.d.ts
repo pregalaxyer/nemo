@@ -1,4 +1,3 @@
-
 import { TypeItem } from '../interfaces/index.d'
 export interface ServiceController {
   name: string
@@ -6,8 +5,6 @@ export interface ServiceController {
   imports: string[]
   requests: BaseRequest[]
 }
-
-
 
 export interface BaseRequest {
   name: string

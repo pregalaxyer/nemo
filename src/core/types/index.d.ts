@@ -1,9 +1,14 @@
-
 /**
  * @description swagger types
  * @url https://swagger.io/specification/v2
  */
-export type Type = 'object' | 'integer' | 'number' | 'string' | 'array' | 'boolean'
+export type Type =
+  | 'object'
+  | 'integer'
+  | 'number'
+  | 'string'
+  | 'array'
+  | 'boolean'
 export interface HeadersObject extends Items {
   description: string
 }
@@ -14,7 +19,6 @@ export interface Schema extends Partial<Items> {
   allOf: Definition[]
   title: string
   properties: Record<string, Partial<Schema>>
-
 }
 export interface Items {
   type: string
@@ -38,14 +42,13 @@ export interface Items {
   multipleOf: number
   additionalProperties: Record<string, Schema>
 }
-export interface Definition extends Partial<Schema>{
-}
+export interface Definition extends Partial<Schema> {}
 type LicenseObject = Pick<Tag, 'description' | 'name'>
 
 interface ContactObject extends LicenseObject {
   email: string
 }
-interface SwaggerInfo extends LicenseObject   {
+interface SwaggerInfo extends LicenseObject {
   title: Definition.title
   license?: LicenseObject
   termsOfService?: string
@@ -79,25 +82,30 @@ interface Response {
   headers: HeadersObject
   schema?: Partical<Schema>
 }
-type SwaggerResponses  = Partial<
-  Record<ResponseCode,
-  Response>
->
+type SwaggerResponses = Partial<Record<ResponseCode, Response>>
 
 interface BaseRequestPath {
-  tags: string []
+  tags: string[]
   summary: string
   operationId: string
   consumes?: string[]
   produces?: string[]
-  parameters: Parameter []
+  parameters: Parameter[]
   responses: SwaggerResponses
   externalDocs?: Pick<Tag, 'externalDocs'>
   schemes: string[]
   deprecated: boolean
   security?: Record<string, string[]>
 }
-export type Method = 'post' | 'get' | 'put' | 'delete' | 'head' | 'options' | 'patch' | 'trace'
+export type Method =
+  | 'post'
+  | 'get'
+  | 'put'
+  | 'delete'
+  | 'head'
+  | 'options'
+  | 'patch'
+  | 'trace'
 export interface Path extends Partial<Record<Method, BaseRequestPath>> {
   $ref: Items.$ref
   parameters: Array<Parameter | Reference>
@@ -106,7 +114,6 @@ export interface Path extends Partial<Record<Method, BaseRequestPath>> {
 interface Reference {
   $ref: Items.$ref
 }
-
 
 export interface Tag {
   name: string

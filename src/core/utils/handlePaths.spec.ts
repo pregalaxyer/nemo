@@ -4,12 +4,12 @@ import { convertModels } from '../interfaces/index'
 import { convertService } from '../services/index'
 
 let res
-beforeAll(async() => {
+beforeAll(async () => {
   res = await fetchApiJson('https://petstore.swagger.io/v2/swagger.json')
 })
 
 test('single api should return link models and paths', async () => {
-  const {models, services} = handlePaths(res,['/pet', /\/user\/log/])
+  const { models, services } = handlePaths(res, ['/pet', /\/user\/log/])
   expect(services).toHaveLength(2)
   expect(models).toHaveLength(3)
   const data = handlePaths(res)

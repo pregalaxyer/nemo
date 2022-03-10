@@ -19,13 +19,13 @@ export const propertyGetter = (property: string): string =>
  * @param {definitions} swagger definitions
  */
 export function convertModels(
-  definitions: Record<string, Definition>
+  definitions: Record<string, Definition>,
 ): Types.Model[] {
   const models: Types.Model[] = []
   const interfaceNames = Object.keys(definitions)
   interfaceNames.forEach((interfaceName) => {
     const modelName = convertDefinitionProperty(
-      definitions[interfaceName].title || interfaceName
+      definitions[interfaceName].title || interfaceName,
     )
     const model: Types.Model = {
       name: modelName,
@@ -35,7 +35,6 @@ export function convertModels(
       extends: undefined,
     }
     if (MAP_REG.test(interfaceName)) {
-
       if (!definitions[interfaceName].title)
         definitions[interfaceName].title = interfaceName
       mapHandler(definitions[interfaceName], model, modelName)
@@ -67,7 +66,7 @@ export function convertDefinitionProperty(definitionProperty: string): string {
 export function mapHandler(
   definition: Definition,
   model: Types.Model,
-  modelName: string
+  modelName: string,
 ) {
   const isStartWithMap = definition.title.startsWith(MAP_PREFIX)
   const mapContent: string = isStartWithMap
@@ -93,7 +92,7 @@ export function mapHandler(
         types.model &&
           types.model.length &&
           model.imports.push(
-            ...types.model.filter((name) => name !== modelName)
+            ...types.model.filter((name) => name !== modelName),
           )
         model.imports = Array.from(new Set(model.imports))
         model.types.push({
@@ -124,7 +123,7 @@ export function transformTitle(title: string) {
 export function allOfHandler(
   definition: Definition,
   model: Types.Model,
-  modelName: string
+  modelName: string,
 ) {
   const extendModels: string[] = []
   definition.allOf.forEach((definition) => {
@@ -139,7 +138,7 @@ export function allOfHandler(
   })
   if (extendModels.length) model.extends = extendModels.join(',')
   model.imports = model.imports.concat(
-    extendModels.filter((type) => !model.imports.includes(type))
+    extendModels.filter((type) => !model.imports.includes(type)),
   )
 }
 /**
@@ -150,7 +149,7 @@ export function allOfHandler(
 export function objectHandler(
   definition: Definition,
   model: Types.Model,
-  modelName: string
+  modelName: string,
 ) {
   definition.properties &&
     Object.keys(definition.properties).forEach((property) => {
@@ -173,7 +172,7 @@ export function objectHandler(
  */
 export function formatTypes(
   object: Definition | Parameter,
-  mapName?: string[]
+  mapName?: string[],
 ): {
   type: string
   model?: string[]

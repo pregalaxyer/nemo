@@ -7,20 +7,20 @@ jest.mock('ora', () => ({
   default: jest.fn().mockReturnValue({
     start: jest.fn().mockReturnValue({
       succeed: jest.fn(),
-      fail: jest.fn()
-    })
-  })
+      fail: jest.fn(),
+    }),
+  }),
 }))
 
 jest.mock('fs-extra', () => ({
   __esModule: true,
   readJson: jest.fn().mockResolvedValue({
-      swagger: '',
-      info: {},
-      tags: [],
-      paths: [],
-      definitions: {}
-    })
+    swagger: '',
+    info: {},
+    tags: [],
+    paths: [],
+    definitions: {},
+  }),
 }))
 
 jest.mock('node-fetch', () => {
@@ -29,29 +29,31 @@ jest.mock('node-fetch', () => {
     __esModule: true,
     default: jest.fn().mockImplementation(async () => {
       if (count === 0) throw Error('fetch error')
-      count --
+      count--
       return {
-        json: () =>({
+        json: () => ({
           swagger: '',
           info: {},
           tags: [],
           paths: [],
-          definitions: {}
-        })
+          definitions: {},
+        }),
       }
-  })
+    }),
   }
 })
 
 describe('fetch swagger api json', () => {
-  test('fetchApiJson should return a json with swagger schema',  async () => {
-    const res = await fetchApiJson('https://petstore.swagger.io/v2/swagger.json')
+  test('fetchApiJson should return a json with swagger schema', async () => {
+    const res = await fetchApiJson(
+      'https://petstore.swagger.io/v2/swagger.json',
+    )
     expect(res).toMatchObject({
       swagger: expect.any(String),
       info: expect.any(Object),
       tags: expect.any(Array),
       paths: expect.any(Object),
-      definitions: expect.any(Object)
+      definitions: expect.any(Object),
     })
     expect(ora).toBeCalled()
     expect(ora().start).toBeCalled()
@@ -64,9 +66,11 @@ describe('fetch swagger api json', () => {
     expect(json.swagger).toBeDefined()
   })
   test('fixedEncodeURI test with normal url or chinese word url', () => {
-    expect(fixedEncodeURI('https://www.facebook.com')).toBe('https://www.facebook.com')
-    expect(fixedEncodeURI('https://www.facebook.com?city=上海')).toBe('https://www.facebook.com?city=%E4%B8%8A%E6%B5%B7'
+    expect(fixedEncodeURI('https://www.facebook.com')).toBe(
+      'https://www.facebook.com',
+    )
+    expect(fixedEncodeURI('https://www.facebook.com?city=上海')).toBe(
+      'https://www.facebook.com?city=%E4%B8%8A%E6%B5%B7',
     )
   })
 })
-

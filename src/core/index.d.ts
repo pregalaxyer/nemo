@@ -6,7 +6,7 @@ export interface SwaggerConfig {
   /**
    * @description single-api or apis
    */
-  paths?: Array<string|RegExp>
+  paths?: Array<string | RegExp>
   /**
    * @description output floder
    */

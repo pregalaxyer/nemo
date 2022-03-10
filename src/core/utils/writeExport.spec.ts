@@ -10,17 +10,17 @@ jest.mock('fs-extra', () => {
     pathExistsSync: jest.fn().mockReturnValue(true),
     removeSync: jest.fn(),
     mkdirsSync: jest.fn(),
-    readdirSync: jest.fn().mockImplementation(async(path) => {
+    readdirSync: jest.fn().mockImplementation(async (path) => {
       return ['index.ts']
-    })
-  };
-});
+    }),
+  }
+})
 jest.mock('./files', () => ({
   _esModule: true,
-  writeMustacheFile: jest.fn()
+  writeMustacheFile: jest.fn(),
 }))
 
-describe('writeIndex tests',() => {
+describe('writeIndex tests', () => {
   let templates
   beforeAll(async () => {
     jest.restoreAllMocks()
@@ -37,12 +37,8 @@ describe('writeIndex tests',() => {
     expect(files.writeMustacheFile).toBeCalled()
   })
 
-
-  test('writeExports should call writeIndex', async() => {
-    await writeExport({ index: 'aaa'}, path.join(__dirname, '../.test'))
+  test('writeExports should call writeIndex', async () => {
+    await writeExport({ index: 'aaa' }, path.join(__dirname, '../.test'))
     expect(files.writeMustacheFile).toBeCalled()
   })
-
 })
-
-

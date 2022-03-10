@@ -1,4 +1,3 @@
-
 import fetch from 'node-fetch'
 import { Swagger } from '../types'
 import * as fs from 'fs-extra'
@@ -17,11 +16,13 @@ export async function fetchApiJson(url: string): Promise<Swagger> {
       const res = await fs.readJson(url)
       return res
     }
-    spinner = ora(`Fetch swagger api json from ${chalk.blue.underline(url)}`).start()
-    const res = await fetch(url, {}).then(res => res.json())
+    spinner = ora(
+      `Fetch swagger api json from ${chalk.blue.underline(url)}`,
+    ).start()
+    const res = await fetch(url, {}).then((res) => res.json())
     spinner.succeed()
     return res
-  } catch(err) {
+  } catch (err) {
     spinner && spinner.fail(err.toString())
   }
 }
@@ -29,8 +30,6 @@ export async function fetchApiJson(url: string): Promise<Swagger> {
 /**
  * @description https://datatracker.ietf.org/doc/html/rfc3986
  */
-export function fixedEncodeURI (str: string): string {
-  return encodeURI(str).replace(/%5B/g, '[').replace(/%5D/g, ']');
+export function fixedEncodeURI(str: string): string {
+  return encodeURI(str).replace(/%5B/g, '[').replace(/%5D/g, ']')
 }
-
-

@@ -1,6 +1,5 @@
 import * as exportModules from './index'
 
-
 test('exports modules', () => {
   expect(exportModules).toHaveProperty('fetchApiJson')
   expect(exportModules).toHaveProperty('registerTemplates')
