@@ -6,17 +6,14 @@ export async function writeIndex(
   templates: Templates,
   path: string,
 ): Promise<void> {
-  await writeMustacheFile(
-    templates.index,
-    {
-      exports: files.map((file) => ({
-        filepath: file.replace(/\.ts$/, ''),
-        filename: file.split('/').pop().replace(/\.ts$/, ''),
-      })),
-      name: 'index',
-    },
-    path,
-  )
+  await writeMustacheFile(templates.index, {
+    exports: files.map(file => ({
+      filepath: file.replace(/\.ts$/, ''),
+      filename: file.split('/').pop().replace(/\.ts$/, ''),
+      isDefault: file.indexOf('services') !== - 1
+    })),
+    name: 'index'
+  }, path)
 }
 
 export async function writeExport(templates, folder) {
