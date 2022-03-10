@@ -3,17 +3,16 @@
  * * like it! Give me a star 🌟 https://github.com/pregalaxyer/nemo
  */
 {{#imports}}
-import {{.}} from './{{.}}'
+import { {{.}} } from './{{.}}'
 {{/imports}}
 /**
  * @description {{description}}
  */
 {{#useType}}
-type {{name}} = {{#types}}{{&type}}{{/types}}
-export default {{name}}
+export type {{name}} = {{#types}}{{&type}}{{/types}}
 {{/useType}}
 {{^useType}}
-export default interface {{name}}{{#extends}} extends {{extends}}{{/extends}} {
+export interface {{name}}{{#extends}} extends {{extends}}{{/extends}} {
   {{#types}}
   {{#description}}
   /**
