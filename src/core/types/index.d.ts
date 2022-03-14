@@ -17,6 +17,10 @@ export interface Schema extends Partial<Items> {
   required: string[]
   description: string
   allOf: Definition[]
+  // see the schema: https://openapi.apifox.cn/#schema-%E5%AF%B9%E8%B1%A1
+  anyOf: Definition[]
+  oneOf: Definition[]
+  not: Definition[]
   title: string
   properties: Record<string, Partial<Schema>>
 }
@@ -43,20 +47,34 @@ export interface Items {
   additionalProperties: Record<string, Schema>
 }
 export interface Definition extends Partial<Schema> {}
-type LicenseObject = Pick<Tag, 'description' | 'name'>
+type License = Pick<Tag, 'name'> & {
+  url: string
+}
 
-interface ContactObject extends LicenseObject {
+interface Contact extends License {
   email: string
 }
-interface SwaggerInfo extends LicenseObject {
+interface Info extends License {
   title: Definition.title
-  license?: LicenseObject
+  license?: License
   termsOfService?: string
-  contact?: ContactObject
+  contact?: Contact
+}
+
+type SecuritySchema = Pick<Schema, 'type' | 'description' | 'name' | 'in'> & {
+  flow: string
+  authorizationUrl: string
+  tokenUrl: string
+  scopes: string
+}
+
+type externalDocs = {
+  url: string
+  description: string
 }
 export interface Swagger {
   swagger: string
-  info?: SwaggerInfo
+  info?: Info
   host: string
   basePath: string
   schemes?: string[]
@@ -66,6 +84,15 @@ export interface Swagger {
   paths: Record<string, Path>
   definitions: Record<string, Definition>
   additionalProperties: Record<string, Schema>
+  parameters: Record<string, Parameter>
+  securityDefinitions?: Record<string, Partial<SecuritySchema>>
+  security?: Record<string, string[]>
+  externalDocs?: ExternalDocs
+  responses: Record<string, Response>
+}
+
+export type SwaggerV3 = Pick<Swagger, 'info' | 'tags'> &  {
+
 }
 export type ParameterIn = 'body' | 'query' | 'path' | 'formData' | 'header'
 export interface Parameter extends Partial<Items> {
